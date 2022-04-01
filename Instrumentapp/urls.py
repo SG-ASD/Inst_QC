@@ -1,5 +1,6 @@
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    # path("Instrument/", include('Mainapp.urls')),
+    path("", views.IndexView.as_view(), name="instrument"),
 ]

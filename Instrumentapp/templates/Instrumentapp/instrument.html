@@ -1,0 +1,52 @@
+{% extends "Mainapp_base/base_with_navbar.html" %}
+
+{% block content %}
+<main class="site-body">
+  <div class="main-header">
+    <div class="content">
+      <div class="fg"></div>
+      <h1>장비 목록</h1>
+    </div>
+  </div>
+
+  <div class="contents">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">장비명</th>
+          <th scope="col">장비 S/N</th>
+          <th scope="col">컴퓨터 S/N</th>
+          <th scope="col">시작일</th>
+          <th scope="col">완료일</th>
+          <th scope="col">검사자</th>
+          <th scope="col">현황</th>
+          <th scope="col">검사</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>SeegeneSTARlet</td>
+          <td>G100</td>
+          <td>1111</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>SeegeneSTARlet</td>
+          <td>G200</td>
+          <td>2222</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry the Bird</td>
+          <td>G300</td>
+          <td>3333</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+  </div>
+</main>
+{% endblock content %}
