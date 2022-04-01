@@ -1,7 +1,9 @@
-<div style="text-align: center">
+{% load bootstrap4 %}
+<div style="text-align: center;">
     <form action="{% url 'Userapp:create' %}" method="post">
         {% csrf_token %}
-        {{ form }}
+<!--        {{ form }}-->
+        {% bootstrap_form form %}
         <input type="submit" class="btn btn-primary">
     </form>
 </div>
