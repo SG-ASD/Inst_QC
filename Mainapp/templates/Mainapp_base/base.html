@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'Mainapp/styles/style.css' %}">  <!-- static : 정적파일의 경로를 참고해서 url로 돌려준다. -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Mainapp/styles/theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'Mainapp/favicon/seegene_favicon.ico' %}">
+
+    <title>{% block title %}Mainapp{% endblock title %}</title>
+  </head>
+  <body>
+    {% block header %}{% endblock header %}
+    {% block content %}{% endblock content %}
+    {% block footer %}{% endblock footer %}
+  </body>
+</html>

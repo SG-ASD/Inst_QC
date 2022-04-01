@@ -1,0 +1,26 @@
+{% extends "Mainapp_base/base.html" %}
+
+{% load static %}
+
+{% block header %}
+<header class="site-header navbar">
+  <div class="content max-width">
+    <a href="{% url 'index' %}">
+      <img class="logo" src="{% static 'Mainapp/assets/seegene_logo.png' %}" alt="Seegene Logo">
+    </a>
+    <nav>
+      <ul class="navbar">
+      </ul>
+    </nav>
+  </div>
+</header>
+{% endblock header %}
+
+{% block footer %}
+<footer class="site-footer">
+  <div class="max-content-width content">
+    <div></div>
+    <div>Instrument QC</div>
+  </div>
+</footer>
+{% endblock footer %}

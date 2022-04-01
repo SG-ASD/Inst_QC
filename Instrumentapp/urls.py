@@ -1,5 +1,5 @@
 from django.urls import path, include
 
 urlpatterns = [
-    path('user/', include('Mainapp.urls')),
+    # path("Instrument/", include('Mainapp.urls')),
 ]
