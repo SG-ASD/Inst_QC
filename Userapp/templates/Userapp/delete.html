@@ -1,0 +1,11 @@
+{% load bootstrap4 %}
+<div style="text-align: center;">
+    <div class="mb-4">
+        <h4>Quit</h4>
+    </div>
+    <form action="{% url 'Userapp:delete' pk=user.pk %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-primary"/>
+    </form>
+</div>

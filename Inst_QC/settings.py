@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # 'rest_framework',
     'bootstrap4',
     'Userapp',
-
+    'profileapp',
 ]
 
 MIDDLEWARE = [
