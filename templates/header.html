@@ -1,0 +1,30 @@
+
+
+<div >
+    <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        {% if not user.is_authenticated %}
+            <a href="{%  url 'Userapp:login' %}?next={{ request.path }}">
+                <span>login</span>
+            </a>
+            <a href="{%  url 'Userapp:create' %}?next={{ request.path }}">
+                <span>SignUp</span>
+            </a>
+            {%  else %}
+            <a href="{% url 'Userapp:detail' pk=user.pk %}">
+                <span>MyPage</span>
+            </a>
+            <a href="{%  url 'Userapp:logout' %}?next={{ request.path}}"
+            style="border-color: black">
+                <span>logout</span>
+            </a>
+        {% endif %}
+        <a class="navbar-brand">MyPage</a>
+        <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+</div>
