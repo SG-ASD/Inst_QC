@@ -16,12 +16,11 @@
     </div>
 
       <div class="contents">
-      {% for category in sub_category %}
-          <a href="#">
+      {% for instrument in sub_category %}
+          <a href="{% url 'instrument' instrument.Category instrument.Subcategory %}">
               <section class="cp-card content">
                 <div class="body">
-                  <span class="cp-chip green">소분류</span>
-                  <h2 class="title">{{ category }}</h2>
+                  <h2 class="title">{{ instrument.Subcategory }}</h2>
                 </div>
               </section>
             </a>
