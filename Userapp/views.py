@@ -15,7 +15,7 @@ has_ownership = [User_ownership_required]
 class UserCreateView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('Mainapp:index')
     template_name = 'Userapp/create.html'
 
 class UserDetailView(DetailView):
@@ -28,7 +28,7 @@ class UserDetailView(DetailView):
 class UserUpdateView(UpdateView):
     model = User
     form_class = UserUpdateForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('Mainapp:index')
     template_name = 'Userapp/update.html'
 
 @method_decorator(has_ownership, 'get')

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'profileapp',
     'Instrumentapp',
     'Mainapp',
+    'Appearanceapp',
+    'Inspectionapp',
 ]
 
 MIDDLEWARE = [

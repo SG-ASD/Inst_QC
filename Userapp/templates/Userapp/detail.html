@@ -4,15 +4,25 @@
 {% block content %}
 
 <div>
-    <div style="text-align: center;">
+    <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
         <p>
             {{ user.date_joined}}
         </p>
-    </div>
+         <img src="{{ target_user.profile.image.url }}" alt="" style="height: 12rem; width: 12rem; border-radius: 20rem; margin-bottom: 2rem; object-fit: cover">
+    {% if target_user.profile %}
     <h2>
-        {{ user.username }}
+        {{ target_user.profile.name }}
+        <a href="{% url 'profileapp:update' pk=target_user.profile.pk %}">
+            edit
+        </a>
     </h2>
-
+    {% else %}}
+        <a href="{% url 'profileapp:create' %}">
+            <h2>
+                Create Profile
+            </h2>
+        </a>
+    {% endif %}
     {% if target_user == user %}
     <a href="{% url 'Userapp:update' pk=user.pk %}">
         <p>
@@ -25,6 +35,7 @@
 <!--        </p>-->
 <!--    </a>-->
     {% endif %}
+    </div>
 </div>
 
 {% endblock %}

@@ -1,20 +1,17 @@
-
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
 
 <div style="text-align: center; max-width: 500px; margin: 4rem auto">
     <div style="text-align: center">
-        <h4>Login</h4>
+        <h4>Update Profile</h4>
     </div>
     <div style="text-align: center">
-        <form action="{% url 'Mainapp:index'%}" method="post">
+        <form action="{% url 'profileapp:update' pk=target_profile.pk %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% bootstrap_form form %}
             <input type="submit" class="btn btn-primary"/>
         </form>
     </div>
 </div>
-
 {% endblock %}
-

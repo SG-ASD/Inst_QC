@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
+    <form action="{% url 'Appearanceapp:create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+<!--        {{ form }}-->
+<!--        {% bootstrap_form form %}-->
+        <h2 style="text-align: left">1. Appeaeance Inspection</h2>
+        <h2 style="text-align: left">1) Packaging Condition</h2>
+        <div class="form-group is-valid">
+                <input type="text" name="Instrument_SN" maxlength="50" class="form-control is-invalid" placeholder="Instrument_SN" title="" required="False" id="Instrument_SN">
+        </div>
+        <table class="table table-bordered" >
+          <tbody>
+            <tr>
+            <td rowspan="7">Visual<br>Inspection</td>
+            <td colspan="2">Category </td>
+            <td colspan="2">Factor </td>
+            <td colspan="6">Determine to</td>
+            <td >Image Upload</td>
+            </tr>
+            <tr>
+            <td colspan="2">Shock Watch</td>
+            <td colspan="2">Damage</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Shock_Watch" id="Shock_Watch" value="No">
+                  <label class="form-check-label" for="Shock_Watch">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Shock_Watch" id="Shock_Watch" value="Yes">
+                  <label class="form-check-label" for="Shock_Watch">Yes</label>
+                </div>
+            </td>
+            <td >
+                <input class="form-control" type="file" id="formFile" src="{{ target_Appearance.url}}">
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Binding</td>
+            <td colspan="2">Installed</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Binding" id="Binding" value="No">
+                  <label class="form-check-label" for="Binding">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Binding" id="Binding" value="Yes">
+                  <label class="form-check-label" for="Binding">Yes</label>
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Labels</td>
+            <td colspan="2">Tagged</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Labels" id="Labels" value="No">
+                  <label class="form-check-label" for="Labels">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Labels" id="Labels" value="Yes">
+                  <label class="form-check-label" for="Labels">Yes</label>
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Packaging_Box</td>
+            <td colspan="2">Damage</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Packaging_Box" id="Packaging_Box" value="No">
+                    <label class="form-check-label" for="Packaging_Box">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Packaging_Box" id="Packaging_Box" value="Yes">
+                  <label class="form-check-label" for="Packaging_Box">Yes</label>
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Wooden Pallet</td>
+            <td colspan="2">Damage</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Wooden_Pallet" id="Wooden_Pallet" value="No">
+                  <label class="form-check-label" for="Wooden_Pallet">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Wooden_Pallet" id="Wooden_Pallet" value="Yes">
+                  <label class="form-check-label" for="Wooden_Pallet">Yes</label>
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Trasport Jig</td>
+            <td colspan="2">Installed</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Transport_Jig" id="Transport_Jig" value="No">
+                  <label class="form-check-label" for="Transport_Jig">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Transport_Jig" id="Transport_Jig" value="Yes">
+                  <label class="form-check-label" for="Transport_Jig">Yes</label>
+                </div>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+         <div style="text-align: right">
+            <input type="submit" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
