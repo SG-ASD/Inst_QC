@@ -36,17 +36,33 @@ class Instrument_View(ListView):
         instrument_list = Inspection.objects.values().order_by("-id")
 
         if self.request.method == "POST":
-            print("Post")
+            print(f"self.request.POST : {self.request.POST}")
             inst_name = self.request.POST.get("s1")
             inst_SN = self.request.POST.get("s2")
 
-            print(f"inst_name : {inst_name}")
-            print(f"inst_SN : {inst_SN}")
+            context = {"s2": inst_SN, "s1": inst_name}
 
-        print(instrument_list)
-        print(kwargs['instrument_name'])
+            new_inst = Instrument(SN=inst_SN, Name=inst_name)
+            new_inspection = Inspection(SN=inst_SN, Name=inst_name, Status="검사대기")
 
-        return instrument_list, self.kwargs
+            new_inst.save()
+            new_inspection.save()
+
+        print(f"context : {context}")
+
+        return render(self.request, "Instrumentapp/instrument.html")
+
+    @transaction.atomic
+    def get_context_data(self, **kwargs):
+        context = super(Instrument_View, self).get_context_data(**kwargs)
+        print("get_context_data")
+        subcategory = self.kwargs.get("category")
+        context["subcategory_list"] = Category.objects.filter(Category=subcategory).values()
+
+        print(f"subcategory : {subcategory}")
+        print(f"context : {context}")
+
+        return context
 
     @transaction.atomic
     def get_queryset(self):
@@ -119,15 +135,3 @@ class Instrument_View(ListView):
                 return sort_result
 
         return instrument_list
-
-    @transaction.atomic
-    def get_context_data(self, **kwargs):
-        context = super(Instrument_View, self).get_context_data(**kwargs)
-        print("get_context_data")
-        subcategory = self.kwargs.get("category")
-        context["subcategory_list"] = Category.objects.filter(Category=subcategory).values()
-
-        print(f"subcategory : {subcategory}")
-        print(f"context : {context}")
-
-        return context

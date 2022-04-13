@@ -31,7 +31,7 @@
           <th scope="col">
             장비명
             <form method="get" action="" class="selected">
-              <select name="inst_name" class="form-select" aria-label="Default select example">
+              <select name="inst_name" class="form-select" aria-label="Default select example" onchange="location=this.value;">
                 <option value="">장비명</option>
                 <option value="?inst_name=">전체</option>
                 {% for category in subcategory_list %}
