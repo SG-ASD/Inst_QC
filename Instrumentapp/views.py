@@ -53,7 +53,6 @@ class InstrumentListView(ListView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(InstrumentListView, self).get_context_data(**kwargs)
-        print("get_context_data")
         subcategory = self.kwargs.get("category")
         context["subcategory_list"] = Category.objects.filter(Category=subcategory).values()
 
@@ -64,7 +63,6 @@ class InstrumentListView(ListView):
 
     @transaction.atomic
     def get_queryset(self):
-        print("get_queryset")
         instrument_name = self.kwargs.get("instrument_name")
         # instrument_list = Inspection.objects.filter(Name=instrument_name).values().order_by("-id")
         instrument_list = Inspection.objects.values().order_by("-id")
@@ -76,8 +74,6 @@ class InstrumentListView(ListView):
             sort_completed_date = self.request.GET.get("completed_date", "")
             sort_inspector = self.request.GET.get("inspector", "")
             sort_status = self.request.GET.get("status", "")
-
-            print(f"sort_name : {sort_name}")
 
             if search_keyword:
                 search_result = instrument_list.filter(SN__icontains=search_keyword)
