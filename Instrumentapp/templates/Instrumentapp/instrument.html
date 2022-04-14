@@ -3,10 +3,7 @@
 {% block content %}
 <main class="site-body">
   <div class="main-header">
-    <div class="content">
-      <div class="fg"></div>
       <h1>장비 목록</h1>
-    </div>
   </div>
 
   <div class="contents">
@@ -95,10 +92,18 @@
         <tr class="text-center">
           <th scope="row">{{ forloop.counter }}</th>
           <td>{{ instrument.Name }}</td>
-          <td>{{ instrument.SN }}</td>
+          <td>{{ instrument.Instrument_SN }}</td>
           <td>{{ instrument.Computer_SN }}</td>
-          <td>{{ instrument.Start_Date }}</td>
-          <td>{{ instrument.Completed_Date }}</td>
+          <td>
+            {% if instrument.Start_Date != null %}
+              {{ instrument.Start_Date|date:'Y-m-d' }}
+            {% endif %}
+          </td>
+          <td>
+            {% if instrument.Completed_Date != null %}
+              {{ instrument.Completed_Date|date:'Y-m-d' }}
+            {% endif %}
+          </td>
           <td>{{ instrument.Inspector }}</td>
           <td>
             {% if instrument.Status == "검사대기" %}
@@ -113,7 +118,11 @@
               <h4><span class="badge rounded-pill bg-success">{{ instrument.Status }}</span></h4>
             {% endif %}
           </td>
-          <td><button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal">Start</button></td>
+          <td>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"
+                    data-bs-name="{{ instrument.Name }}" data-bs-SN="{{ instrument.Instrument_SN }}">Start
+            </button>
+          </td>
         </tr>
       {% endfor %}
       {% else %} <!-- 게시글 쿼리셋이 존재하지 않을 때-->
@@ -177,31 +186,77 @@
     <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            장비명 :
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">확인</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          </div>
+          <form action="" method="post" class="selected">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th scope="row">장비명</th>
+                  <td>
+                    <h6 class="text-name"></h6>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">장비 S/N</th>
+                  <td>
+                    <h6 class="text-SN"></h6>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">담당자</th>
+                  <td>
+                    <input type="text" class="text-inspector" aria-label="Instrument_Name" aria-describedby="addon-wrapping" name="inspector">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">시작일</th>
+                  <td>
+                    <div class="form-group is-valid">
+                      <input type="date" maxlength="50" class="form-control" placeholder="Start_Date" id="Start_Date" name="start_date">
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">확인</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $( "select[name=inst_name]" ).val( "{{ category.Subcategory }}" );
-        $("select[name=inst_name]").change(function () {
-        console.log($("select[name=inst_name]").val());
-        inst_name = $("select[name=inst_name]").val();
-        $('.form').submit();
-        });
-    });
+    var startModal = document.getElementById('startModal')
+    startModal.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var name = button.getAttribute('data-bs-name')
+      var SN = button.getAttribute('data-bs-SN')
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+      //
+      // Update the modal's content.
+      // var modalTitle = startModal.querySelector('.modal-title')
+      // var modalBodyInput = exampleModal.querySelector('.modal-body input')
+      var instrument_name = startModal.querySelector('.text-name')
+      var instrument_SN = startModal.querySelector('.text-SN')
+      var instrument_inspector = startModal.querySelector('.text-inspector')
+
+      // modalTitle.textContent = 'New message to ' + recipient
+      // modalBodyInput.value = name
+      instrument_name.textContent = name
+      instrument_SN.textContent = SN
+      instrument_inspector.value = ""
+      // print()
+    })
     </script>
   </div>
 </main>
