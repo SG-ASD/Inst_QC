@@ -18,12 +18,12 @@
       <div class="contents">
       {% for instrument in sub_category %}
           <a href="{% url 'instrument' instrument.Category instrument.Subcategory %}">
-              <section class="cp-card content">
-                <div class="body">
-                  <h2 class="title">{{ instrument.Subcategory }}</h2>
-                </div>
-              </section>
-            </a>
+            <section class="cp-card content">
+              <div class="body">
+                <h2 class="title">{{ instrument.Subcategory }}</h2>
+              </div>
+            </section>
+          </a>
       {% empty %}  {# reviews가 존재하지 않거나 비어있으면 empty문으로 간다. #}
           <p class="empty">아직 리뷰가 없어요 :(</p>
       {% endfor %}

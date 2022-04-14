@@ -1,5 +1,5 @@
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
@@ -17,23 +17,17 @@ from .forms import InstrumentForm
 # Create your views here.
 
 
-class Instrument_View(ListView):
+class InstrumentListView(ListView):
     model = Inspection
-    form_class = InstrumentForm
     template_name = "Instrumentapp/instrument.html"
-    # pk_url_kwarg = "instrument_name"
     context_object_name = "instrument_list"
-
-    # context_object_name_2 = "category_list"
     pk_url_kwarg = "category"
-
-    def form_valid(self, form):  # 입력받은 데이터가 유효할 때 데이터로 채워진 모델 오브젝트를 만들고 오브젝트를 저장하는 메소드
-        # 함수형에서는 request가 view 파라미터로 전달. 클래스형 뷰에서는 self.request로 접근해야 한다.
-        print("form_valid")
-        return super().form_valid(form)  # super는 ReviewCreateView의 상위 클래스, 즉 CreateView를 의미
+    # pk_url_kwarg = "instrument_name"
 
     def post(self, request, *args, **kwargs):
         instrument_list = Inspection.objects.values().order_by("-id")
+        instrument_name = self.kwargs.get("instrument_name")
+        category = self.kwargs.get("category")
 
         if self.request.method == "POST":
             print(f"self.request.POST : {self.request.POST}")
@@ -49,12 +43,15 @@ class Instrument_View(ListView):
             new_inspection.save()
 
         print(f"context : {context}")
+        print(f"category : {category}")
+        print(f"instrument_name : {instrument_name}")
 
-        return render(self.request, "Instrumentapp/instrument.html")
+        # return render(self.request, self.template_name, context)
+        return redirect("instrument", category, instrument_name)
 
     @transaction.atomic
     def get_context_data(self, **kwargs):
-        context = super(Instrument_View, self).get_context_data(**kwargs)
+        context = super(InstrumentListView, self).get_context_data(**kwargs)
         print("get_context_data")
         subcategory = self.kwargs.get("category")
         context["subcategory_list"] = Category.objects.filter(Category=subcategory).values()
@@ -83,6 +80,7 @@ class Instrument_View(ListView):
 
             if search_keyword:
                 search_result = instrument_list.filter(SN__icontains=search_keyword)
+                print(search_result)
                 return search_result
 
             if sort_name:
@@ -135,3 +133,36 @@ class Instrument_View(ListView):
                 return sort_result
 
         return instrument_list
+
+
+# class InstrumentCreateView(CreateView):
+#     model = Instrument
+#     form_class = InstrumentForm
+#     template_name = "Instrumentapp/add_instrument.html"
+#     context_object_name = "instrument_list"
+#     pk_url_kwarg = "category"
+
+    # @transaction.atomic
+    # def get_queryset(self):  # ListView가 전달하는 object를 바꾸고 싶으면 get_queryset을 오버라이드 한다.(object 여러개)
+    #     category = self.kwargs.get("category")
+    #     temp1 = Category.objects.filter(Category=category).values('Subcategory')
+    #     # print(Category.objects.filter(Category=main_category).values('Subcategory').query)
+    #     print(temp1)
+    #     return temp1
+    # def index(self):
+    #     return render(self.request, "Instrumentapp/add_instrument.html")
+
+    # def form_valid(self, form):  # 입력받은 데이터가 유효할 때 데이터로 채워진 모델 오브젝트를 만들고 오브젝트를 저장하는 메소드
+    #     print("post!!!")
+    #     print(self.request.POST.get("s1"))
+    #     # view에서 현재 user에 접근할 때는 request.user를 사용
+    #     # 저장될 폼에 새로운 속성을 추가하려면 form.instance에 속성을 추가하고 꼭 CreateView의 form_vaild 메소드를 호출해야 한다. 호출하지 않으면 폼이 저장되지 않는다.
+    #     form.instance.author = self.request.user  # 함수형에서는 request가 view 파라미터로 전달. 클래스형 뷰에서는 self.request로 접근해야 한다.
+    #     print(f"form.instance : {form.instance}")
+    #     return super().form_valid(form)  # super는 ReviewCreateView의 상위 클래스, 즉 CreateView를 의미
+    #
+    # def get_success_url(self):
+    #     category = self.kwargs.get("category")
+    #     instrument_name = self.kwargs.get("instrument_name")
+    #     # self.object는 현재 제네릭 뷰가 다루고 있는 object라고 생각하면 된다.
+    #     return reverse("instrument", kwargs={"category": category, "instrument_name": instrument_name})  # review-detail에 id를 파라미터로 넘긴다.

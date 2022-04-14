@@ -17,9 +17,6 @@ class IndexView(ListView):
     model = Category
     template_name = "Mainapp/index.html"
     context_object_name = "main_category"
-    # context_object_name = "reviews"
-    # paginate_by = 4
-    # ordering = ["-dt_created"]
 
     @transaction.atomic
     def get_queryset(self):
@@ -34,9 +31,6 @@ class SubcategoryView(ListView):
     template_name = "Mainapp/subcategory.html"
     context_object_name = "sub_category"
     pk_url_kwarg = "category_main"
-    # context_object_name = "reviews"
-    # paginate_by = 4
-    # ordering = ["-dt_created"]
 
     @transaction.atomic
     def get_queryset(self):  # ListView가 전달하는 object를 바꾸고 싶으면 get_queryset을 오버라이드 한다.(object 여러개)
