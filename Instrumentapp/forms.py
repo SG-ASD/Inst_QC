@@ -1,5 +1,5 @@
 from django import forms
-from .models import Instrument, Inspection
+from .models import Instrument
 
 
 # class SignupForm(forms.ModelForm):  # 모델폼은 사용할 모델만 알려주면 모델의 필드에 따라서 폼을 알아서 만든다.

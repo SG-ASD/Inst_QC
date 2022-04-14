@@ -10,8 +10,9 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from .models import Instrument, Inspection
+from .models import Instrument
 from Mainapp.models import Category
+from Inspectionapp.models import Inspection
 from .forms import InstrumentForm
 
 # Create your views here.
@@ -25,7 +26,7 @@ class InstrumentListView(ListView):
     # pk_url_kwarg = "instrument_name"
 
     def post(self, request, *args, **kwargs):
-        instrument_list = Inspection.objects.values().order_by("-id")
+
         instrument_name = self.kwargs.get("instrument_name")
         category = self.kwargs.get("category")
 
@@ -37,7 +38,7 @@ class InstrumentListView(ListView):
             context = {"s2": inst_SN, "s1": inst_name}
 
             new_inst = Instrument(SN=inst_SN, Name=inst_name)
-            new_inspection = Inspection(SN=inst_SN, Name=inst_name, Status="검사대기")
+            new_inspection = Inspection(Instrument_SN=inst_SN, Name=inst_name, Status="검사대기")
 
             new_inst.save()
             new_inspection.save()
@@ -46,8 +47,8 @@ class InstrumentListView(ListView):
         print(f"category : {category}")
         print(f"instrument_name : {instrument_name}")
 
-        # return render(self.request, self.template_name, context)
-        return redirect("instrument", category, instrument_name)
+        # return render(self.request, "instrument", {'category': category, 'instrument_name': instrument_name})
+        return redirect("Instrumentapp:instrument", category, instrument_name)
 
     @transaction.atomic
     def get_context_data(self, **kwargs):
