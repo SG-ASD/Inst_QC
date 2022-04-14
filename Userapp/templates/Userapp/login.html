@@ -8,7 +8,7 @@
         <h4>Login</h4>
     </div>
     <div style="text-align: center">
-        <form action="{% url 'Mainapp:index'%}" method="post">
+        <form action="" method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
             <input type="submit" class="btn btn-primary"/>
