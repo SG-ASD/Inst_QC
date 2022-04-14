@@ -15,11 +15,11 @@
         <table class="table table-bordered" >
           <tbody>
             <tr>
-            <td rowspan="7">Visual<br>Inspection</td>
-            <td colspan="2">Category </td>
-            <td colspan="2">Factor </td>
-            <td colspan="6">Determine to</td>
-            <td >Image Upload</td>
+            <td rowspan="7" style="background-color: blanchedalmond">Visual<br>Inspection</td>
+            <td colspan="2" style="background-color: blanchedalmond">Category </td>
+            <td colspan="2" style="background-color: blanchedalmond">Factor </td>
+            <td colspan="6" style="background-color: blanchedalmond">Determine to</td>
+            <td style="background-color: blanchedalmond">Image Upload</td>
             </tr>
             <tr>
             <td colspan="2">Shock Watch</td>
@@ -34,8 +34,10 @@
                   <label class="form-check-label" for="Shock_Watch">Yes</label>
                 </div>
             </td>
-            <td >
-                <input class="form-control" type="file" id="formFile" src="{{ target_Appearance.url}}">
+            <td>
+                <div class="form-group is-invalid">
+                    <input type="file" name="Shock_Watch_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Shock_Watch_Image">
+                </div>
             </td>
             </tr>
             <tr>
@@ -49,6 +51,11 @@
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Binding" id="Binding" value="Yes">
                   <label class="form-check-label" for="Binding">Yes</label>
+                </div>
+            </td>
+            <td >
+               <div class="form-group is-invalid">
+                   <input type="file" name="Binding_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Binding_Image">
                 </div>
             </td>
             </tr>
@@ -65,6 +72,11 @@
                   <label class="form-check-label" for="Labels">Yes</label>
                 </div>
             </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Labels_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Labels_Image">
+                </div>
+            </td>
             </tr>
             <tr>
             <td colspan="2">Packaging_Box</td>
@@ -77,6 +89,11 @@
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Packaging_Box" id="Packaging_Box" value="Yes">
                   <label class="form-check-label" for="Packaging_Box">Yes</label>
+                </div>
+            </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Packaging_Box_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Packaging_Box_Image">
                 </div>
             </td>
             </tr>
@@ -93,6 +110,11 @@
                   <label class="form-check-label" for="Wooden_Pallet">Yes</label>
                 </div>
             </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Wooden_Pallet_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Wooden_Pallet_Image">
+                </div>
+            </td>
             </tr>
             <tr>
             <td colspan="2">Trasport Jig</td>
@@ -107,9 +129,20 @@
                   <label class="form-check-label" for="Transport_Jig">Yes</label>
                 </div>
             </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Transport_Jig_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Transport_Jig_Image">
+                </div>
+            </td>
             </tr>
           </tbody>
         </table>
+         <div style="text-align: left">
+            <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성" disabled>
+        </div>
+         <div class="form-group is-invalid" style="text-align: left">
+             <input type="file" name="Video" accept="video/*" class="form-control-file" title="" required="" id="id_Video">
+         </div>
          <div style="text-align: right">
             <input type="submit" class="btn btn-primary">
         </div>
