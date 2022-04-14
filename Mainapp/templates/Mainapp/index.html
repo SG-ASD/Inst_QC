@@ -1,4 +1,4 @@
-{% extends "Mainapp_base/base_with_navbar.html" %}
+{% extends "../base_with_navbar.html" %}
 
 {% block content %}
 <main class="site-body">
@@ -17,7 +17,7 @@
 
       <div class="contents">
       {% for category in main_category %}
-          <a href="{% url 'subcategory' category %}">
+          <a href="{% url 'Mainapp:subcategory' category %}">
             <section class="cp-card content">
               <div class="body">
                 <h2 class="title">{{ category }}</h2>

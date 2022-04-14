@@ -1,4 +1,4 @@
-{% extends "Mainapp_base/base_with_navbar.html" %}
+{% extends "../base_with_navbar.html" %}
 
 {% block content %}
 <main class="site-body">
@@ -17,7 +17,7 @@
 
       <div class="contents">
       {% for instrument in sub_category %}
-          <a href="{% url 'instrument' instrument.Category instrument.Subcategory %}">
+          <a href="{% url 'Instrumentapp:instrument' instrument.Category instrument.Subcategory %}">
             <section class="cp-card content">
               <div class="body">
                 <h2 class="title">{{ instrument.Subcategory }}</h2>

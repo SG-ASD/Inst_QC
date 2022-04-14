@@ -1,4 +1,4 @@
-{% extends "Mainapp_base/base.html" %}
+{% extends "./base.html" %}
 
 {% load static %}
 
@@ -6,7 +6,7 @@
 <header class="site-header navbar">
   <div class="content max-width">
     <a href="{% url 'Mainapp:index' %}">
-      <img class="logo" src="{% static 'Mainapp/assets/seegene_logo.png' %}" alt="Seegene Logo">
+      <img class="logo" src="{% static 'assets/seegene_logo.png' %}" alt="Seegene Logo">
     </a>
     <nav>
       <ul class="navbar">
