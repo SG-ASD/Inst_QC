@@ -26,6 +26,7 @@ class Appearance(models.Model):
     Transport_Jig_Image = models.ImageField(upload_to='Appearance/', null=True)
     Video = models.FileField(upload_to="video/", null=True)
     # Front = models.CharField(max_length=20, null=True)
+    # Top = models.CharField(max_length=20, null=True)
     # Right = models.CharField(max_length=20, null=True)
     # Left = models.CharField(max_length=20, null=True)
     # Back = models.CharField(max_length=20, null=True)
