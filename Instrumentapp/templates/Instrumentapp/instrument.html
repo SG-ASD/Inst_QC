@@ -87,12 +87,12 @@
         </tr>
       </thead>
       <tbody>
-      {% if instrument_list %}
-      {% for instrument in instrument_list %}
+      {% if inspection_list %}
+      {% for instrument in inspection_list %}
         <tr class="text-center">
           <th scope="row">{{ forloop.counter }}</th>
           <td>{{ instrument.Name }}</td>
-          <td>{{ instrument.Instrument_SN }}</td>
+          <td>{{ instrument.Instrument_SN_id }}</td>
           <td>{{ instrument.Computer_SN }}</td>
           <td>
             {% if instrument.Start_Date != null %}
