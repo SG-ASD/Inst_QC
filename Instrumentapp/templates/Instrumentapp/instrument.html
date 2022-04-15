@@ -223,8 +223,14 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">확인</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-primary">
+               <a href="{%  url 'Inspectionapp:create' %}?next={{ request.path}}"/>
+                확인
+              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >
+                <a href="#"/>
+                취소
+              </button>
             </div>
           </form>
         </div>

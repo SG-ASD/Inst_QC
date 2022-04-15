@@ -11,12 +11,35 @@
     </a>
     <nav>
       <ul class="navbar">
+
+       <div class="container-fluid">
+        {% if not user.is_authenticated %}
+            <a href="{%  url 'Userapp:login' %}?next={{ request.path }}" class="nav-link active">
+                <span>login</span>
+            </a>
+            <a href="{%  url 'Userapp:create' %}?next={{ request.path }}" class="nav-link active">
+                <span>SignUp</span>
+            </a>
+            {%  else %}
+            <a href="{% url 'Userapp:detail' pk=user.pk %}" class="nav-link active">
+                <span>MyPage</span>
+            </a>
+            <a href="{%  url 'Userapp:logout' %}?next={{ request.path}}" class="nav-link active">
+                <span>logout</span>
+            </a>
+            {% if target_user.profile %}
+             <img src="{{ target_user.profile.image.url }}" alt="" style="height: 2rem; width: 2rem; border-radius: 2rem; margin-bottom: 2rem; object-fit: cover">
+             {% else %}
+             <img src="{% static 'assets/user.png' %}" alt="" style="height: 2rem; width: 2rem; border-radius: 2rem;  object-fit: cover; margin-top: .2rem">
+            {% endif %}
+
+        {% endif %}
+       </div>
       </ul>
     </nav>
   </div>
 </header>
 {% endblock header %}
-
 {% block footer %}
 <footer class="site-footer">
   <div class="max-content-width content">
