@@ -12,7 +12,7 @@ class Inspection(models.Model):
     # user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
     # Inspection
-    Instrument_SN = models.ForeignKey(Instrument, on_delete=models.CASCADE)  # 장비 SN
+    Instrument_SN = models.ForeignKey(Instrument, on_delete=models.CASCADE, db_column='Instrument_SN')  # 장비 SN
     Name = models.CharField(max_length=60, blank=True)  # 장비명
     Inspector = models.CharField(max_length=20, blank=True)  # 검사자
     Start_Date = models.DateField(null=True, blank=True)  # 검사시작일
