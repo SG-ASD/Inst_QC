@@ -22,7 +22,7 @@ from .forms import InstrumentForm
 class InstrumentListView(ListView):
     model = Inspection
     template_name = "Instrumentapp/instrument.html"
-    context_object_name = "instrument_list"
+    context_object_name = "inspection_list"
     pk_url_kwarg = "category"
 
     # pk_url_kwarg = "instrument_name"
