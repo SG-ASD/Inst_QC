@@ -1,9 +1,9 @@
 from django.urls import path, include
 
-from Inspectionapp.views import InspectionCreateView
+from Inspectionapp.views import InspectionUpdateView
 
 app_name = "Inspectionapp"
 
 urlpatterns = [
-    path('create/', InspectionCreateView.as_view(), name='create'),
+    path('update/<str:instrument_SN>/', InspectionUpdateView.as_view(), name='update'),
 ]

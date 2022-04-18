@@ -20,7 +20,7 @@ class AppearanceCreateView(CreateView):
     form_class = AppearanceCreationForm
     success_url = reverse_lazy('Mainapp:index')
 
-    template_name = 'Appearanceapp/create.html'
+    template_name = 'Appearanceapp/update.html'
 
     def form_valid(self, form):
         temp_Appearance = form.save(commit=False)

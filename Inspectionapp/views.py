@@ -1,35 +1,27 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
+
+from Inspectionapp.decorators import Inspection_ownership_required
 from Userapp.decorators import User_ownership_required
 from Inspectionapp.models import Inspection
-from Inspectionapp.forms import InspectionCreationForm
+from Inspectionapp.forms import InspectionUpdateForm
 
-has_ownership = [User_ownership_required]
-class InspectionCreateView(CreateView):
+@method_decorator(Inspection_ownership_required, 'get')
+@method_decorator(Inspection_ownership_required, 'post')
+class InspectionUpdateView(UpdateView):
     model = Inspection
     context_object_name = 'target_Inspection'
-    form_class = InspectionCreationForm
+    form_class = InspectionUpdateForm
     success_url = reverse_lazy('Mainapp:index')
 
-    template_name = 'Inspectionapp/create.html'
+    template_name = 'Inspectionapp/update.html'
 
-    def create(request):
-        temp_Inspection = Inspection()
-        temp_Inspection = request.POST['Instrument_SN']
-        # temp_Inspector = request.POST['Inspector']
-        temp_Inspection.save()
-        return redirect('Mainapp:index')
-
-    # def form_valid(self, form):
-    #     temp_inspection = form.save(commit=False)
-    #     temp_inspection.user = self.request.user
-    #     temp_inspection.save()
-    #     return super().form_valid(form)
-
+    def get_success_url(self):
+        return reverse('Mainapp:index', kwargs={'instrument_SN': self.object.instrument_SN})
 
 
 

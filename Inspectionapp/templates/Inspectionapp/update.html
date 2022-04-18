@@ -3,7 +3,7 @@
 {% block content %}
 
 <div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
-    <form action="{% url 'Inspectionapp:create' %}" method="post">
+    <form action="{% url 'Inspectionapp:create' pk=target_Inspection.instrument_SN %}" method="post">
         {% csrf_token %}
 <!--        {{ form }}-->
 <!--        {% bootstrap_form form %}-->

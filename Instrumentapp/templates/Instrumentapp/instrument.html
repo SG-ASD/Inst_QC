@@ -224,9 +224,11 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary">
-               <a href="{%  url 'Inspectionapp:create' %}?next={{ request.path}}"/>
                 확인
+              {% if target_Inspection.instrument_SN %}
+               <a href="{%  url 'Inspectionapp:update' instrument_SN=target_Inspection.instrument_SN %}?next={{ request.path}}"/>
               </button>
+              {% endif %}
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >
                 <a href="#"/>
                 취소

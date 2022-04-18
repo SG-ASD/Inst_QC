@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from Inspectionapp.models import Inspection
 
 
-class InspectionCreationForm(ModelForm):
+class InspectionUpdateForm(ModelForm):
     class Meta:
         model = Inspection
         fields = ['Instrument_SN', 'Inspector', 'Computer_SN', 'Revision', 'Start_Date', 'Completed_Date','SW_Version',
