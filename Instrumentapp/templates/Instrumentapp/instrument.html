@@ -88,47 +88,47 @@
       </thead>
       <tbody>
       {% if inspection_list %}
-      {% for instrument in inspection_list %}
-        <tr class="text-center">
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ instrument.Name }}</td>
-          <td>{{ instrument.Instrument_SN_id }}</td>
-          <td>{{ instrument.Computer_SN }}</td>
-          <td>
-            {% if instrument.Start_Date != null %}
-              {{ instrument.Start_Date|date:'Y-m-d' }}
-            {% endif %}
-          </td>
-          <td>
-            {% if instrument.Completed_Date != null %}
-              {{ instrument.Completed_Date|date:'Y-m-d' }}
-            {% endif %}
-          </td>
-          <td>{{ instrument.Inspector }}</td>
-          <td>
-            {% if instrument.Status == "검사대기" %}
-              <h4><span class="badge rounded-pill bg-primary ">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "검사진행중" %}
-              <h4><span class="badge rounded-pill bg-secondary">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "부적합" %}
-              <h4><span class="badge rounded-pill bg-danger">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "재검사중" %}
-              <h4><span class="badge rounded-pill bg-warning text-dark">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "검사완료" %}
-              <h4><span class="badge rounded-pill bg-success">{{ instrument.Status }}</span></h4>
-            {% endif %}
-          </td>
-          <td>
-            {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
-            {% else %}
-              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"
-                      data-bs-name="{{ instrument.Name }}" data-bs-SN="{{ instrument.Instrument_SN_id }}">
-                Start
-              </button>
-            {% endif %}
-          </td>
-        </tr>
-      {% endfor %}
+        {% for instrument in inspection_list %}
+          <tr class="text-center">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ instrument.Name }}</td>
+            <td>{{ instrument.Instrument_SN_id }}</td>
+            <td>{{ instrument.Computer_SN }}</td>
+            <td>
+              {% if instrument.Start_Date != null %}
+                {{ instrument.Start_Date|date:'Y-m-d' }}
+              {% endif %}
+            </td>
+            <td>
+              {% if instrument.Completed_Date != null %}
+                {{ instrument.Completed_Date|date:'Y-m-d' }}
+              {% endif %}
+            </td>
+            <td>{{ instrument.Inspector }}</td>
+            <td>
+              {% if instrument.Status == "검사대기" %}
+                <h4><span class="badge rounded-pill bg-primary ">{{ instrument.Status }}</span></h4>
+              {% elif instrument.Status == "검사진행중" %}
+                <h4><span class="badge rounded-pill bg-secondary">{{ instrument.Status }}</span></h4>
+              {% elif instrument.Status == "부적합" %}
+                <h4><span class="badge rounded-pill bg-danger">{{ instrument.Status }}</span></h4>
+              {% elif instrument.Status == "재검사중" %}
+                <h4><span class="badge rounded-pill bg-warning text-dark">{{ instrument.Status }}</span></h4>
+              {% elif instrument.Status == "검사완료" %}
+                <h4><span class="badge rounded-pill bg-success">{{ instrument.Status }}</span></h4>
+              {% endif %}
+            </td>
+            <td>
+              {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
+              {% else %}
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"
+                        data-bs-name="{{ instrument.Name }}" data-bs-SN="{{ instrument.Instrument_SN_id }}">
+                  Start
+                </button>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
       {% else %} <!-- 게시글 쿼리셋이 존재하지 않을 때-->
         {% if q %} <!-- 검색어와 일치하는 결과가 없을 때 -->
         <tr class="text-center">
@@ -190,7 +190,7 @@
     <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <form action="" method="post" class="selected">
+         <form action="{% url 'Inspectionapp:update' G002 %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="modal-header">
               <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
@@ -227,7 +227,7 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" href="{%  url 'Inspectionapp:create' %}?next={{ request.path }}">확인</button>
+              <button type="button" class="btn btn-primary">확인</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" href="#">취소</button>
             </div>
           </form>

@@ -1,9 +1,7 @@
 from django.urls import path, include
-
-from Inspectionapp.views import InspectionCreateView
-
+from . import views
 app_name = "Inspectionapp"
 
 urlpatterns = [
-    path('create/', InspectionCreateView.as_view(), name='create'),
+    path('<str:SN>', views.InspectionCreateView.as_view(), name='update'),
 ]
