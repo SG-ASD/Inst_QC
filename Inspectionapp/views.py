@@ -10,8 +10,8 @@ from Userapp.decorators import User_ownership_required
 from Inspectionapp.models import Inspection
 from Inspectionapp.forms import InspectionUpdateForm
 
-@method_decorator(Inspection_ownership_required, 'get')
-@method_decorator(Inspection_ownership_required, 'post')
+# @method_decorator(Inspection_ownership_required, 'get')
+# @method_decorator(Inspection_ownership_required, 'post')
 class InspectionUpdateView(UpdateView):
     model = Inspection
     context_object_name = 'target_Inspection'
@@ -20,10 +20,8 @@ class InspectionUpdateView(UpdateView):
 
     template_name = 'Inspectionapp/update.html'
 
-    def get_success_url(self):
-        return reverse('Mainapp:index', kwargs={'instrument_SN': self.object.instrument_SN})
-
-
+    # def get_success_url(self):
+    #     return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
 
 # @method_decorator(has_ownership, 'get')
 # @method_decorator(has_ownership, 'post')

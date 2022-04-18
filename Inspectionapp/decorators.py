@@ -6,7 +6,7 @@ from Inspectionapp.models import Inspection
 
 def Inspection_ownership_required(func):
     def decorated(request, *args, **kwargs):
-        inspection = Inspection.objects.get(pk=kwargs['pk'])
+        inspection = Inspection.objects.get(pk=kwargs['instrument_SN'])
         if not inspection.writer == request.user:
             return HttpResponseForbidden()
         return func(request, *args, **kwargs)

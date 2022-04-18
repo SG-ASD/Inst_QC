@@ -5,5 +5,5 @@ from Inspectionapp.views import InspectionUpdateView
 app_name = "Inspectionapp"
 
 urlpatterns = [
-    path('update/<str:instrument_SN>/', InspectionUpdateView.as_view(), name='update'),
+    path('update/<int:pk>/', InspectionUpdateView.as_view(), name='update'),
 ]

@@ -179,7 +179,7 @@
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">확인</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >취소</button>
             </div>
           </form>
         </div>
@@ -190,7 +190,7 @@
     <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <form action="" method="post" class="selected">
+          <form action="{% url 'Inspectionapp:update' pk=5%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="modal-header">
               <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
@@ -227,8 +227,11 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" href="{%  url 'Inspectionapp:create' %}?next={{ request.path }}">확인</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" href="#">취소</button>
+              <button type="submit" class="btn btn-primary">
+                확인
+              </button>
+
+              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" href="#">취소</button>
             </div>
           </form>
         </div>

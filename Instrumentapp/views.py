@@ -24,8 +24,10 @@ class InstrumentListView(ListView):
     template_name = "Instrumentapp/instrument.html"
     context_object_name = "inspection_list"
     pk_url_kwarg = "category"
-
     # pk_url_kwarg = "instrument_name"
+
+    def get_success_url(self):
+        return reverse('inspection/update', kwargs={'pk': self.object.pk})
 
     def post(self, request, *args, **kwargs):
 
