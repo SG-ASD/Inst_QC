@@ -16,7 +16,7 @@ class UserCreateView(CreateView):
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy('Mainapp:index')
-    template_name = 'Userapp/create.html'
+    template_name = 'Userapp/update.html'
 
 class UserDetailView(DetailView):
     model = User

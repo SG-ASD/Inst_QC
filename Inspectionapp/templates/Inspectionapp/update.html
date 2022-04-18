@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
+    <form action="{% url 'Inspectionapp:update' pk=target_Inspection.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+<!--        {{ form }}-->
+        {% bootstrap_form form %}
+<!--      <input type="hidden" name="csrfmiddlewaretoken" value="EwFDDn3nIam2vEfzUjXzoQJJ4nti77NR1MqNbYRGDyiAoNlryMyVoNI2RoB96Fad">-->
+<!--        <table class="table table-bordered" >-->
+<!--          <tbody>-->
+<!--            <tr>-->
+<!--            <th scope="row">-->
+<!--            <td class="column0">&nbsp;</td>-->
+<!--            <td class="column7 style77 s style96" rowspan="2" style="background-color: blanchedalmond">Serial <br> Number</td>-->
+<!--            <td class="column8 style28 s">Instrument</td>-->
+<!--            <td class="column8 style28 s" colspan="5">-->
+<!--              <div class="form-group is-valid">-->
+<!--              <input type="text" name="Instrument_SN" maxlength="50" class="form-control is-invalid" placeholder="Instrument SN" title="" required="" id="Instrument_SN">-->
+<!--              </div>-->
+<!--            </td>-->
+
+<!--            </th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <td class="column0" rowspan="3" style="background-color: blanchedalmond">&nbsp;Document Number</td>-->
+<!--            <td class="column3 style50 s style52">-->
+<!--                <div class="form-group is-valid">-->
+<!--                <input type="text" name="Incoming Inspection Instruction" maxlength="50" class="form-control is-invalid" placeholder="Revision" title="" required="" id="Revision">-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            <td class="column8 style29 s">Computer</td>-->
+<!--            <td colspan="5">-->
+<!--               <div class="form-group is-valid">-->
+<!--                <input type="text" name="Computer_SN" maxlength="50" class="form-control is-invalid" placeholder="Computer_SN" title="" required="" id="Computer_SN">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <tr class="row6">-->
+<!--              <td class="column1 style105 s style106">-->
+<!--               <div class="form-group is-valid">-->
+<!--                <input type="text" name="Revision" maxlength="50" class="form-control is-invalid" placeholder="Revision" title="" required="" id="Revision">-->
+<!--               </div>-->
+<!--              </td>-->
+<!--&lt;!&ndash;            <td class="column3 style114 s style116" colspan="3">SG-SI-STA-01, Rev.5</td>&ndash;&gt;-->
+<!--            <td class="column6">&nbsp;</td>-->
+<!--            </tr>-->
+<!--            </tr>-->
+<!--          <tr>-->
+<!--            <tr class="row7">-->
+<!--            <td>&nbsp;</td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <tr class="row8">-->
+<!--            </tr>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <tr class="row9">-->
+<!--            <td class="column1 style121 s style123" rowspan="5" style="background-color: blanchedalmond">Inspection</td>-->
+<!--            <td class="column2 style126 s style127" colspan="2">Inspector</td>-->
+<!--            <td class="column4 style140 null style141" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="text" name="Inspector" maxlength="50" class="form-control is-invalid" placeholder="Inspector" title="" required="False" id="Inspector">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--            <td class="column9 style103 s style104" colspan="3" rowspan="3" style="background-color: blanchedalmond; font-size: 2rem">Result</td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <tr class="row10">-->
+<!--            <td class="column2 style124 s style124" colspan="2">Start date</td>-->
+<!--            <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="date" name="Start_Date" maxlength="50" class="form-control is-invalid" placeholder="Start_Date" title="" required="False" id="Start_Date">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td class="column2 style124 s style124" colspan="2">Complate Date</td>-->
+<!--            <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="date" name="Completed_Date" maxlength="50" class="form-control is-invalid" placeholder="Completed_Date" title="" required="False" id="Completed_Date">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--            <td class="column9 style128 null style133" colspan="3" rowspan="15"></td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <tr class="row11">-->
+<!--            <td >&nbsp;</td>-->
+<!--            <td colspan="12"></td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--           <tr class="row12">-->
+<!--            <td class="column1 style105 s style106" colspan="2" style="background-color: blanchedalmond">Hamilton S/W Version</td>-->
+<!--             <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="text" name="SW_Version" maxlength="50" class="form-control is-invalid" placeholder="SW_Version" title="" required="False" id="SW_Version">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <tr class="row13">-->
+<!--            <td class="column1 style105 s style106" colspan="2" style="background-color: blanchedalmond">Hamilton FV2 Version</td>-->
+<!--             <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="text" name="FV2_Version" maxlength="50" class="form-control is-invalid" placeholder="FV2_Version" title="False" required="" id="FV2_Version">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--           <tr>-->
+<!--            <tr class="row13">-->
+<!--            <td class="column" rowspan="5" style="background-color: blanchedalmond">FirmWare <br> Version</td>-->
+<!--            <td class="column1 style105 s style106" >Pipette Ch (PX)</td>-->
+<!--             <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="text" name="FW_PipetteCh" maxlength="50" class="form-control is-invalid" placeholder="FW_PipetteCh" title="" required="False" id="FW_PipetteCh">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tr>-->
+<!--            <tr>-->
+<!--            <tr class="row13">-->
+<!--            <td class="column1 style105 s style106" >X-Drive (XO)</td>-->
+<!--             <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="text" name="FW_Xdrive" maxlength="50" class="form-control is-invalid" placeholder="FW_Xdrive" title="" required="False" id="FW_Xdrive">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--            </tr>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--            <tr class="row14">-->
+<!--            <td class="column1 style105 s style106">Master (CO)</td>-->
+<!--             <td class="column4 style138 null style139" colspan="4">-->
+<!--              <div class="form-group is-valid">-->
+<!--                <input type="text" name="FW_Master" maxlength="50" class="form-control is-invalid" placeholder="FW_Master" title="" required="False" id="FW_Master">-->
+<!--               </div>-->
+<!--            </td>-->
+<!--            </tr>-->
+<!--            </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+        <div style="text-align: right">
+            <input type="submit" class="btn btn-primary">
+        </div>
+<!--    </div>-->
+    </form>
+</div>
+</div>
+{% endblock %}
