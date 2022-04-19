@@ -24,17 +24,24 @@ class InspectionUpdateView(UpdateView):
 
     def get_queryset(self):
         SN = self.kwargs.get("SN")
-        print(f"SN : {SN}")
+        print(f"type(SN) : {type(SN)}")  # <class 'str'>
+        print(f"SN : {SN}")  # G002
 
         temp = Inspection.objects.get(Instrument_SN=SN)
-        # print(Inspection.objects.get(Instrument_SN=SN))
-        print(f"SN_id : {temp.Instrument_SN_id}")
-        print(f"type : {type(temp.Instrument_SN_id)}")
+        print(f"type(temp) : {type(temp)}")  # <class 'Inspectionapp.models.Inspection'>
+        print(f"temp : {temp}")  # G002
+
+        print(f"type(temp.Instrument_SN_id) : {type(temp.Instrument_SN_id)}")  # <class 'str'>
+        print(f"SN_id : {temp.Instrument_SN_id}")  # G002
 
         instrument_info = Inspection.objects.filter(Instrument_SN=temp.Instrument_SN_id).values()
-        print(instrument_info)
+        print(f"instrument_info : {instrument_info}")
 
         return instrument_info
+
+    # def get_object(self, queryset=None):  # object 하나
+    #     return self.request.  # 현재 유저를 return
+
 
 
     # def get_success_url(self):

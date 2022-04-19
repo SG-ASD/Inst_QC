@@ -12,44 +12,19 @@
       <a class="cp-ic-button circle newreview" href="#">Setting</a>
     </div>
 
-      <div class="contents">
+    <div class="contents">
       {% for instrument in sub_category %}
-          <a href="{% url 'Instrumentapp:instrument' instrument.Category instrument.Subcategory %}">
-            <section class="cp-card content">
-              <div class="body">
-                <h2 class="title">{{ instrument.Subcategory }}</h2>
-              </div>
-            </section>
-          </a>
+        <a href="{% url 'Instrumentapp:instrument' instrument.Category instrument.Subcategory %}">
+          <section class="cp-card content">
+            <div class="body">
+              <h2 class="title">{{ instrument.Subcategory }}</h2>
+            </div>
+          </section>
+        </a>
       {% empty %}  {# reviews가 존재하지 않거나 비어있으면 empty문으로 간다. #}
-          <p class="empty">아직 리뷰가 없어요 :(</p>
+        <p class="empty">아직 리뷰가 없어요 :(</p>
       {% endfor %}
-      </div>
-
-<!--      {% if is_paginated %}-->
-<!--        <footer>-->
-<!--          <ul class="pagination">-->
-<!--            {% if page_obj.has_previous %}-->
-<!--              <li><a href="?page=1">처음</a></li>-->
-<!--              <li><a href="?page={{ page_obj.previous_page_number }}">이전</a></li>-->
-<!--            {% endif %}-->
-
-<!--            {% for num in page_obj.paginator.page_range %}-->
-<!--              {% if page_obj.number == num %}-->
-<!--                <li class="current">{{ num }}</li>-->
-<!--              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}-->
-<!--                <li><a href="?page={{ num }}">{{ num }}</a></li>-->
-<!--              {% endif %}-->
-<!--            {% endfor %}-->
-
-<!--            {% if page_obj.has_next %}-->
-<!--              <li><a href="?page={{ page_obj.next_page_number }}">다음</a></li>-->
-<!--              <li><a href="?page={{ page_obj.paginator.num_pages }}">마지막</a></li>-->
-<!--            {% endif %}-->
-<!--          </ul>-->
-<!--        </footer>-->
-<!--      {% endif %}-->
-    </article>
+    </div>
   </div>
 </main>
 {% endblock content %}
