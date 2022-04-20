@@ -25,7 +25,7 @@ class InspectionUpdateView(UpdateView):
         return object
 
     def get_success_url(self):
-        return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
+        return reverse('Mainapp:index')
 
 # @method_decorator(has_ownership, 'get')
 # @method_decorator(has_ownership, 'post')

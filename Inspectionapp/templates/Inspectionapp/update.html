@@ -3,7 +3,7 @@
 {% block content %}
 
 <div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
-    <form action="{% url 'Inspectionapp:update' Instrument_SN=target_Inspection.Instrument_SN %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'Inspectionapp:update' target_Inspection.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 <!--        {{ form }}-->
         {% bootstrap_form form %}
