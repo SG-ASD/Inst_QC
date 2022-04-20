@@ -108,7 +108,6 @@ class InstrumentListView(ListView):
 
     @transaction.atomic
     def post(self, request, *args, **kwargs):
-
         instrument_name = self.kwargs.get("instrument_name")
         category = self.kwargs.get("category")
 

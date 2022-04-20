@@ -121,10 +121,15 @@
             <td>
               {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
               {% else %}
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"
-                        data-bs-name="{{ instrument.Name }}" data-SN="{{ instrument.Instrument_SN_id }}">
-                  Start
-                </button>
+<!--                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"-->
+<!--                        data-bs-name="{{ instrument.Name }}" data-SN="{{ instrument.Instrument_SN_id }}">-->
+<!--                  Start-->
+<!--                </button>-->
+                <a href="{% url 'Inspectionapp:update' instrument.Instrument_SN_id %}">
+                  <button type="button" class="btn btn-outline-primary" >
+                    Start
+                  </button>
+                </a>
               {% endif %}
             </td>
           </tr>
@@ -227,7 +232,7 @@
           <div class="modal-footer">
 <!--            <form action="{% url 'Inspectionapp:update' 'G003' %}" method="post" enctype="multipart/form-data" class="update_SN">-->
 <!--              {% csrf_token %}-->
-            <a id="update_SN" class="update_SN" href="{% url 'Inspectionapp:update' 'G001' %}">
+            <a id="update_SN" class="update_SN" href="#">
               <button type="submit" class="btn btn-primary">확인</button>
             </a>
 <!--            </form>-->
