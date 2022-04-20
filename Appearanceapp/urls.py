@@ -1,10 +1,10 @@
 from django.urls import path
 
-from Appearanceapp.views import AppearanceCreateView
+from Appearanceapp.views import AppearanceUpdateView
 from profileapp.views import ProfileCreateView, ProfileUpdateView
 
 app_name = 'Appearanceapp'
 
 urlpatterns = [
-    path('create/', AppearanceCreateView.as_view(), name='create'),
+    path('update/<str:Instrument_SN>/', AppearanceUpdateView.as_view(), name='update'),
 ]
