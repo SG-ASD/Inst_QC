@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from Inspectionapp.views import InspectionUpdateView
+from .views import InspectionUpdateView
 
 app_name = "Inspectionapp"
 
