@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
+    <form action="{% url 'Appearanceapp:update' target_Appearance.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+<!--        {{ form }}-->
+<!--        {% bootstrap_form form %}-->
+        <h2 style="text-align: left">1. Appeaeance Inspection</h2>
+        <h2 style="text-align: left">1) Packaging Condition</h2>
+<!--        <div class="form-group is-valid">-->
+<!--                <input type="text" name="Instrument_SN" maxlength="50" class="form-control is-invalid" placeholder="Instrument_SN" title="" required="False" id="Instrument_SN">-->
+<!--        </div>-->
+        <table class="table table-bordered" >
+          <tbody>
+            <tr>
+            <td rowspan="7" style="background-color: blanchedalmond">Visual<br>Inspection</td>
+            <td colspan="2" style="background-color: blanchedalmond">Category </td>
+            <td colspan="2" style="background-color: blanchedalmond">Factor </td>
+            <td colspan="6" style="background-color: blanchedalmond">Determine to</td>
+            <td style="background-color: blanchedalmond">Image Upload</td>
+            </tr>
+            <tr>
+            <td colspan="2">Shock Watch</td>
+            <td colspan="2">Damage</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="No">
+                  <label class="form-check-label" for="Appearance_Shock_Watch">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="Yes">
+                  <label class="form-check-label" for="Appearance_Shock_Watch">Yes</label>
+                </div>
+            </td>
+            <td>
+                <div class="form-group is-invalid">
+                    <input type="file" name="Appearance_Shock_Watch_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Shock_Watch_Image">
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Binding</td>
+            <td colspan="2">Installed</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Binding" id="Appearance_Binding" value="No">
+                  <label class="form-check-label" for="Appearance_Binding">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Binding" id="Appearance_Binding" value="Yes">
+                  <label class="form-check-label" for="Appearance_Binding">Yes</label>
+                </div>
+            </td>
+            <td >
+               <div class="form-group is-invalid">
+                   <input type="file" name="Appearance_Binding_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Binding_Image">
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Labels</td>
+            <td colspan="2">Tagged</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Labels" id="Appearance_Labels" value="No">
+                  <label class="form-check-label" for="Appearance_Labels">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Labels" id="Appearance_Labels" value="Yes">
+                  <label class="form-check-label" for="Appearance_Labels">Yes</label>
+                </div>
+            </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Appearance_Labels_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Labels_Image">
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Packaging_Box</td>
+            <td colspan="2">Damage</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="Packaging_Box" id="Appearance_Packaging_Box" value="No">
+                    <label class="form-check-label" for="Appearance_Packaging_Box">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Packaging_Box" id="Appearance_Packaging_Box" value="Yes">
+                  <label class="form-check-label" for="Appearance_Packaging_Box">Yes</label>
+                </div>
+            </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Appearance_Packaging_Box_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Packaging_Box_Image">
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Wooden Pallet</td>
+            <td colspan="2">Damage</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Wooden_Pallet" id="Appearance_Wooden_Pallet" value="No">
+                  <label class="form-check-label" for="Appearance_Wooden_Pallet">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Wooden_Pallet" id="Appearance_Wooden_Pallet" value="Yes">
+                  <label class="form-check-label" for="Appearance_Wooden_Pallet">Yes</label>
+                </div>
+            </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Appearance_Wooden_Pallet_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Wooden_Pallet_Image">
+                </div>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2">Trasport Jig</td>
+            <td colspan="2">Installed</td>
+            <td colspan="6">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="No">
+                  <label class="form-check-label" for="Appearance_Transport_Jig">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="Yes">
+                  <label class="form-check-label" for="Appearance_Transport_Jig">Yes</label>
+                </div>
+            </td>
+            <td >
+                <div class="form-group is-invalid">
+                   <input type="file" name="Appearance_Transport_Jig_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Transport_Jig_Image">
+                </div>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+         <div style="text-align: left">
+            <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성" disabled>
+        </div>
+         <div class="form-group is-invalid" style="text-align: left">
+<!--             <input type="file" name="Video" accept="video/*" class="form-control-file" title="" required="" id="id_Video">-->
+         </div>
+         <div style="text-align: right">
+            <input type="submit" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
