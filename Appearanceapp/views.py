@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -6,6 +7,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
 from Inspectionapp.models import Inspection
@@ -14,6 +16,8 @@ from Appearanceapp.forms import AppearanceUpdateForm
 
 has_ownership = [User_ownership_required]
 
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
 class AppearanceUpdateView(UpdateView):
     model = Inspection
     context_object_name = 'target_Appearance'

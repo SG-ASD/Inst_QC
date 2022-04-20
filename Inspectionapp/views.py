@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -10,9 +11,10 @@ from .decorators import Inspection_ownership_required
 from .models import Inspection
 from .forms import InspectionUpdateForm
 
+has_ownership = [Inspection_ownership_required, login_required]
 
-@method_decorator(Inspection_ownership_required, 'get')
-@method_decorator(Inspection_ownership_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class InspectionUpdateView(UpdateView):
     model = Inspection
     form_class = InspectionUpdateForm
@@ -28,4 +30,4 @@ class InspectionUpdateView(UpdateView):
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
         print(f"success: {self.object}")
-        return reverse("Inspectionapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Appearanceapp:update", kwargs={"Instrument_SN": self.object})
