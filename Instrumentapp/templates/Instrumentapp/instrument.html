@@ -121,10 +121,11 @@
           <td>
             {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
             {% else %}
-              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"
-                      data-bs-name="{{ instrument.Name }}" data-bs-SN="{{ instrument.Instrument_SN_id }}">
+               <a href="{%  url 'Inspectionapp:update' instrument.Instrument_SN_id %}">
+              <button type="button" class="btn btn-outline-primary">
                 Start
               </button>
+               </a>
             {% endif %}
           </td>
         </tr>
@@ -190,7 +191,6 @@
     <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <form action="{% url 'Inspectionapp:update' pk=5%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="modal-header">
               <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
@@ -230,10 +230,8 @@
               <button type="submit" class="btn btn-primary">
                 확인
               </button>
-
               <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" href="#">취소</button>
             </div>
-          </form>
         </div>
       </div>
     </div>
