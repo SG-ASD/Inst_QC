@@ -81,7 +81,12 @@
 
 
                 <div style="text-align: right">
-                    <button type="submit" class="btn btn-primary" onclick="alert_save()">저장</button>
+                    <a id="save" class="update_SN" href="{% url 'Inspectionapp:update' target_Inspection.Instrument_SN_id %}">
+                        <button type="submit" class="btn btn-primary" onclick="alert_save()">저장</button>
+                    </a>
+                    <a id="next" class="update_SN" href="{% url 'Mainapp:index' %}">
+                      <button type="submit" class="btn btn-primary" onclick="alert_save()">다음</button>
+                    </a>
                 </div>
             </form>
         </div>
