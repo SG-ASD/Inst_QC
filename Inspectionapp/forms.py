@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from Inspectionapp.models import Inspection
+from .models import Inspection
 
 
 class InspectionUpdateForm(ModelForm):

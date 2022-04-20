@@ -2,267 +2,279 @@
 
 {% block content %}
 <main class="site-body">
-  <div class="main-header">
-      <h1>장비 목록</h1>
-  </div>
-
-  <div class="contents">
-
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid">
-        <form class="d-flex" action="" method="get">
-          <input class="form-control me-2" type="search" placeholder="장비 S/N" name="q" aria-label="Search" value="{{ q }}">
-          <button class="btn btn-primary" type="submit">조회</button>
-        </form>
-        <button type="button" class="cp-ic-button circle newreview" data-bs-toggle="modal" data-bs-target="#addModal">
-          장비 추가
-        </button>
-      </div>
-    </nav>
-
-    <!-- 장비 현황 리스트 -->
-    <table class="table table-hover">
-      <thead>
-        <tr class="text-center">
-          <th scope="col">No.</th>
-          <th scope="col">
-            장비명
-            <form method="get" action="" class="selected">
-              <select name="inst_name" class="form-select" aria-label="Default select example" onchange="location=this.value;">
-                <option value="">장비명</option>
-                <option value="?inst_name=">전체</option>
-                {% for category in subcategory_list %}
-                  <option value="?inst_name={{ category.Subcategory }}">{{ category.Subcategory }}</option>
-                {% endfor %}
-              </select>
+  <div class="container-fluid px-10">
+    <div class="bg-light text-center rounded p-4">
+      <div class="contents">
+        <h1>장비 목록</h1>
+        <nav class="navbar navbar-light bg-light">
+          <div class="container-fluid">
+            <form class="d-flex" action="" method="get">
+              <input class="form-control me-2" type="search" placeholder="장비 S/N" name="q" aria-label="Search" value="{{ q }}">
+              <button class="btn btn-primary" type="submit">조회</button>
             </form>
-          </th>
-          <th scope="col">장비 S/N</th>
-          <th scope="col">컴퓨터 S/N</th>
-          <th scope="col">
-            시작일
-            <form method="get" action="" class="selected">
-              <select name="start_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">
-                <option value="" selected>순서</option>
-                <option value="?start_date=오름차순">오름차순</option>
-                <option value="?start_date=내림차순">내림차순</option>
-              </select>
-            </form>
-          </th>
-          <th scope="col">
-            완료일
-            <form method="get" action="" class="selected">
-              <select name="completed_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">
-                <option value="" selected>순서</option>
-                <option value="?completed_date=오름차순">오름차순</option>
-                <option value="?completed_date=내림차순">내림차순</option>
-              </select>
-            </form>
-          </th>
-          <th scope="col">
-            검사자
-            <form method="get" action="" class="selected">
-              <select name="inspector" class="form-select" aria-label="Default select example" onchange="location=this.value;">
-                <option value="" selected>순서</option>
-                <option value="?inspector=오름차순">오름차순</option>
-                <option value="?inspector=내림차순">내림차순</option>
-              </select>
-            </form>
-          </th>
-          <th scope="col">
-            현황
-            <form method="get" action="" class="selected">
-              <select name="status" class="form-select" aria-label="Default select example" onchange="location=this.value;">
-                <option value="" selected>상태</option>
-                <option value="?status=">전체</option>
-                <option value="?status=검사대기">검사대기</option>
-                <option value="?status=검사진행중">검사진행중</option>
-                <option value="?status=부적합">부적합</option>
-                <option value="?status=재검사중">재검사중</option>
-                <option value="?status=검사완료">검사완료</option>
-              </select>
-            </form>
-          </th>
-          <th scope="col">검사</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% if inspection_list %}
-      {% for instrument in inspection_list %}
-        <tr class="text-center">
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ instrument.Name }}</td>
-          <td>{{ instrument.Instrument_SN_id }}</td>
-          <td>{{ instrument.Computer_SN }}</td>
-          <td>
-            {% if instrument.Start_Date != null %}
-              {{ instrument.Start_Date|date:'Y-m-d' }}
-            {% endif %}
-          </td>
-          <td>
-            {% if instrument.Completed_Date != null %}
-              {{ instrument.Completed_Date|date:'Y-m-d' }}
-            {% endif %}
-          </td>
-          <td>{{ instrument.Inspector }}</td>
-          <td>
-            {% if instrument.Status == "검사대기" %}
-              <h4><span class="badge rounded-pill bg-primary ">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "검사진행중" %}
-              <h4><span class="badge rounded-pill bg-secondary">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "부적합" %}
-              <h4><span class="badge rounded-pill bg-danger">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "재검사중" %}
-              <h4><span class="badge rounded-pill bg-warning text-dark">{{ instrument.Status }}</span></h4>
-            {% elif instrument.Status == "검사완료" %}
-              <h4><span class="badge rounded-pill bg-success">{{ instrument.Status }}</span></h4>
-            {% endif %}
-          </td>
-          <td>
-            {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
-            {% else %}
-               <a href="{%  url 'Inspectionapp:update' instrument.Instrument_SN_id %}">
-              <button type="button" class="btn btn-outline-primary">
-                Start
-              </button>
-               </a>
-            {% endif %}
-          </td>
-        </tr>
-      {% endfor %}
-      {% else %} <!-- 게시글 쿼리셋이 존재하지 않을 때-->
-        {% if q %} <!-- 검색어와 일치하는 결과가 없을 때 -->
-        <tr class="text-center">
-          <td colspan="9">일치하는 검색 결과가 없습니다.</td>
-        </tr>
-        {% else %} <!-- 검색어가 없을 때 -->
-        <tr class="text-center">
-          <td colspan="9"></td>
-        </tr>
-        {% endif %}
-      {% endif %}
-      </tbody>
-    </table>
-
-    <!-- 장비 추가 모달 -->
-    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addModalLabel">장비 추가</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="cp-ic-button circle newreview" data-bs-toggle="modal" data-bs-target="#addModal">
+              장비 추가
+            </button>
           </div>
-          <form action="" method="post" class="selected">
-            {% csrf_token %}
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">장비명</th>
-                    <th scope="col">장비 S/N</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <select class="form-select" aria-label="Default select example" name="s1">
-                        {% for category in subcategory_list %}
-                          <option value={{ category.Subcategory }}>{{ category.Subcategory }}</option>
-                        {% endfor %}
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" class="form-control" aria-label="Instrument_SN" aria-describedby="addon-wrapping" name="s2">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        </nav>
+
+        <!-- 장비 현황 리스트 -->
+        <table class="table table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">No.</th>
+              <th scope="col">
+                장비명
+                <form method="get" action="" class="selected">
+                  <select name="inst_name" class="form-select" aria-label="Default select example" onchange="location=this.value;">
+                    <option value="">장비명</option>
+                    <option value="?inst_name=">전체</option>
+                    {% for category in subcategory_list %}
+                      <option value="?inst_name={{ category.Subcategory }}">{{ category.Subcategory }}</option>
+                    {% endfor %}
+                  </select>
+                </form>
+              </th>
+              <th scope="col">장비 S/N</th>
+              <th scope="col">컴퓨터 S/N</th>
+              <th scope="col">
+                시작일
+                <form method="get" action="" class="selected">
+                  <select name="start_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">
+                    <option value="" selected>순서</option>
+                    <option value="?start_date=오름차순">오름차순</option>
+                    <option value="?start_date=내림차순">내림차순</option>
+                  </select>
+                </form>
+              </th>
+              <th scope="col">
+                완료일
+                <form method="get" action="" class="selected">
+                  <select name="completed_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">
+                    <option value="" selected>순서</option>
+                    <option value="?completed_date=오름차순">오름차순</option>
+                    <option value="?completed_date=내림차순">내림차순</option>
+                  </select>
+                </form>
+              </th>
+              <th scope="col">
+                검사자
+                <form method="get" action="" class="selected">
+                  <select name="inspector" class="form-select" aria-label="Default select example" onchange="location=this.value;">
+                    <option value="" selected>순서</option>
+                    <option value="?inspector=오름차순">오름차순</option>
+                    <option value="?inspector=내림차순">내림차순</option>
+                  </select>
+                </form>
+              </th>
+              <th scope="col">
+                현황
+                <form method="get" action="" class="selected">
+                  <select name="status" class="form-select" aria-label="Default select example" onchange="location=this.value;">
+                    <option value="" selected>상태</option>
+                    <option value="?status=">전체</option>
+                    <option value="?status=검사대기">검사대기</option>
+                    <option value="?status=검사진행중">검사진행중</option>
+                    <option value="?status=부적합">부적합</option>
+                    <option value="?status=재검사중">재검사중</option>
+                    <option value="?status=검사완료">검사완료</option>
+                  </select>
+                </form>
+              </th>
+              <th scope="col">검사</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% if inspection_list %}
+            {% for instrument in inspection_list %}
+              <tr class="text-center">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ instrument.Name }}</td>
+                <td>{{ instrument.Instrument_SN_id }}</td>
+                <td>{{ instrument.Computer_SN }}</td>
+                <td>
+                  {% if instrument.Start_Date != null %}
+                    {{ instrument.Start_Date|date:'Y-m-d' }}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if instrument.Completed_Date != null %}
+                    {{ instrument.Completed_Date|date:'Y-m-d' }}
+                  {% endif %}
+                </td>
+                <td>{{ instrument.Inspector }}</td>
+                <td>
+                  {% if instrument.Status == "검사대기" %}
+                    <h4><span class="badge rounded-pill bg-primary ">{{ instrument.Status }}</span></h4>
+                  {% elif instrument.Status == "검사진행중" %}
+                    <h4><span class="badge rounded-pill bg-secondary">{{ instrument.Status }}</span></h4>
+                  {% elif instrument.Status == "부적합" %}
+                    <h4><span class="badge rounded-pill bg-danger">{{ instrument.Status }}</span></h4>
+                  {% elif instrument.Status == "재검사중" %}
+                    <h4><span class="badge rounded-pill bg-warning text-dark">{{ instrument.Status }}</span></h4>
+                  {% elif instrument.Status == "검사완료" %}
+                    <h4><span class="badge rounded-pill bg-success">{{ instrument.Status }}</span></h4>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
+                  {% else %}
+    <!--                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#startModal"-->
+    <!--                        data-bs-name="{{ instrument.Name }}" data-SN="{{ instrument.Instrument_SN_id }}">-->
+    <!--                  Start-->
+    <!--                </button>-->
+                    <a href="{% url 'Inspectionapp:update' instrument.Instrument_SN_id %}">
+                      <button type="button" class="btn btn-outline-primary" >
+                        Start
+                      </button>
+                    </a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %} <!-- 게시글 쿼리셋이 존재하지 않을 때-->
+            {% if q %} <!-- 검색어와 일치하는 결과가 없을 때 -->
+            <tr class="text-center">
+              <td colspan="9">일치하는 검색 결과가 없습니다.</td>
+            </tr>
+            {% else %} <!-- 검색어가 없을 때 -->
+            <tr class="text-center">
+              <td colspan="9"></td>
+            </tr>
+            {% endif %}
+          {% endif %}
+          </tbody>
+        </table>
+
+        <!-- 장비 추가 모달 -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">장비 추가</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="" method="post" class="selected">
+                {% csrf_token %}
+                <div class="modal-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">장비명</th>
+                        <th scope="col">장비 S/N</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <select class="form-select" aria-label="Default select example" name="s1">
+                            {% for category in subcategory_list %}
+                              <option value={{ category.Subcategory }}>{{ category.Subcategory }}</option>
+                            {% endfor %}
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" aria-label="Instrument_SN" aria-describedby="addon-wrapping" name="s2">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">확인</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >취소</button>
+                </div>
+              </form>
             </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">확인</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >취소</button>
-            </div>
-          </form>
+          </div>
         </div>
+
+        <!-- 성적서 생성 모달 -->
+        <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-bordered">
+                  <tr>
+                    <th scope="row">장비명</th>
+                    <td>
+                      <h6 class="text-name"></h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">장비 S/N</th>
+                    <td>
+                      <h6 class="text-SN"></h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">담당자</th>
+                    <td>
+                      <input type="text" id="inspector" aria-label="Instrument_Name" aria-describedby="addon-wrapping" name="inspector">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">시작일</th>
+                    <td>
+                      <div class="form-group is-valid">
+                        <input type="date" maxlength="50" class="form-control" placeholder="Start_Date" id="Start_Date" name="start_date">
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="modal-footer">
+    <!--            <form action="{% url 'Inspectionapp:update' 'G003' %}" method="post" enctype="multipart/form-data" class="update_SN">-->
+    <!--              {% csrf_token %}-->
+                <a id="update_SN" class="update_SN" href="#">
+                  <button type="submit" class="btn btn-primary">확인</button>
+                </a>
+    <!--            </form>-->
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" href="#">취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+          const startModal = document.getElementById('startModal');  // 주어진 문자열과 일치하는 id 속성을 가진 요소를 찾고, 이를 나타내는 Element 객체 반환
+          startModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            const button = event.relatedTarget;
+            // Extract info from data-bs-* attributes
+            const name = button.getAttribute('data-bs-name');  // 선택한 요소의 특정 속성 값 반환
+            const SN = button.getAttribute('data-SN');  // button의 data-SN 속성 값 반환
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            // querySelector() : 특정 name, id, class를 제한하지 않고 css 선택자를 사용하여 요소를 반환
+            // querySelector(#section) : id=section인 요소를 반환
+            // querySelector(.section) : class=section인 요소를 반환
+            const instrument_name = startModal.querySelector('.text-name')
+            const instrument_SN = startModal.querySelector('.text-SN')
+            const instrument_inspector = startModal.querySelector('.text-inspector')
+            const update_SN = startModal.querySelector('.update_SN')
+
+            // modalTitle.textContent = 'New message to ' + recipient
+            // modalBodyInput.value = name
+            instrument_name.textContent = name
+            instrument_SN.textContent = SN
+            instrument_inspector.value = ""
+            update_SN.textContent = SN
+            // print()
+          })
+          $('#startModal').on('show.bs.modal', function (event) {
+            const data = $(event.relatedTarget).data('SN');
+            $(".modal-body #result").val(data);
+          });
+        </script>
       </div>
     </div>
-
-    <!-- 성적서 생성 모달 -->
-    <div class="modal fade" id="startModal" tabindex="-1" aria-labelledby="startModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            {% csrf_token %}
-            <div class="modal-header">
-              <h5 class="modal-title" id="startModalLabel">성적서 생성</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table table-bordered">
-                <tr>
-                  <th scope="row">장비명</th>
-                  <td>
-                    <h6 class="text-name"></h6>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">장비 S/N</th>
-                  <td>
-                    <h6 class="text-SN"></h6>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">담당자</th>
-                  <td>
-                    <input type="text" class="text-inspector" aria-label="Instrument_Name" aria-describedby="addon-wrapping" name="inspector">
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">시작일</th>
-                  <td>
-                    <div class="form-group is-valid">
-                      <input type="date" maxlength="50" class="form-control" placeholder="Start_Date" id="Start_Date" name="start_date">
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">
-                확인
-              </button>
-              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" href="#">취소</button>
-            </div>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    var startModal = document.getElementById('startModal')
-    startModal.addEventListener('show.bs.modal', function (event) {
-      // Button that triggered the modal
-      var button = event.relatedTarget
-      // Extract info from data-bs-* attributes
-      var name = button.getAttribute('data-bs-name')
-      var SN = button.getAttribute('data-bs-SN')
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
-      //
-      // Update the modal's content.
-      // var modalTitle = startModal.querySelector('.modal-title')
-      // var modalBodyInput = exampleModal.querySelector('.modal-body input')
-      var instrument_name = startModal.querySelector('.text-name')
-      var instrument_SN = startModal.querySelector('.text-SN')
-      var instrument_inspector = startModal.querySelector('.text-inspector')
-
-      // modalTitle.textContent = 'New message to ' + recipient
-      // modalBodyInput.value = name
-      instrument_name.textContent = name
-      instrument_SN.textContent = SN
-      instrument_inspector.value = ""
-      // print()
-    })
-    </script>
   </div>
 </main>
 {% endblock content %}

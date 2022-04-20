@@ -178,4 +178,4 @@ class Inspection(models.Model):
     Attachment_Files = models.FileField(upload_to="report/", null=True, blank=True)
 
     def __str__(self):
-        return self.Instrument_SN
+        return self.Instrument_SN_id
