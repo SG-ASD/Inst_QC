@@ -2,13 +2,8 @@
 {% load bootstrap4 %}
 {% block content %}
 
-
-{% for data in target_Inspection %}
-    {{ data }}
-{% endfor %}
-
 <div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
-<!--    <form action="{% url 'Inspectionapp:update' pk=target_Inspection.pk %}" method="post" enctype="multipart/form-data">-->
+    <form action="{% url 'Inspectionapp:update' Instrument_SN=target_Inspection.Instrument_SN %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 <!--        {{ form }}-->
         {% bootstrap_form form %}
@@ -156,7 +151,7 @@
             <input type="submit" class="btn btn-primary">
         </div>
 <!--    </div>-->
-<!--    </form>-->
+    </form>
 </div>
 </div>
 {% endblock %}

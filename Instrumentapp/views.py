@@ -25,6 +25,9 @@ class InstrumentListView(ListView):
     context_object_name = "inspection_list"
     pk_url_kwarg = "category"
 
+    def get_success_url(self):
+        return reverse('Inspection:update', kwargs={'pk': self.object.pk})
+
     @transaction.atomic
     def get_queryset(self):
         # instrument_name = self.kwargs.get("instrument_name")
