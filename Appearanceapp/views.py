@@ -11,14 +11,15 @@ from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
+from Appearanceapp.decorators import Appearance_ownership_required
 from Inspectionapp.models import Inspection, Inspection_Category
 from Userapp.decorators import User_ownership_required
 from Appearanceapp.forms import AppearanceUpdateForm
 
-has_ownership = [User_ownership_required]
+has_ownership = [login_required, Appearance_ownership_required]
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AppearanceUpdateView(UpdateView):
     model = Inspection
     form_class = AppearanceUpdateForm
@@ -36,7 +37,6 @@ class AppearanceUpdateView(UpdateView):
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_subcategory"] = Inspection_Category.objects.distinct().values_list('Subcategory', flat=True)
         print(f"context : {context}")
-
         return context
 
     def get_success_url(self):

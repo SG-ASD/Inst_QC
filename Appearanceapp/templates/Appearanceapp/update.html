@@ -19,7 +19,7 @@
         </select>
         <div style="text-align: left">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass">
+              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">
               <label class="form-check-label" for="all_pass">
                 All Pass
               </label>
@@ -42,20 +42,29 @@
             <td colspan="2">Damage</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="No"
+                    <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch1" value="No"
                            {% if target_Appearance.Appearance_Shock_Watch == 'No' %} checked{% endif %}>
-                    <label class="form-check-label" for="Appearance_Shock_Watch">No</label>
+                    <label class="form-check-label" for="Appearance_Shock_Watch1">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="Yes"
+                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch2" value="Yes"
                   {% if target_Appearance.Appearance_Shock_Watch == 'Yes' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Shock_Watch">Yes</label>
+                  <label class="form-check-label" for="Appearance_Shock_Watch2">Yes</label>
                 </div>
             </td>
             <td>
-                <div class="form-group is-invalid">
-                    <input type="file" name="Appearance_Shock_Watch_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Shock_Watch_Image">
-                </div>
+                 <div class="input-group mb-3">
+                    <div class="container">
+                        <div class="row">
+                        <input class="form-control" type="file" id="Appearance_Shock_Watch_Image" name="Appearance_Shock_Watch_Image">
+                        </div>
+                        <div class="row">
+                        {% if target_Appearance.Appearance_Shock_Watch_Image %}
+                            {{ target_Appearance.Appearance_Shock_Watch_Image }}
+                        {% endif %}
+                        </div>
+                    </div>
+               </div>
             </td>
             </tr>
             <tr>
@@ -63,22 +72,27 @@
             <td colspan="2">Installed</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding" value="No"
+                  <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding1" value="No"
                   {% if target_Appearance.Appearance_Binding == 'No' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Binding">No</label>
+                  <label class="form-check-label" for="Appearance_Binding1">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding" value="Yes"
+                  <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding2" value="Yes"
                   {% if target_Appearance.Appearance_Binding == 'Yes' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Binding">Yes</label>
+                  <label class="form-check-label" for="Appearance_Binding2">Yes</label>
                 </div>
             </td>
             <td >
-               <div class="file-content">
+               <div class="input-group mb-3">
+                 <div class="container">
+                    <div class="row">
+                   <input class="form-control" type="file" id="Appearance_Binding_Image" name="Appearance_Binding_Image">
+                    </div>
+                    <div class="row">
                     {% if target_Appearance.Appearance_Binding_Image %}
                         {{ target_Appearance.Appearance_Binding_Image }}
                     {% endif %}
-                    {{ form.Appearance_Binding_Image }}
+                    </div>
                </div>
             </td>
             </tr>
@@ -87,22 +101,27 @@
             <td colspan="2">Tagged</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels" value="No"
+                  <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels1" value="No"
                   {% if target_Appearance.Appearance_Labels == 'No' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Labels">No</label>
+                  <label class="form-check-label" for="Appearance_Labels1">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels" value="Yes"
+                  <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels2" value="Yes"
                   {% if target_Appearance.Appearance_Labels == 'Yes' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Labels">Yes</label>
+                  <label class="form-check-label" for="Appearance_Labels2">Yes</label>
                 </div>
             </td>
             <td >
                 <div class="file-content">
-                    {% if target_Appearance.Appearance_Labels_Image %}
-                        {{ target_Appearance.Appearance_Labels_Image }}
-                    {% endif %}
-                    {{ form.Appearance_Labels_Image }}
+                    <div class="container">
+                    <div class="row">
+                    <input class="form-control" type="file" id="Appearance_Labels_Image" name="Appearance_Labels_Image">
+                    </div>
+                    <div class="row">
+                        {% if target_Appearance.Appearance_Labels_Image %}
+                            {{ target_Appearance.Appearance_Labels_Image }}
+                        {% endif %}
+                    </div>
                 </div>
             </td>
             </tr>
@@ -111,23 +130,30 @@
             <td colspan="2">Damage</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box" value="No"
+                    <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box1" value="No"
                     {% if target_Appearance.Appearance_Packaging_Box == 'No' %} checked{% endif %}>
-                    <label class="form-check-label" for="Appearance_Packaging_Box">No</label>
+                    <label class="form-check-label" for="Appearance_Packaging_Box1">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box" value="Yes"
+                  <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box2" value="Yes"
                   {% if target_Appearance.Appearance_Packaging_Box == 'Yes' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Packaging_Box">Yes</label>
+                  <label class="form-check-label" for="Appearance_Packaging_Box2">Yes</label>
                 </div>
             </td>
             <td >
-                <div class="file-content">
+                <div class="mb-3">
+                    <div class="container">
+                    <div class="row">
+                    <input class="form-control" type="file" id="Appearance_Packaging_Box_Image" name="Appearance_Packaging_Box_Image">
+                    </div>
+                    <div class="row">
                     {% if target_Appearance.Appearance_Packaging_Box_Image %}
                         {{ target_Appearance.Appearance_Packaging_Box_Image }}
                     {% endif %}
-                    {{ form.Appearance_Packaging_Box_Image }}
+                    </div>
                 </div>
+            </td>
+
             </td>
             </tr>
             <tr>
@@ -135,22 +161,27 @@
             <td colspan="2">Damage</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet" value="No"
+                  <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet1" value="No"
                   {% if target_Appearance.Appearance_Wooden_Pallet == 'No' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Wooden_Pallet">No</label>
+                  <label class="form-check-label" for="Appearance_Wooden_Pallet1">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet" value="Yes"
+                  <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet2" value="Yes"
                   {% if target_Appearance.Appearance_Wooden_Pallet == 'Yes' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Wooden_Pallet">Yes</label>
+                  <label class="form-check-label" for="Appearance_Wooden_Pallet2">Yes</label>
                 </div>
             </td>
             <td >
                 <div class="file-content">
+                    <div class="container">
+                    <div class="row">
+                    <input class="form-control" type="file" id="Appearance_Wooden_Pallet_Image" name="Appearance_Wooden_Pallet_Image">
+                    </div>
+                    <div class="row">
                     {% if target_Appearance.Appearance_Wooden_Pallet_Image %}
                         {{ target_Appearance.Appearance_Wooden_Pallet_Image }}
                     {% endif %}
-                    {{ form.Appearance_Wooden_Pallet_Image }}
+                    </div>
                 </div>
             </td>
             </tr>
@@ -159,34 +190,43 @@
             <td colspan="2">Installed</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="No"
+                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig1" value="No"
                   {% if target_Appearance.Appearance_Transport_Jig == 'No' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Transport_Jig">No</label>
+                  <label class="form-check-label" for="Appearance_Transport_Jig1">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="Yes"
+                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig2" value="Yes"
                   {% if target_Appearance.Appearance_Transport_Jig == 'Yes' %} checked{% endif %}>
-                  <label class="form-check-label" for="Appearance_Transport_Jig">Yes</label>
+                  <label class="form-check-label" for="Appearance_Transport_Jig2">Yes</label>
                 </div>
             </td>
-            <td >
+            <td>
                 <div class="file-content">
-                    {% if target_Appearance.Appearance_Transport_Jig_Image %}
-                        {{ target_Appearance.Appearance_Transport_Jig_Image }}
-                    {% endif %}
-                    {{ form.Appearance_Transport_Jig_Image }}
+                    <div class="container">
+                    <div class="row">
+                    <input class="form-control" type="file" id="Appearance_Transport_Jig_Image" name="Appearance_Transport_Jig_Image">
+                    </div>
+                    <div class="row">
+                        {% if target_Appearance.Appearance_Transport_Jig_Image %}
+                            {{ target_Appearance.Appearance_Transport_Jig_Image }}
+                        {% endif %}
+                    </div>
+                    </div>
                 </div>
             </td>
             </tr>
           </tbody>
         </table>
         <div class="container px-4">
-          <div class="row">
+            <div class="row">
+            <div class="row">
+                <input class="form-control" type="file" id="Appearance_Video" name="Appearance_Video" accept="video/*">
+            </div>
+            <div class="row" style="text-align: left; font-size: 1rem">
               <div class="file-content mb-4">
                     {% if target_Appearance.Appearance_Video %}
                         {{ target_Appearance.Appearance_Video }}
                     {% endif %}
-                    {{ form.Appearance_Video }}
               </div>
               <div class="col">
                   <div style="text-align: left">
@@ -211,6 +251,22 @@
         }
         else {
             alert("unchecked");
+        }
+
+        function onchange_check() {
+            const Appearance_Shock_Watch = document.getElementById('Appearance_Shock_Watch1');
+            const Appearance_Binding = document.getElementById('Appearance_Binding2');
+            const Appearance_Labels = document.getElementById('Appearance_Labels2');
+            const Appearance_Packaging_Box = document.getElementById('Appearance_Packaging_Box1');
+            const Appearance_Wooden_Pallet = document.getElementById('Appearance_Wooden_Pallet1');
+            const Appearance_Transport_Jig = document.getElementById('Appearance_Transport_Jig2');
+
+            Appearance_Shock_Watch.click()
+            Appearance_Binding.click()
+            Appearance_Labels.click()
+            Appearance_Packaging_Box.click()
+            Appearance_Wooden_Pallet.click()
+            Appearance_Transport_Jig.click()
         }
 
     </script>
