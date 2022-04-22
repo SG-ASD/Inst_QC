@@ -13,21 +13,19 @@ from .forms import InspectionUpdateForm
 
 has_ownership = [Inspection_ownership_required, login_required]
 
+
 @method_decorator(has_ownership, 'get')
 @method_decorator(has_ownership, 'post')
 class InspectionUpdateView(UpdateView):
     model = Inspection
     form_class = InspectionUpdateForm
     template_name = 'Inspectionapp/update.html'
-    pk_url_kwarg = "instrument_SN"
     context_object_name = 'target_Inspection'
 
     def get_object(self):
-        self.object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
-        print(f"object : {self.object}")
-        return self.object
+        object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
+        return object
 
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
-        print(f"success: {self.object}")
         return reverse("Appearanceapp:update", kwargs={"Instrument_SN": self.object})

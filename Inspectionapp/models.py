@@ -33,13 +33,15 @@ class Inspection(models.Model):
     Appearance_Packaging_Box = models.CharField(max_length=20, blank=True)
     Appearance_Wooden_Pallet = models.CharField(max_length=20, blank=True)
     Appearance_Transport_Jig = models.CharField(max_length=20, blank=True)
-    Appearance_Shock_Watch_Image = models.ImageField(upload_to='Appearance/', null=True, blank=True)
-    Appearance_Binding_Image = models.ImageField(upload_to='Appearance/', null=True, blank=True)
-    Appearance_Labels_Image = models.ImageField(upload_to='Appearance/', null=True, blank=True)
-    Appearance_Packaging_Box_Image = models.ImageField(upload_to='Appearance/', null=True, blank=True)
-    Appearance_Wooden_Pallet_Image = models.ImageField(upload_to='Appearance/', null=True, blank=True)
-    Appearance_Transport_Jig_Image = models.ImageField(upload_to='Appearance/', null=True, blank=True)
-    Appearance_Video = models.FileField(upload_to="video/", null=True, blank=True)
+
+    Appearance_Shock_Watch_Image = models.ImageField(upload_to='Appearance/', blank=True)
+    Appearance_Binding_Image = models.ImageField(upload_to='Appearance/', blank=True)
+    Appearance_Labels_Image = models.ImageField(upload_to='Appearance/', blank=True)
+    Appearance_Packaging_Box_Image = models.ImageField(upload_to='Appearance/', blank=True)
+    Appearance_Wooden_Pallet_Image = models.ImageField(upload_to='Appearance/', blank=True)
+    Appearance_Transport_Jig_Image = models.ImageField(upload_to='Appearance/', blank=True)
+    Appearance_Video = models.FileField(upload_to="video/", blank=True)
+
     Appearance_Front = models.CharField(max_length=20, blank=True)
     Appearance_Top = models.CharField(max_length=20, blank=True)
     Appearance_Right = models.CharField(max_length=20, blank=True)
@@ -179,3 +181,11 @@ class Inspection(models.Model):
 
     def __str__(self):
         return self.Instrument_SN_id
+
+
+class Inspection_Category(models.Model):
+    Category = models.CharField(max_length=30)
+    Subcategory = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.Category
