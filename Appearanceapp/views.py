@@ -17,6 +17,7 @@ from Appearanceapp.forms import AppearanceUpdateForm
 
 has_ownership = [User_ownership_required]
 
+
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AppearanceUpdateView(UpdateView):
@@ -35,8 +36,6 @@ class AppearanceUpdateView(UpdateView):
         # subcategory = self.kwargs.get("category")
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_subcategory"] = Inspection_Category.objects.distinct().values_list('Subcategory', flat=True)
-        print(f"context : {context}")
-
         return context
 
     def get_success_url(self):

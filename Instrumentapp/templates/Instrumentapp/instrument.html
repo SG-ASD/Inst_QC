@@ -1,5 +1,7 @@
 {% extends "../base_with_navbar.html" %}
 
+{% load static %}
+
 {% block content %}
 <main class="site-body">
   <div class="container-fluid px-10">
@@ -21,11 +23,11 @@
         <!-- 장비 현황 리스트 -->
         <table class="table table-hover">
           <thead>
-            <tr class="text-center">
-              <th scope="col">No.</th>
-              <th scope="col">
-                장비명
-                <form method="get" action="" class="selected">
+            <form method="get" action="" class="selected">
+              <tr class="text-center">
+                <th scope="col">No.</th>
+                <th scope="col">
+                  장비명
                   <select name="inst_name" class="form-select" aria-label="Default select example" onchange="location=this.value;">
                     <option value="">장비명</option>
                     <option value="?inst_name=">전체</option>
@@ -33,43 +35,35 @@
                       <option value="?inst_name={{ category.Subcategory }}">{{ category.Subcategory }}</option>
                     {% endfor %}
                   </select>
-                </form>
-              </th>
-              <th scope="col">장비 S/N</th>
-              <th scope="col">컴퓨터 S/N</th>
-              <th scope="col">
-                시작일
-                <form method="get" action="" class="selected">
+                </th>
+                <th scope="col">장비 S/N</th>
+                <th scope="col">컴퓨터 S/N</th>
+                <th scope="col">
+                  시작일
                   <select name="start_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">
                     <option value="" selected>순서</option>
                     <option value="?start_date=오름차순">오름차순</option>
                     <option value="?start_date=내림차순">내림차순</option>
                   </select>
-                </form>
-              </th>
-              <th scope="col">
-                완료일
-                <form method="get" action="" class="selected">
+                </th>
+                <th scope="col">
+                  완료일
                   <select name="completed_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">
                     <option value="" selected>순서</option>
                     <option value="?completed_date=오름차순">오름차순</option>
                     <option value="?completed_date=내림차순">내림차순</option>
                   </select>
-                </form>
-              </th>
-              <th scope="col">
-                검사자
-                <form method="get" action="" class="selected">
+                </th>
+                <th scope="col">
+                  검사자
                   <select name="inspector" class="form-select" aria-label="Default select example" onchange="location=this.value;">
                     <option value="" selected>순서</option>
                     <option value="?inspector=오름차순">오름차순</option>
                     <option value="?inspector=내림차순">내림차순</option>
                   </select>
-                </form>
-              </th>
-              <th scope="col">
-                현황
-                <form method="get" action="" class="selected">
+                </th>
+                <th scope="col">
+                  현황
                   <select name="status" class="form-select" aria-label="Default select example" onchange="location=this.value;">
                     <option value="" selected>상태</option>
                     <option value="?status=">전체</option>
@@ -79,10 +73,10 @@
                     <option value="?status=재검사중">재검사중</option>
                     <option value="?status=검사완료">검사완료</option>
                   </select>
-                </form>
-              </th>
-              <th scope="col">검사</th>
-            </tr>
+                </th>
+                <th scope="col">검사</th>
+              </tr>
+            </form>
           </thead>
           <tbody>
           {% if inspection_list %}
