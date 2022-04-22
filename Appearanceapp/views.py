@@ -10,14 +10,15 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
+from Appearanceapp.decorators import Appearance_ownership_required
 from Inspectionapp.models import Inspection
 from Userapp.decorators import User_ownership_required
 from Appearanceapp.forms import AppearanceUpdateForm
 
-has_ownership = [User_ownership_required]
+has_ownership = [login_required , Appearance_ownership_required]
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AppearanceUpdateView(UpdateView):
     model = Inspection
     context_object_name = 'target_Appearance'

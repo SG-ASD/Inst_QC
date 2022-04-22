@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% block content %}
 
-<div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
+<div style="margin: 2rem auto; text-align: center; font-size: 1.5rem; ">
     <form action="{% url 'Appearanceapp:update' target_Appearance.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 <!--        {{ form }}-->
@@ -12,7 +12,7 @@
 <!--        <div class="form-group is-valid">-->
 <!--                <input type="text" name="Instrument_SN" maxlength="50" class="form-control is-invalid" placeholder="Instrument_SN" title="" required="False" id="Instrument_SN">-->
 <!--        </div>-->
-        <table class="table table-bordered" >
+        <table class="table table-bordered" style="width: 10rem">
           <tbody>
             <tr>
             <td rowspan="7" style="background-color: blanchedalmond">Visual<br>Inspection</td>
@@ -26,11 +26,13 @@
             <td colspan="2">Damage</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="No">
+                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="No"
+                  {% if target_Appearance.Appearance_Shock_Watch == 'No' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Shock_Watch">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="Yes">
+                  <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch" value="Yes"
+                  {% if target_Appearance.Appearance_Shock_Watch == 'Yes' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Shock_Watch">Yes</label>
                 </div>
             </td>
@@ -45,11 +47,13 @@
             <td colspan="2">Installed</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Binding" id="Appearance_Binding" value="No">
+                  <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding" value="No"
+                  {% if target_Appearance.Appearance_Binding == 'No' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Binding">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Binding" id="Appearance_Binding" value="Yes">
+                  <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding" value="Yes"
+                   {% if target_Appearance.Appearance_Binding == 'Yes' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Binding">Yes</label>
                 </div>
             </td>
@@ -64,11 +68,13 @@
             <td colspan="2">Tagged</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Labels" id="Appearance_Labels" value="No">
+                  <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels" value="No"
+                  {% if target_Appearance.Appearance_Labels == 'No' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Labels">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Labels" id="Appearance_Labels" value="Yes">
+                  <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels" value="Yes"
+                  {% if target_Appearance.Appearance_Labels == 'Yes' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Labels">Yes</label>
                 </div>
             </td>
@@ -83,11 +89,13 @@
             <td colspan="2">Damage</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="Packaging_Box" id="Appearance_Packaging_Box" value="No">
+                    <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box" value="No"
+                    {% if target_Appearance.Appearance_Packaging_Box == 'No' %} checked{% endif %}>
                     <label class="form-check-label" for="Appearance_Packaging_Box">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Packaging_Box" id="Appearance_Packaging_Box" value="Yes">
+                  <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box" value="Yes"
+                  {% if target_Appearance.Appearance_Packaging_Box == 'Yes' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Packaging_Box">Yes</label>
                 </div>
             </td>
@@ -102,11 +110,13 @@
             <td colspan="2">Damage</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Wooden_Pallet" id="Appearance_Wooden_Pallet" value="No">
+                  <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet" value="No"
+                  {% if target_Appearance.Appearance_Wooden_Pallet == 'No' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Wooden_Pallet">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Wooden_Pallet" id="Appearance_Wooden_Pallet" value="Yes">
+                  <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet" value="Yes"
+                  {% if target_Appearance.Appearance_Wooden_Pallet == 'Yes' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Wooden_Pallet">Yes</label>
                 </div>
             </td>
@@ -121,17 +131,19 @@
             <td colspan="2">Installed</td>
             <td colspan="6">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="No">
+                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="No"
+                  {% if target_Appearance.Appearance_Transport_Jig == 'No' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Transport_Jig">No</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="Yes">
+                  <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig" value="Yes"
+                  {% if target_Appearance.Appearance_Transport_Jig == 'Yes' %} checked{% endif %}>
                   <label class="form-check-label" for="Appearance_Transport_Jig">Yes</label>
                 </div>
             </td>
             <td >
-                <div class="form-group is-invalid">
-                   <input type="file" name="Appearance_Transport_Jig_Image" accept="image/*" class="form-control-file is-invalid" title="" required="" id="Appearance_Transport_Jig_Image">
+                <div class="mb-3">
+                  <input class="form-control" type="file" id="formFile" name="Appearance_Transport_Jig_Image" id="Appearance_Transport_Jig_Image" accept="image/*">
                 </div>
             </td>
             </tr>
