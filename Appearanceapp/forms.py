@@ -12,3 +12,10 @@ class AppearanceUpdateForm(ModelForm):
                   'Appearance_Packaging_Box_Image',
                   'Appearance_Wooden_Pallet_Image', 'Appearance_Transport_Jig_Image', 'Appearance_Video',
                   ]
+
+class AppearanceUnpackingForm(ModelForm):
+    class Meta:
+        model = Inspection
+        fields = ['Appearance_Front', 'Appearance_Top', 'Appearance_Right', 'Appearance_Left',
+                  'Appearance_Back', 'Appearance_Acc_Damage','Appearance_Acc_Missing'
+                  ]

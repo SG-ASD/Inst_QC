@@ -4,18 +4,18 @@
 {% block content %}
 
 <div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
-    <form action="{% url 'Appearanceapp:update' target_Appearance.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'Appearanceapp:update_Unpacking' target_Appearance.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 <!--        {{ form }}-->
 <!--        {% bootstrap_form form %}-->
-        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">
-            {% for category in inspection_category %}
-            <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>
-            {% endfor %}
-        </select>
-        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" required>
-            <option value="">----------</option>
-        </select>
+<!--        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">-->
+<!--            {% for category in inspection_category %}-->
+<!--            <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
+<!--            {% endfor %}-->
+<!--        </select>-->
+<!--        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" required>-->
+<!--            <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--        </select>-->
         <div style="text-align: left">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">

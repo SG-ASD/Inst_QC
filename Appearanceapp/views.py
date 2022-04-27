@@ -14,6 +14,7 @@ from django.views.generic import UpdateView
 from Inspectionapp.models import Inspection, Inspection_Category
 from Userapp.decorators import User_ownership_required
 from Appearanceapp.forms import AppearanceUpdateForm
+from Appearanceapp.forms import AppearanceUnpackingForm
 
 has_ownership = [User_ownership_required]
 
@@ -43,8 +44,25 @@ class AppearanceUpdateView(UpdateView):
         return reverse("Appearanceapp:update", kwargs={"Instrument_SN": self.object})
 
 
-    # def form_valid(self, form):
-    #     temp_Appearance = form.save(commit=False)
-    #     temp_Appearance.user = self.request.user
-    #     temp_Appearance.save()
-    #     return super().form_valid(form)
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
+class AppearanceUnpackingView(UpdateView):
+    model = Inspection
+    form_class = AppearanceUnpackingForm
+    template_name = 'Appearanceapp/Unpacking_State.html'
+    context_object_name = 'target_Unpacking_State'
+
+    @transaction.atomic
+    def get_context_data(self, **kwargs):
+        context = super(AppearanceUnpackingView, self).get_context_data(**kwargs)
+        # subcategory = self.kwargs.get("category")
+        context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
+        context["inspection_subcategory"] = Inspection_Category.objects.distinct().values_list('Subcategory', flat=True)
+        return context
+
+    def get_object(self):
+        object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
+        return object
+
+    def get_success_url(self):
+        return reverse("Appearanceapp:update_Unpacking", kwargs={"Instrument_SN": self.object})
