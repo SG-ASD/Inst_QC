@@ -1,0 +1,175 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div>
+<form action="{% url 'Appearanceapp:update_Unpacking' target_Unpacking_State.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+<!--	{{ form }}&ndash;&gt;-->
+<!--        {% bootstrap_form form %}-->
+<div class="container">
+	<div class="row">
+<!--		<div class="col-8">-->
+<!--		 <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">&ndash;&gt;-->
+<!--					{% for category in inspection_category %}-->
+<!--					<option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
+<!--					{% endfor %}-->
+<!--				</select>-->
+<!--				<select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" required>-->
+<!--					<option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--				</select>-->
+<!--			</div>-->
+		<div class="col">
+			<div style="text-align: left">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass_unpacking" onclick="onchange_check_unpacking()">
+              <label class="form-check-label" for="all_pass_unpacking">
+                All Pass
+              </label>
+            </div>
+        	</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+  <div class="row" style="height: 50rem;">
+    <div class="col-9">
+      <div class="col">
+		  <div class="text-center">
+		  	<img src="{% static 'assets/Unpacking.png' %}" class="rounded" alt="...">
+		  </div>
+	  </div>
+    </div>
+    <div class="col">
+      <div class="row">
+		  <h4>Front</h4>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Front" id="Appearance_Front1" value="Pass"
+		   {% if target_Unpacking_State.Appearance_Front == 'Pass' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Front1">
+			Pass
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Front" id="Appearance_Front2" value="Fail"
+		  {% if target_Unpacking_State.Appearance_Front == 'Fail' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Front2">
+			Fail
+		  </label>
+		  </div>
+	  </div>
+	  <div class="row">
+		  <h4>Top</h4>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Top" id="Appearance_Top1" value="Pass"
+		  {% if target_Unpacking_State.Appearance_Top == 'Pass' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Top1">
+			Pass
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Top" id="Appearance_Top2" value="Fail"
+		  {% if target_Unpacking_State.Appearance_Top == 'Fail' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Top2">
+			Fail
+		  </label>
+		  </div>
+	  </div>
+	  <div class="row">
+		  <h4>Right</h4>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Right" id="Appearance_Right1" value="Pass"
+		  {% if target_Unpacking_State.Appearance_Right == 'Pass' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Right1">
+			Pass
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Right" id="Appearance_Right2" value="Fail"
+		  {% if target_Unpacking_State.Appearance_Right == 'Fail' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Right2">
+			Fail
+		  </label>
+		  </div>
+	  </div>
+	   <div class="row">
+		  <h4>Left</h4>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Left" id="Appearance_Left1" value="Pass"
+		  {% if target_Unpacking_State.Appearance_Left == 'Pass' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Left1">
+			Pass
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Left" id="Appearance_Left2" value="Fail"
+		  {% if target_Unpacking_State.Appearance_Left == 'Fail' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Left2">
+			Fail
+		  </label>
+		  </div>
+	   <div class="row">
+		  <h4>Back</h4>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Back" id="Appearance_Back1" value="Pass"
+		  {% if target_Unpacking_State.Appearance_Back == 'Pass' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Back1">
+			Pass
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Back" id="Appearance_Back2" value="Fail"
+		  {% if target_Unpacking_State.Appearance_Back == 'Fail' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Back2">
+			Fail
+		  </label>
+		  </div>
+	   </div>
+	   <div class="row" style="margin-top: 1rem">
+		   <hr>
+		  <h4>Visual Inspection </h4>
+		   <h5> 1. Damage</h5>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Acc_Damage" id="Appearance_Acc_Damage1" value="No"
+		  {% if target_Unpacking_State.Appearance_Acc_Damage == 'No' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Acc_Damage1">
+			No
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Acc_Damage" id="Appearance_Acc_Damage2" value="Yes"
+		  {% if target_Unpacking_State.Appearance_Acc_Damage == 'Yes' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Acc_Damage2">
+			Yes
+		  </label>
+		  </div>
+	   </div>
+	     <div class="row" style="margin-top: 1rem">
+		   <h5> 2. Missing</h5>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Acc_Missing" id="Appearance_Acc_Missing1" value="No"
+		  {% if target_Unpacking_State.Appearance_Acc_Missing == 'No' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Acc_Missing1">
+			No
+		  </label>
+		  </div>
+		  <div class="form-check">
+		  <input class="form-check-input" type="radio" name="Appearance_Acc_Missing" id="Appearance_Acc_Missing2" value="Yes"
+		  {% if target_Unpacking_State.Appearance_Acc_Missing == 'Yes' %} checked{% endif %}>
+		  <label class="form-check-label" for="Appearance_Acc_Missing2">
+			Yes
+		  </label>
+	     </div>
+	     </div>
+ 	 </div>
+   </div>
+  <div style="text-align: right">
+	  <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+  </div>
+  </div>
+</div>
+</form>
+</div>
+<script src="{% static 'js/Appearanceapp.js' %}"></script>
+{% endblock %}

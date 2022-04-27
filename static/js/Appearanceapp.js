@@ -81,3 +81,22 @@ function onchange_check() {
     Appearance_Wooden_Pallet.click()
     Appearance_Transport_Jig.click()
 }
+
+function onchange_check_unpacking() {
+    debugger
+    const Appearance_Front = document.getElementById('Appearance_Front1');
+    const Appearance_Top = document.getElementById('Appearance_Top1');
+    const Appearance_Right = document.getElementById('Appearance_Right1');
+    const Appearance_Left = document.getElementById('Appearance_Left1');
+    const Appearance_Back = document.getElementById('Appearance_Back1');
+    const Appearance_Acc_Damage = document.getElementById('Appearance_Acc_Damage1');
+    const Appearance_Acc_Missing = document.getElementById('Appearance_Acc_Missing1');
+
+    Appearance_Front.click()
+    Appearance_Top.click()
+    Appearance_Right.click()
+    Appearance_Left.click()
+    Appearance_Back.click()
+    Appearance_Acc_Damage.click()
+    Appearance_Acc_Missing.click()
+}
