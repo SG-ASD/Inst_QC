@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     'bootstrap4',
     'Userapp',
     'profileapp',
-    'Instrumentapp',
     'Mainapp',
-    'Appearanceapp',
+    'Instrumentapp',
     'Inspectionapp',
+    'Appearanceapp',
+    'Electricalapp',
 ]
 
 MIDDLEWARE = [

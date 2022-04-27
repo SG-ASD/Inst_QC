@@ -1,21 +1,21 @@
 {% extends "../base_with_navbar.html" %}
 {% load static %}
 {% load bootstrap4 %}
-{% block content %}
 
+{% block content %}
 <div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
-    <form action="{% url 'Appearanceapp:update_Unpacking' target_Appearance.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-<!--        {{ form }}-->
-<!--        {% bootstrap_form form %}-->
-<!--        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">-->
-<!--            {% for category in inspection_category %}-->
-<!--            <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
-<!--            {% endfor %}-->
-<!--        </select>-->
-<!--        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" required>-->
-<!--            <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
-<!--        </select>-->
+        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">
+            {% for category in inspection_category %}
+            <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>
+            {% endfor %}
+        </select>
+        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" onchange="select_subcategory(this);">
+            {% for subcategory in inspection_subcategory %}
+            <option value="{{ subcategory }}">{{ forloop.counter }}) {{ subcategory }}</option>
+            {% endfor %}
+        </select>
         <div style="text-align: left">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">
@@ -24,9 +24,7 @@
               </label>
             </div>
         </div>
-<!--        <div class="form-group is-valid">-->
-<!--                <input type="text" name="Instrument_SN" maxlength="50" class="form-control is-invalid" placeholder="Instrument_SN" title="" required="False" id="Instrument_SN">-->
-<!--        </div>-->
+
         <table class="table table-bordered">
           <tbody>
             <tr>
@@ -47,7 +45,7 @@
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Shock_Watch" id="Appearance_Shock_Watch2" value="Yes"
-                      {% if target_Appearance.Appearance_Shock_Watch == 'Yes' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Shock_Watch == 'Yes' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Shock_Watch2">Yes</label>
                     </div>
                 </td>
@@ -72,12 +70,12 @@
                 <td colspan="6">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding1" value="No"
-                      {% if target_Appearance.Appearance_Binding == 'No' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Binding == 'No' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Binding1">No</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Binding" id="Appearance_Binding2" value="Yes"
-                      {% if target_Appearance.Appearance_Binding == 'Yes' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Binding == 'Yes' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Binding2">Yes</label>
                     </div>
                 </td>
@@ -102,12 +100,12 @@
                 <td colspan="6">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels1" value="No"
-                      {% if target_Appearance.Appearance_Labels == 'No' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Labels == 'No' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Labels1">No</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Labels" id="Appearance_Labels2" value="Yes"
-                      {% if target_Appearance.Appearance_Labels == 'Yes' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Labels == 'Yes' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Labels2">Yes</label>
                     </div>
                 </td>
@@ -132,12 +130,12 @@
                 <td colspan="6">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box1" value="No"
-                        {% if target_Appearance.Appearance_Packaging_Box == 'No' %} checked{% endif %}>
+                               {% if target_Appearance.Appearance_Packaging_Box == 'No' %} checked{% endif %}>
                         <label class="form-check-label" for="Appearance_Packaging_Box1">No</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Packaging_Box" id="Appearance_Packaging_Box2" value="Yes"
-                      {% if target_Appearance.Appearance_Packaging_Box == 'Yes' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Packaging_Box == 'Yes' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Packaging_Box2">Yes</label>
                     </div>
                 </td>
@@ -162,12 +160,12 @@
                 <td colspan="6">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet1" value="No"
-                      {% if target_Appearance.Appearance_Wooden_Pallet == 'No' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Wooden_Pallet == 'No' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Wooden_Pallet1">No</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Wooden_Pallet" id="Appearance_Wooden_Pallet2" value="Yes"
-                      {% if target_Appearance.Appearance_Wooden_Pallet == 'Yes' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Wooden_Pallet == 'Yes' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Wooden_Pallet2">Yes</label>
                     </div>
                 </td>
@@ -192,12 +190,12 @@
                 <td colspan="6">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig1" value="No"
-                      {% if target_Appearance.Appearance_Transport_Jig == 'No' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Transport_Jig == 'No' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Transport_Jig1">No</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="Appearance_Transport_Jig" id="Appearance_Transport_Jig2" value="Yes"
-                      {% if target_Appearance.Appearance_Transport_Jig == 'Yes' %} checked{% endif %}>
+                             {% if target_Appearance.Appearance_Transport_Jig == 'Yes' %} checked{% endif %}>
                       <label class="form-check-label" for="Appearance_Transport_Jig2">Yes</label>
                     </div>
                 </td>
@@ -220,26 +218,25 @@
         </table>
         <div class="container px-4">
             <div class="row">
-                <div class="row">
-                    <input class="form-control" type="file" id="Appearance_Video" name="Appearance_Video" accept="video/*">
-                </div>
-                <div class="row" style="text-align: left; font-size: 1rem">
-                  <div class="file-content mb-4">
-                    {% if target_Appearance.Appearance_Video %}
-                        {{ target_Appearance.Appearance_Video }}
-                    {% endif %}
+                <input class="form-control" type="file" id="Appearance_Video" name="Appearance_Video" accept="video/*">
+            </div>
+            <div class="row" style="text-align: left; font-size: 1rem">
+              <div class="file-content mb-4">
+                {% if target_Appearance.Appearance_Video %}
+                    {{ target_Appearance.Appearance_Video }}
+                {% endif %}
+              </div>
+              <div class="col">
+                  <div style="text-align: left">
+                      <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
                   </div>
-                  <div class="col">
-                      <div style="text-align: left">
-                          <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
-                      </div>
+              </div>
+              <div class="col">
+                  <div style="text-align: right">
+                      <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                      <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음" onclick="alert_save()">
                   </div>
-                  <div class="col">
-                      <div style="text-align: right">
-                          <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
-                      </div>
-                  </div>
-                </div>
+              </div>
             </div>
         </div>
     </form>

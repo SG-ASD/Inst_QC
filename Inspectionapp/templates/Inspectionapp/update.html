@@ -1,4 +1,5 @@
 {% extends "../base_with_navbar.html" %}
+{% load static %}
 {% load bootstrap4 %}
 
 {% block content %}
@@ -88,11 +89,6 @@
             </form>
         </div>
     </div>
-
-    <script>
-        function alert_save(){
-            alert("저장되었습니다.")
-        }
-    </script>
+    <script src="{% static '../static/js/Appearanceapp.js' %}"></script>
 </main>
 {% endblock %}
