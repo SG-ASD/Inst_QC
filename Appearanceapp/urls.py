@@ -1,6 +1,6 @@
 from django.urls import path
 
-from Appearanceapp.views import AppearanceUpdateView
+from .views import AppearanceUpdateView
 from profileapp.views import ProfileCreateView, ProfileUpdateView
 
 app_name = 'Appearanceapp'

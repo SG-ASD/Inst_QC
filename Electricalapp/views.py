@@ -13,18 +13,18 @@ from django.views.generic import UpdateView
 
 from Inspectionapp.models import Inspection, Inspection_Category
 from Userapp.decorators import User_ownership_required
-from .forms import AppearanceUpdateForm
+from .forms import ElectricalUpdateForm
 
 has_ownership = [User_ownership_required]
 
 
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
-class AppearanceUpdateView(UpdateView):
+class ElectricalUpdateView(UpdateView):
     model = Inspection
-    form_class = AppearanceUpdateForm
-    template_name = 'Appearanceapp/update.html'
-    context_object_name = 'target_Appearance'
+    form_class = ElectricalUpdateForm
+    template_name = 'Electricalapp/update.html'
+    context_object_name = 'target_Electrical'
 
     def get_object(self):
         object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
@@ -32,19 +32,11 @@ class AppearanceUpdateView(UpdateView):
 
     @transaction.atomic
     def get_context_data(self, **kwargs):
-        context = super(AppearanceUpdateView, self).get_context_data(**kwargs)
-        # subcategory = self.kwargs.get("category")
+        context = super(ElectricalUpdateView, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Appearance Inspection").values_list('Subcategory', flat=True)
+        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
         return reverse("Electricalapp:update", kwargs={"Instrument_SN": self.object})
-
-
-    # def form_valid(self, form):
-    #     temp_Appearance = form.save(commit=False)
-    #     temp_Appearance.user = self.request.user
-    #     temp_Appearance.save()
-    #     return super().form_valid(form)

@@ -1,0 +1,174 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<main class="site-body">
+    <div class="container-md">
+        <div class="bg-light rounded p-4" >
+            <form action="{% url 'Electricalapp:update' target_Electrical.Instrument_SN_id %}" method="post" autocomplete="on" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-6">
+                        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">
+                            {% for category in inspection_category %}
+                                {% if category == "Electrical Test" %}
+                                <option selected value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>
+                                {% else %}
+                                <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" onchange="select_subcategory(this);">
+                            {% for subcategory in inspection_subcategory %}
+                            <option value="{{ category }}">{{ forloop.counter }}) {{ subcategory }}</option>
+                            {% endfor %}
+                        </select>
+                        <div style="text-align: left">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">
+                              <label class="form-check-label" for="all_pass">
+                                All Pass
+                              </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                <div class="row" style="text-align: center; padding: 1rem;">
+                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
+                        <a>Category<br></a>
+                    </div>
+                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
+                        <a>Method<br></a>
+                    </div>
+                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
+                        <a>Acceptance Criteria<br></a>
+                    </div>
+                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
+                        <a>Result<br></a>
+                    </div>
+                </div>
+                <div class="container" style="text-align: center;">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Hi Potential</h5>
+                        </div>
+                        <div class="col">
+                            <a>be based on manufacturer report</a>
+                        </div>
+                        <div class="col">
+                            <a>Insulation is normal<br>Test potential: 1.5/2.3KV<br>Time duration: 1 minute</a>
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ElectricalTest_HiPotential" id="ElectricalTest_HiPotential1" value="Pass"
+                                       {% if target_Electrical.ElectricalTest_HiPotential == 'Pass' %} checked{% endif %}>
+                                <label class="form-check-label" for="ElectricalTest_HiPotential1">Pass</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="ElectricalTest_HiPotential" id="ElectricalTest_HiPotential2" value="Fail"
+                              {% if target_Electrical.ElectricalTest_HiPotential == 'Fail' %} checked{% endif %}>
+                              <label class="form-check-label" for="ElectricalTest_HiPotential2">Fail</label>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Ground Resistance</h5>
+                        </div>
+                        <div class="col">
+                            <a>be based on manufacturer report</a>
+                        </div>
+                        <div class="col">
+                            <a>≤0.1 Ohm(Ω)</a>
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ElectricalTest_GroundResistance" id="ElectricalTest_GroundResistance1" value="Pass"
+                                       {% if target_Electrical.ElectricalTest_GroundResistance == 'Pass' %} checked{% endif %}>
+                                <label class="form-check-label" for="ElectricalTest_GroundResistance1">Pass</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="ElectricalTest_GroundResistance" id="ElectricalTest_GroundResistance2" value="Fail"
+                              {% if target_Electrical.ElectricalTest_GroundResistance == 'Fail' %} checked{% endif %}>
+                              <label class="form-check-label" for="ElectricalTest_GroundResistance2">Fail</label>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Power S/W Function</h5>
+                        </div>
+                        <div class="col">
+                            <a>Visual Inspection</a>
+                        </div>
+                        <div class="col">
+                            <a>On/Off</a>
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ElectricalTest_PowerSWFunction" id="ElectricalTest_PowerSWFunction1" value="Pass"
+                                       {% if target_Electrical.ElectricalTest_PowerSWFunction == 'Pass' %} checked{% endif %}>
+                                <label class="form-check-label" for="ElectricalTest_PowerSWFunction1">Pass</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="ElectricalTest_PowerSWFunction" id="ElectricalTest_PowerSWFunction2" value="Fail"
+                              {% if target_Electrical.ElectricalTest_PowerSWFunction == 'Fail' %} checked{% endif %}>
+                              <label class="form-check-label" for="ElectricalTest_PowerSWFunction2">Fail</label>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Power LED On/Off</h5>
+                        </div>
+                        <div class="col">
+                            <a>Visual Inspection</a>
+                        </div>
+                        <div class="col">
+                            <a>On/Off</a>
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ElectricalTest_PowerLED" id="ElectricalTest_PowerLED1" value="Pass"
+                                       {% if target_Electrical.ElectricalTest_PowerLED == 'Pass' %} checked{% endif %}>
+                                <label class="form-check-label" for="ElectricalTest_PowerLED1">Pass</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="ElectricalTest_HiPotential" id="ElectricalTest_PowerLED2" value="Fail"
+                              {% if target_Electrical.ElectricalTest_PowerLED == 'Fail' %} checked{% endif %}>
+                              <label class="form-check-label" for="ElectricalTest_PowerLED2">Fail</label>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row" style="font-size: 1rem">
+                      <div class="col">
+                          <div style="text-align: left">
+                              <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
+                          </div>
+                      </div>
+                      <div class="col">
+                          <div style="text-align: right">
+                              <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                              <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음" onclick="alert_save()">
+                          </div>
+                      </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script src="{% static '../static/js/Appearanceapp.js' %}"></script>
+</main>
+{% endblock %}
