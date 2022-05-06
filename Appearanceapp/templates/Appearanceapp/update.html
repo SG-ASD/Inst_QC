@@ -3,6 +3,7 @@
 {% load bootstrap4 %}
 
 {% block content %}
+<script src="{% static '../static/js/Inspectionapp.js' %}"></script>
 <div style="margin: 2rem auto; text-align: center; font-size: 1.5rem">
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -28,11 +29,11 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-                <td rowspan="7" style="background-color: blanchedalmond">Visual<br>Inspection</td>
-                <td colspan="2" style="background-color: blanchedalmond">Category </td>
-                <td colspan="2" style="background-color: blanchedalmond">Factor </td>
-                <td colspan="6" style="background-color: blanchedalmond">Determine to</td>
-                <td style="background-color: blanchedalmond">Image Upload</td>
+                <td rowspan="7" style="background-color: #DCEBFF">Visual<br>Inspection</td>
+                <td colspan="2" style="background-color: #DCEBFF">Category </td>
+                <td colspan="2" style="background-color: #DCEBFF">Factor </td>
+                <td colspan="6" style="background-color: #DCEBFF">Determine to</td>
+                <td style="background-color: #DCEBFF">Image Upload</td>
             </tr>
             <tr>
                 <td colspan="2">Shock Watch</td>
@@ -240,7 +241,6 @@
             </div>
         </div>
     </form>
-    <script src="{% static '../static/js/Appearanceapp.js' %}"></script>
-</div>
 
+</div>
 {% endblock %}

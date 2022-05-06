@@ -23,8 +23,10 @@ function select_category(obj) {
     }
     else if (obj.value == "Electrical Test") {
         document.getElementById("inspection_subcategory").innerHTML = `
+            {% load static %}
             <option value="">--항목 선택--</option>
-            <option value="Electrical Test">1) Electrical Test</option>`;
+            <option value="Electrical Test" href="{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}">1) Electrical Test</option>
+            <option value="{{ obj.value }}" href="{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}">{{ obj.value }}</option>`;
     }
     else if (obj.value == "Hardware Adjustment") {
         document.getElementById("inspection_subcategory").innerHTML = `
@@ -55,11 +57,11 @@ function select_category(obj) {
  * @param obj - 선택한 subcategory
  */
 function select_subcategory(obj) {
-    if (obj.value == "Appearance of instrument"){
-        // alert(obj.value)
-        alert("test")
-        // document.location.href = "http://127.0.0.1:8000/QC/";
-        document.location.href = "{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}"
+    alert(obj.value)
+    alert(obj.href)
+    if (obj.value == "Electrical Test"){
+        document.location.href = "http://127.0.0.1:8000/QC/";
+        // document.location.href = "{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}"
     }
 }
 
