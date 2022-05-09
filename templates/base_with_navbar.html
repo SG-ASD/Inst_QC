@@ -27,12 +27,12 @@
             <a href="{% url 'Userapp:logout' %}?next={{ request.path}}" class="nav-link active">
                 <span>logout</span>
             </a>
-            {% if target_user.profile %}
-             <img src="{{ target_user.profile.image.url }}" alt="" style="height: 2rem; width: 2rem; border-radius: 2rem; margin-bottom: 2rem; object-fit: cover">
+            {% if user.profile.image %}
+             <img src="{{ user.profile.image.url }}" alt="" style="height: 3rem; width: 3rem; border-radius: 2rem; object-fit: cover; margin-right: .5rem">
+                <h6 style="margin-top: 1rem;">{{user.profile.name}}</h6>
              {% else %}
              <img src="{% static 'assets/user.png' %}" alt="" style="height: 2rem; width: 2rem; border-radius: 2rem;  object-fit: cover; margin-top: .2rem">
             {% endif %}
-
         {% endif %}
        </div>
       </ul>
