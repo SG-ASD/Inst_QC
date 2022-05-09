@@ -64,7 +64,7 @@ class Inspection(models.Model):
     HardWare_XArm_Diff = models.IntegerField(null=True, blank=True)
     HardWare_Autoload = models.CharField(max_length=20, blank=True)
     HardWare_Noise = models.CharField(max_length=20, blank=True)
-    HardWare_Xdev1 = models.IntegerField( null=True, blank=True)
+    HardWare_Xdev1 = models.IntegerField(null=True, blank=True)
     HardWare_Xdev2 = models.IntegerField(null=True, blank=True)
     HardWare_Xdev3 = models.IntegerField(null=True, blank=True)
     HardWare_Xdev4 = models.IntegerField(null=True, blank=True)

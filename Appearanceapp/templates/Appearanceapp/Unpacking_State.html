@@ -4,7 +4,7 @@
 {% block content %}
 
 <div>
-<form action="{% url 'Appearanceapp:update_Unpacking' target_Unpacking_State.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'Electricalapp:update' target_Unpacking_State.Instrument_SN_id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 <!--	{{ form }}&ndash;&gt;-->
 <!--        {% bootstrap_form form %}-->

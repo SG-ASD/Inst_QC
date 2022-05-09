@@ -141,7 +141,7 @@
                                 <label class="form-check-label" for="ElectricalTest_PowerLED1">Pass</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="ElectricalTest_HiPotential" id="ElectricalTest_PowerLED2" value="Fail"
+                              <input class="form-check-input" type="radio" name="ElectricalTest_PowerLED" id="ElectricalTest_PowerLED2" value="Fail"
                               {% if target_Electrical.ElectricalTest_PowerLED == 'Fail' %} checked{% endif %}>
                               <label class="form-check-label" for="ElectricalTest_PowerLED2">Fail</label>
                             </div>
@@ -169,6 +169,6 @@
             </form>
         </div>
     </div>
-    <script src="{% static '../static/js/Inspectionapp.js' %}"></script>
+    <script src="{% static '../static/js/Electricalapp.js' %}"></script>
 </main>
 {% endblock %}

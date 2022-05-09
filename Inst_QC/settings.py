@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'Inspectionapp',
     'Appearanceapp',
     'Electricalapp',
+    'Hardwareapp',
 ]
 
 MIDDLEWARE = [

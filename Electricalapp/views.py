@@ -39,4 +39,4 @@ class ElectricalUpdateView(UpdateView):
 
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
-        return reverse("Electricalapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Hardwareapp:hardware_first", kwargs={"Instrument_SN": self.object})

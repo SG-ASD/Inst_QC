@@ -65,4 +65,4 @@ class AppearanceUnpackingView(UpdateView):
         return object
 
     def get_success_url(self):
-        return reverse("Appearanceapp:update_Unpacking", kwargs={"Instrument_SN": self.object})
+        return reverse("Electricalapp:update", kwargs={"Instrument_SN": self.object})
