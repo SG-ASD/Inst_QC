@@ -6,36 +6,137 @@
 <main class="site-body">
     <div class="container-md">
         <div class="bg-light rounded p-4" >
+
+            <!-- Calibration Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Calibration Block</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                    <div class="modal-body">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">S/N</th>
+                            <th scope="col">Calibration</th>
+                            <th scope="col">Validate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <!-- Calibration 리스트     -->
+                          {% for calibration in inspection_calibration %}
+                              <td id="id_1"value={{ calibration.Tool_Machine }}>{{ calibration.Description }}</td>
+                              <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
+                              <td value={{ calibration.Calibration_Date }}>{{ calibration.Calibration_Date }}</td>
+                              <td value={{ calibration.Validation_Date }}>{{ calibration.Validation_Date }}</td>
+                              <td>
+                                  <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.State}} data-bs-dismiss="modal">선택</button>
+                              </td>
+                              <tr>
+                            {% endfor %}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!-- Calibration Modal -->
+            <!-- Barcode Modal -->
+            <div class="modal fade" id="BarcodeModal" tabindex="-1" aria-labelledby="BarcodeModal" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="Bacode_title">Calibration Block</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                    <div class="modal-body">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col"></th>
+                            <th scope="col">Calibration</th>
+                            <th scope="col">Validate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <!-- Barcode 리스트     -->
+                          {% for barcode in inspection_Barcode %}
+                              <td value={{ barcode.Tool_Machine }}>{{ barcode.Description }}</td>
+                              <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
+                              <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
+                              <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
+                              <td>
+                                  <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
+                                      선택</button>
+                              </td>
+                              <tr>
+                            {% endfor %}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- Barcode Modal -->
             <form action="{% url 'Hardwareapp:hardware_first' target_Hardware.Instrument_SN_id %}" method="post" autocomplete="on" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col-6">
-                        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">
-                            {% for category in inspection_category %}
-                                {% if category == "Electrical Test" %}
-                                <option selected value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>
-                                {% else %}
-                                <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" onchange="select_subcategory(this);">
-                            {% for subcategory in inspection_subcategory %}
-                            <option value="{{ category }}">{{ forloop.counter }}) {{ subcategory }}</option>
-                            {% endfor %}
-                        </select>
-                        <div style="text-align: left">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">
-                              <label class="form-check-label" for="all_pass">
-                                All Pass
-                              </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col"></div>
+                <!-- Button trigger modal -->
+            <div class="row">
+                <div class="col-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: .8rem">
+                        Calibration Block
+                    </button>
                 </div>
+                <div class="col-1" style="text-align: left">
+                    <input type="text" readonly class="form-control-plaintext" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
+                    {% if target_Hardware.HardWare_XArm_left %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}>
+                </div>
+            <div class="row">
+                <div class="col-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#BarcodeModal" style="font-size: .8rem">
+                        Barcode Block
+                    </button>
+                </div>
+                <div class="col-1" style="text-align: left">
+                    <input type="text" readonly class="form-control-plaintext" id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier"  style="width: 12rem"
+                    {% if target_Hardware.HardWare_BarcodeCarrier %} value={{target_Hardware.HardWare_BarcodeCarrier}} {% endif %}>
+                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col"></div>-->
+<!--                    <div class="col-6">-->
+<!--                        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">-->
+<!--                            {% for category in inspection_category %}-->
+<!--                                {% if category == "Electrical Test" %}-->
+<!--                                <option selected value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
+<!--                                {% else %}-->
+<!--                                <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
+<!--                                {% endif %}-->
+<!--                            {% endfor %}-->
+<!--                        </select>-->
+<!--                        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" onchange="select_subcategory(this);">-->
+<!--                            {% for subcategory in inspection_subcategory %}-->
+<!--                            <option value="{{ category }}">{{ forloop.counter }}) {{ subcategory }}</option>-->
+<!--                            {% endfor %}-->
+<!--                        </select>-->
+<!--                        <div style="text-align: left">-->
+<!--                            <div class="form-check">-->
+<!--                              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">-->
+<!--                              <label class="form-check-label" for="all_pass">-->
+<!--                                All Pass-->
+<!--                              </label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col"></div>-->
+<!--                </div>-->
 
                 <div class="row" style="text-align: center; padding: 1rem;">
                     <div class="col" style="padding: 1rem; background-color: #DCEBFF">
@@ -520,6 +621,7 @@
             </form>
         </div>
     </div>
-    <script src="{% static '../static/js/Electricalapp.js' %}"></script>
+    <script src="{% static '../static/js/Hardwareapp.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </main>
 {% endblock %}
