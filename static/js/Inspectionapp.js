@@ -23,10 +23,8 @@ function select_category(obj) {
     }
     else if (obj.value == "Electrical Test") {
         document.getElementById("inspection_subcategory").innerHTML = `
-            {% load static %}
             <option value="">--항목 선택--</option>
-            <option value="Electrical Test" href="{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}">1) Electrical Test</option>
-            <option value="{{ obj.value }}" href="{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}">{{ obj.value }}</option>`;
+            <option value="{% url 'Electricalapp:update_Electrical' target_Appearance.Instrument_SN_id %}">1) Electrical Test</option>`;
     }
     else if (obj.value == "Hardware Adjustment") {
         document.getElementById("inspection_subcategory").innerHTML = `
@@ -51,24 +49,9 @@ function select_category(obj) {
 }
 
 /**
- * 검사성적서의 하위 select list에서 subcategory 선택 시
- * 해당 하위 subcategory 화면으로 이동
- *
- * @param obj - 선택한 subcategory
- */
-function select_subcategory(obj) {
-    alert(obj.value)
-    alert(obj.href)
-    if (obj.value == "Electrical Test"){
-        document.location.href = "http://127.0.0.1:8000/QC/";
-        // document.location.href = "{% url 'Electricalapp:update' target_Appearance.Instrument_SN_id %}"
-    }
-}
-
-/**
  * All Pass 체크 시 하위 체크박스에 체크 표시
  */
-function onchange_check() {
+function onchange_check_packaging() {
     const Appearance_Shock_Watch = document.getElementById('Appearance_Shock_Watch1');
     const Appearance_Binding = document.getElementById('Appearance_Binding2');
     const Appearance_Labels = document.getElementById('Appearance_Labels2');
@@ -101,4 +84,17 @@ function onchange_check_unpacking() {
     Appearance_Back.click()
     Appearance_Acc_Damage.click()
     Appearance_Acc_Missing.click()
+}
+
+function onchange_check_electrical() {
+    debugger
+    const ElectricalTest_HiPotential = document.getElementById('ElectricalTest_HiPotential1');
+    const ElectricalTest_GroundResistance = document.getElementById('ElectricalTest_GroundResistance1');
+    const ElectricalTest_PowerSWFunction = document.getElementById('ElectricalTest_PowerSWFunction1');
+    const ElectricalTest_PowerLED = document.getElementById('ElectricalTest_PowerLED1');
+
+    ElectricalTest_HiPotential.click()
+    ElectricalTest_GroundResistance.click()
+    ElectricalTest_PowerSWFunction.click()
+    ElectricalTest_PowerLED.click()
 }

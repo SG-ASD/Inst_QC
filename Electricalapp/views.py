@@ -34,9 +34,11 @@ class ElectricalUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ElectricalUpdateView, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
+        context["inspection_subcategory"] = Inspection_Category.objects.values()
+        print(f"context['inspection_category']:{context['inspection_category']}")
+        print(f"context['inspection_subcategory']:{context['inspection_subcategory']}")
         return context
 
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
-        return reverse("Electricalapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Electricalapp:update_Electrical", kwargs={"Instrument_SN": self.object})
