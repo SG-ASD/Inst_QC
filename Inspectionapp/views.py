@@ -28,4 +28,4 @@ class InspectionUpdateView(UpdateView):
 
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
-        return reverse("Appearanceapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Appearanceapp:update_Packaging", kwargs={"Instrument_SN": self.object})

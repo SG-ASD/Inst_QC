@@ -13,8 +13,7 @@ from django.views.generic import UpdateView
 
 from Inspectionapp.models import Inspection, Inspection_Category
 from Userapp.decorators import User_ownership_required
-from Appearanceapp.forms import AppearanceUpdateForm
-from Appearanceapp.forms import AppearanceUnpackingForm
+from .forms import AppearanceUpdateForm, AppearanceUnpackingForm
 
 has_ownership = [User_ownership_required]
 
@@ -36,12 +35,13 @@ class AppearanceUpdateView(UpdateView):
         context = super(AppearanceUpdateView, self).get_context_data(**kwargs)
         # subcategory = self.kwargs.get("category")
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.distinct().values_list('Subcategory', flat=True)
+        context["inspection_subcategory"] = Inspection_Category.objects.filter(
+            Category="Appearance Inspection").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):
         # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
-        return reverse("Appearanceapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Appearanceapp:update_Unpacking", kwargs={"Instrument_SN": self.object})
 
 
 @method_decorator(login_required, 'get')
@@ -57,7 +57,8 @@ class AppearanceUnpackingView(UpdateView):
         context = super(AppearanceUnpackingView, self).get_context_data(**kwargs)
         # subcategory = self.kwargs.get("category")
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.distinct().values_list('Subcategory', flat=True)
+        context["inspection_subcategory"] = Inspection_Category.objects.filter(
+            Category="Appearance Inspection").values_list('Subcategory', flat=True)
         return context
 
     def get_object(self):
@@ -65,4 +66,4 @@ class AppearanceUnpackingView(UpdateView):
         return object
 
     def get_success_url(self):
-        return reverse("Electricalapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Electricalapp:update_Electrical", kwargs={"Instrument_SN": self.object})

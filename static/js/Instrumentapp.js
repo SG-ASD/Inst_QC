@@ -31,6 +31,9 @@ startModal.addEventListener('show.bs.modal', function (event) {
     // print()
 })
 
+/**
+ * 설명
+ */
 $('#startModal').on('show.bs.modal', function (event) {
     const data = $(event.relatedTarget).data('SN');
     $(".modal-body #result").val(data);
