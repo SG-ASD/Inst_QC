@@ -12,7 +12,7 @@
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Calibration Block</h5>
+                    <h5 class="modal-title" id="addModalLabel">Calibration Tool</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                     <div class="modal-body">
@@ -29,12 +29,12 @@
                           <tr>
                             <!-- Calibration 리스트     -->
                           {% for calibration in inspection_calibration %}
-                              <td id="id_1"value={{ calibration.Tool_Machine }}>{{ calibration.Description }}</td>
-                              <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
+                              <td id="id_1"value={{ calibration.pk }}>{{ calibration.pk }}</td>
+                              <td value={{ calibration.Calibration_Serial }}>{{ calibration.Calibration_Serial }}</td>
                               <td value={{ calibration.Calibration_Date }}>{{ calibration.Calibration_Date }}</td>
                               <td value={{ calibration.Validation_Date }}>{{ calibration.Validation_Date }}</td>
                               <td>
-                                  <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.State}} data-bs-dismiss="modal">선택</button>
+                                  <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
                               </td>
                               <tr>
                             {% endfor %}
@@ -59,7 +59,7 @@
                         <thead>
                           <tr>
                             <th scope="col">Name</th>
-                            <th scope="col"></th>
+                            <th scope="col">S/N</th>
                             <th scope="col">Calibration</th>
                             <th scope="col">Validate</th>
                           </tr>
@@ -68,10 +68,12 @@
                           <tr>
                             <!-- Barcode 리스트     -->
                           {% for barcode in inspection_Barcode %}
-                              <td value={{ barcode.Tool_Machine }}>{{ barcode.Description }}</td>
-                              <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
-                              <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
-                              <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
+                              {% if barcode.Calibration_Date <= barcode.Validation_Date %}
+                                  <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
+                                  <td value={{ barcode.Calibration_Serial }}>{{ barcode.Calibration_Serial }}</td>
+                                  <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
+                                  <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
+                              {% endif %}}
                               <td>
                                   <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
                                       선택</button>
