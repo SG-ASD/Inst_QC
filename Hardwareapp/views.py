@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -26,7 +26,7 @@ class HardwareUpdateView_first(UpdateView):
     form_class = HardwareUpdateForm_first
     template_name = 'Hardwareapp/hardware_first.html'
     context_object_name = 'target_Hardware'
-    startdate = date(2012, 12, 11)
+
 
     def get_object(self):
         object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
@@ -36,11 +36,11 @@ class HardwareUpdateView_first(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(HardwareUpdateView_first, self).get_context_data(**kwargs)
         Instrument_Nm = context['object'].Name
-
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
-        context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Channel Calibration Tool').all()
-        context["inspection_Barcode"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Barcode Carrier').all()
+        context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Channel Calibration Tool').\
+            filter(CalibrationDt__lte=date.today(), ValidationDt__gte=date.today())
+        context["inspection_Barcode"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Barcode Carrier').\
+            filter(CalibrationDt__lte=date.today(), ValidationDt__gte=date.today())
         return context
 
     def get_success_url(self):

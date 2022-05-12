@@ -68,12 +68,12 @@
                           <tr>
                             <!-- Barcode 리스트     -->
                           {% for barcode in inspection_Barcode %}
-                              {% if barcode.Calibration_Date <= barcode.Validation_Date %}
+<!--                              {% if barcode.Calibration_Date <= barcode.Validation_Date %}-->
                                   <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
                                   <td value={{ barcode.Calibration_Serial }}>{{ barcode.Calibration_Serial }}</td>
                                   <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
                                   <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
-                              {% endif %}}
+<!--                              {% endif %}}-->
                               <td>
                                   <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
                                       선택</button>

@@ -12,8 +12,8 @@ class Calibration(models.Model):
     State = models.CharField(max_length=60)  # 상태
     Type = models.CharField(max_length=60)  # 교정 유형
     CalibrationCycle = models.CharField(max_length=20, blank=True) # 교정주기
-    Calibration_Date = models.DateField(auto_now=True) # 교정일자
-    Validation_Date = models.DateField(auto_now=True) # 유효기간
+    CalibrationDt = models.DateField(auto_now=True) # 교정일자
+    ValidationDt = models.DateField(auto_now=True) # 유효기간
     Real_Calibration_Date = models.DateField(auto_now=True) # 유효기간
     Cal_Location = models.CharField(max_length=20, blank=True) # 교정처
     Manufacturer = models.CharField(max_length=20, blank=True) # 제조자
