@@ -66,4 +66,4 @@ class HardwareUpdateView_second(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("Hardwareapp:hardware_second", kwargs={"Instrument_SN": self.object})
+        return reverse("Performanceapp:update_Performance_first", kwargs={"Instrument_SN": self.object})

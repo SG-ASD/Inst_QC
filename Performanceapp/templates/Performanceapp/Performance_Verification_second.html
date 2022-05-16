@@ -1,0 +1,616 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bg-light rounded p-4">
+        <form action="{% url 'Performanceapp:update_Performance_second' target_Performance_second.Instrument_SN_id %}" method="post" enctype="multipart/form-data" autocomplete="on" >
+            {% csrf_token %}
+            {# content 상단 #}
+            <div class="row">
+                <div class="col"></div>
+                {# 타이틀 #}
+                <div class="col-6">
+                    <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="location.href=(this.value);">
+                        {% for category in inspection_category %}
+                            <optgroup label="{{ forloop.counter }}. {{ category }}"></optgroup>
+                            {% if category == 'Appearance Inspection' %}
+                                <option value="{% url 'Appearanceapp:update_Packaging' target_Performance_second.Instrument_SN_id %}">1) Packaging Condition</option>
+                                <option value="{% url 'Appearanceapp:update_Unpacking' target_Performance_second.Instrument_SN_id %}">2) Appearance of instrument</option>
+                                <option value="#">3) Instrument Accessories Kits</option>
+                            {% endif %}
+                            {% if category == 'Electrical Test' %}
+                                <option value="{% url 'Electricalapp:update_Electrical' target_Performance_second.Instrument_SN_id %}">1) Electrical Test</option>
+                            {% endif %}
+                            {% if category == 'Hardware Adjustment' %}
+                                <option value="#">1) Hardware Adjustment</option>
+                            {% endif %}
+                            {% if category == 'Performance Verification' %}
+                                <option selected value="#">1) Performance Verification</option>
+                            {% endif %}
+                            {% if category == 'Attachment' %}
+                                <option value="#">1) Attachment</option>
+                            {% endif %}
+                            {% if category == 'Accessories Kits' %}
+                                <option value="#">1) Accessories Kits</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div style="text-align: left">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass_electrical" onclick="onchange_check_Performance_second()">
+                          <label class="form-check-label" for="all_pass_electrical">All Pass</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            {# content #}
+            <div class="container-fluid">
+                <table class="table table-striped table-hover" style="text-align: center;">
+                    <tbody>
+                        <tr>
+                            <td colspan="3" style="background-color: #DCEBFF">Channel_Tip Type</td>
+                            <td colspan="6" style="background-color: #DCEBFF">Acceptance Criteria</td>
+                            <td colspan="3" style="background-color: #DCEBFF">Measured Value</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P1_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul1" id="Perfomance_VFV_Accuracy300ul1_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul1 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul1_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul1" id="Perfomance_VFV_Accuracy300ul1_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul1 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul1_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul1" id="Perfomance_VFV_Precision300ul1_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul1 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul1_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul1" id="Perfomance_VFV_Precision300ul1_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul1 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul1_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P1_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul1" id="Perfomance_VFV_Accuracy1000ul1_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul1 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul1_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul1" id="Perfomance_VFV_Accuracy1000ul1_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul1 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul1_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul1" id="Perfomance_VFV_Precision1000ul1_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul1 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul1_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul1" id="Perfomance_VFV_Precision1000ul1_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul1 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul1_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P2_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul2" id="Perfomance_VFV_Accuracy300ul2_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul2 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul2_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul2" id="Perfomance_VFV_Accuracy300ul2_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul2 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul2_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul2" id="Perfomance_VFV_Precision300ul2_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul2 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul2_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul2" id="Perfomance_VFV_Precision300ul2_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul2 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul2_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P2_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul2" id="Perfomance_VFV_Accuracy1000ul2_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul2 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul2_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul2" id="Perfomance_VFV_Accuracy1000ul2_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul2 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul2_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul2" id="Perfomance_VFV_Precision1000ul2_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul2 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul2_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul2" id="Perfomance_VFV_Precision1000ul2_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul2 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul2_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P3_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul3" id="Perfomance_VFV_Accuracy300ul3_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul3 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul3_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul3" id="Perfomance_VFV_Accuracy300ul3_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul3 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul3_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul3" id="Perfomance_VFV_Precision300ul3_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul3 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul3_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul3" id="Perfomance_VFV_Precision300ul3_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul3 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul3_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P3_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul3" id="Perfomance_VFV_Accuracy1000ul3_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul3 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul3_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul3" id="Perfomance_VFV_Accuracy1000ul3_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul3 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul3_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul3" id="Perfomance_VFV_Precision1000ul3_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul3 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul3_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul3" id="Perfomance_VFV_Precision1000ul3_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul3 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul3_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P4_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul4" id="Perfomance_VFV_Accuracy300ul4_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul4 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul4_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul4" id="Perfomance_VFV_Accuracy300ul4_P_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul4 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul4_P_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul4" id="Perfomance_VFV_Precision300ul4_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul4 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul4_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul4" id="Perfomance_VFV_Precision300ul4_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul4 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul4_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P4_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul4" id="Perfomance_VFV_Accuracy1000ul4_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul4 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul4_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul4" id="Perfomance_VFV_Accuracy1000ul4_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul4 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul4_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul4" id="Perfomance_VFV_Precision1000ul4_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul4 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul4_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul4" id="Perfomance_VFV_Precision1000ul4_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul4 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul4_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P5_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul5" id="Perfomance_VFV_Accuracy300ul5_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul5 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul5_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul5" id="Perfomance_VFV_Accuracy300ul5_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul5 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul5_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul5" id="Perfomance_VFV_Precision300ul5_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul5 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul5_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul5" id="Perfomance_VFV_Precision300ul5_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul5 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul5_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P5_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul5" id="Perfomance_VFV_Accuracy1000ul5_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul5 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul5_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul5" id="Perfomance_VFV_Accuracy1000ul5_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul5 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul5_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul5" id="Perfomance_VFV_Precision1000ul5_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul5 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul5_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul5" id="Perfomance_VFV_Precision1000ul5_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul5 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul5_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P6_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul6" id="Perfomance_VFV_Accuracy300ul6_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul6 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul6_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul6" id="Perfomance_VFV_Accuracy300ul6_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul6 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul6_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul6" id="Perfomance_VFV_Precision300ul6_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul6 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul6_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul6" id="Perfomance_VFV_Precision300ul6_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul6 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul6_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P6_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul6" id="Perfomance_VFV_Accuracy1000ul6_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul6 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul6_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul6" id="Perfomance_VFV_Accuracy1000ul6_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul6 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul6_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul6" id="Perfomance_VFV_Precision1000ul6_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul6 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul6_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul6" id="Perfomance_VFV_Precision1000ul6_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul6 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul6_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P7_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul7" id="Perfomance_VFV_Accuracy300ul7_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul7 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul7_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul7" id="Perfomance_VFV_Accuracy300ul7_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul7 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul7_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul7" id="Perfomance_VFV_Precision300ul7_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul7 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul7_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul7" id="Perfomance_VFV_Precision300ul7_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul7 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul7_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P7_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul7" id="Perfomance_VFV_Accuracy1000ul7_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul7 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul7_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul7" id="Perfomance_VFV_Accuracy1000ul7_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul7 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul7_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul7" id="Perfomance_VFV_Precision1000ul7_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul7 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul7_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul7" id="Perfomance_VFV_Precision1000ul7_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul7 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul7_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P8_Used Tip Type:300ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul8" id="Perfomance_VFV_Accuracy300ul8_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul8 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul8_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy300ul8" id="Perfomance_VFV_Accuracy300ul8_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy300ul8 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy300ul8_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 10ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul8" id="Perfomance_VFV_Precision300ul8_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul8 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul8_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision300ul8" id="Perfomance_VFV_Precision300ul8_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision300ul8 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision300ul8_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" rowspan="2" style="text-align: center">P8_Used Tip Type:1000ul</td>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Accurracy : Tolerance ≤+/-6.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul8" id="Perfomance_VFV_Accuracy1000ul8_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul8 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul8_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Accuracy1000ul8" id="Perfomance_VFV_Accuracy1000ul8_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Accuracy1000ul8 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Accuracy1000ul8_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td colspan="3">Testing Voulume 1000ul /  Precision : Tolerance ≤+/-3.0% </td>
+                            <td colspan="3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul8" id="Perfomance_VFV_Precision1000ul8_P" value="Pass"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul8 == 'Pass' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul8_P">Pass</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Perfomance_VFV_Precision1000ul8" id="Perfomance_VFV_Precision1000ul8_F" value="Fail"
+                                            {% if target_Performance_second.Perfomance_VFV_Precision1000ul8 == 'Fail' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Perfomance_VFV_Precision1000ul8_F">Fail</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {# content 하단 #}
+            <div class="row">
+                <div class="col"></div>
+                {# 하단 버튼들 #}
+                <div class="col-6">
+                    <div class="row" style="text-align: left; font-size: 1rem">
+                        <div class="col">
+                            <div style="text-align: left">
+                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div style="text-align: right">
+
+                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음" onclick="alert_save()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static '../static/js/Performanceapp.js' %}"></script>
+</div>
+
+{% endblock %}
