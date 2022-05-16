@@ -38,13 +38,13 @@ class HardwareUpdateView_first(UpdateView):
         Instrument_Nm = context['object'].Name
 
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
         context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).all()
         context["inspection_Barcode"] = Calibration.objects.filter(Description__contains='Barcode').all()
         return context
 
     def get_success_url(self):
         return reverse("Hardwareapp:hardware_second", kwargs={"Instrument_SN": self.object})
+
 
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
@@ -62,7 +62,6 @@ class HardwareUpdateView_second(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(HardwareUpdateView_second, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):

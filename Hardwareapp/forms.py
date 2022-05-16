@@ -44,6 +44,7 @@ class HardwareUpdateForm_first(ModelForm):
             'HardWare_SN6',
             'HardWare_SN7',
             'HardWare_SN8',
+            'HardWare_Adjust',
         ]
 
 class HardwareUpdateForm_second(ModelForm):
@@ -52,7 +53,6 @@ class HardwareUpdateForm_second(ModelForm):
         fields = [
             'HardWare_Autoload',
             'HardWare_Noise',
-            'HardWare_Adjust',
             'HardWare_PIP_X1',
             'HardWare_PIP_X2',
             'HardWare_PIP_X3',

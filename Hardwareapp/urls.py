@@ -6,6 +6,6 @@ from .views import HardwareUpdateView_second
 app_name = "Hardwareapp"
 
 urlpatterns = [
-    path('hardware_first/<str:Instrument_SN>/', HardwareUpdateView_first.as_view(), name='hardware_first'),
-    path('hardware_second/<str:Instrument_SN>/', HardwareUpdateView_second.as_view(), name='hardware_second'),
+    path('update/hardware1/<str:Instrument_SN>/', HardwareUpdateView_first.as_view(), name='hardware_first'),
+    path('update/hardware2/<str:Instrument_SN>/', HardwareUpdateView_second.as_view(), name='hardware_second'),
 ]

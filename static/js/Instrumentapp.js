@@ -32,9 +32,24 @@ startModal.addEventListener('show.bs.modal', function (event) {
 })
 
 /**
- * 설명
+ * 테스트
  */
-$('#startModal').on('show.bs.modal', function (event) {
-    const data = $(event.relatedTarget).data('SN');
-    $(".modal-body #result").val(data);
-});
+// function excelImport(Event) {
+//     alert("js")
+//     alert(Event.target)
+//     const file = Event.target.files[0];
+//     const reader = new FileReader();
+//
+//     reader.onload = function(){
+//         const fileData = reader.result;
+//         const wb = XLSX.read(fileData, {type : 'binary'});
+//
+//         wb.SheetNames.forEach(function(sheetName){
+//             const row =XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+//             console.log(JSON.stringify(row));
+//             alert(JSON.stringify(row))
+//         })
+//     };
+//     reader.readAsBinaryString(file);
+//     alert(file)
+// }
