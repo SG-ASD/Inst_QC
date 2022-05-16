@@ -1,7 +1,9 @@
+import os
+
 from django.contrib.auth.models import User
 from django.db import models
 from Instrumentapp.models import Instrument
-
+from django.urls import resolve
 # Create your models here.
 from django.http import request
 
@@ -10,6 +12,16 @@ class Inspection(models.Model):
     # 1:1 매칭 시켜준다. User 와 Profile 1:! 매칭
     # related_name = request.user.profile.nickname
     # user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+
+
+    def Attachment_image_path(instance, filename):
+        # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
+        return f'{instance.Instrument_SN_id}/Attachment/{filename}'
+
+    def Appearance_image_path(instance, filename):
+        # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
+        return f'{instance.Instrument_SN_id}/Appearance/{filename}'
+
 
     # Inspection
     Instrument_SN = models.ForeignKey(Instrument, on_delete=models.CASCADE, db_column='Instrument_SN', related_name='Instrument_SN')  # 장비 SN
@@ -34,13 +46,13 @@ class Inspection(models.Model):
     Appearance_Wooden_Pallet = models.CharField(max_length=20, blank=True)
     Appearance_Transport_Jig = models.CharField(max_length=20, blank=True)
 
-    Appearance_Shock_Watch_Image = models.ImageField(upload_to='Appearance/', blank=True)
-    Appearance_Binding_Image = models.ImageField(upload_to='Appearance/', blank=True)
-    Appearance_Labels_Image = models.ImageField(upload_to='Appearance/', blank=True)
-    Appearance_Packaging_Box_Image = models.ImageField(upload_to='Appearance/', blank=True)
-    Appearance_Wooden_Pallet_Image = models.ImageField(upload_to='Appearance/', blank=True)
-    Appearance_Transport_Jig_Image = models.ImageField(upload_to='Appearance/', blank=True)
-    Appearance_Video = models.FileField(upload_to="video/", blank=True)
+    Appearance_Shock_Watch_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Binding_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Labels_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Packaging_Box_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Wooden_Pallet_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Transport_Jig_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Video = models.FileField(upload_to=Appearance_image_path, blank=True)
 
     Appearance_Front = models.CharField(max_length=20, blank=True)
     Appearance_Top = models.CharField(max_length=20, blank=True)
@@ -174,10 +186,10 @@ class Inspection(models.Model):
     Attachment_Declaration = models.CharField(max_length=20, blank=True)
     Attachment_Measurement_Protocol = models.CharField(max_length=20, blank=True)
     Attachment_ElectricalSafety_Report = models.CharField(max_length=20, blank=True)
-    Attachment_CoverSafety_Report_File = models.FileField(upload_to="report/", null=True, blank=True)
-    Attachment_Barcode_Report_File = models.FileField(upload_to="report/", null=True, blank=True)
-    Attachment_Position_Report_File = models.FileField(upload_to="report/", null=True, blank=True)
-    Attachment_Files = models.FileField(upload_to="report/", null=True, blank=True)
+    Attachment_CoverSafety_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
+    Attachment_Barcode_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
+    Attachment_Position_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
+    Attachment_Files = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
 
     def __str__(self):
         return self.Instrument_SN_id

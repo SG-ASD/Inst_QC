@@ -1,0 +1,256 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="bg-light rounded p-4">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {# content 상단 #}
+            <div class="row">
+                <div class="col"></div>
+                {# 타이틀 #}
+                <div class="col-6">
+                    <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="location.href=(this.value);">
+                        {% for category in inspection_category %}
+                            <optgroup label="{{ forloop.counter }}. {{ category }}"></optgroup>
+                            {% if category == 'Appearance Inspection' %}
+                                <option  value="{% url 'Appearanceapp:update_Packaging' target_Attachment.Instrument_SN_id %}">1) Packaging Condition</option>
+                                <option value="{% url 'Appearanceapp:update_Unpacking' target_Attachment.Instrument_SN_id %}">2) Appearance of instrument</option>
+                                <option value="#">3) Instrument Accessories Kits</option>
+                            {% endif %}
+                            {% if category == 'Electrical Test' %}
+                                <option value="{% url 'Electricalapp:update_Electrical' target_Attachment.Instrument_SN_id %}">1) Electrical Test</option>
+                            {% endif %}
+                            {% if category == 'Hardware Adjustment' %}
+                                <option value="#">1) Hardware Adjustment</option>
+                            {% endif %}
+                            {% if category == 'Performance Verification' %}
+                                <option value="#">1) Performance Verification</option>
+                            {% endif %}
+                            {% if category == 'Attachment' %}
+                                <option selected value="#">1) Attachment</option>
+                            {% endif %}
+                            {% if category == 'Accessories Kits' %}
+                                <option value="#">1) Accessories Kits</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div style="text-align: left">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass_attachment" onclick="onchange_check_attachment()">
+                          <label class="form-check-label" for="all_pass_attachment">All Pass</label>
+                            </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+
+            {# content #}
+            <div class="container-fluid">
+                <table class="table table" style="text-align: center;">
+                    <tbody>
+                        <tr>
+                            <td colspan="6" style="background-color: #DCEBFF">Attachment document List</td>
+                            <td colspan="2" style="background-color: #DCEBFF">Attached</td>
+                            <td colspan="4" style="background-color: #DCEBFF">Image Upload</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Cover-Safety Verification Report</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="Attachment_CoverSafety_Report" id="Attachment_CoverSafety_Report" value="Attached"
+                                            {% if target_Attachment.Attachment_CoverSafety_Report == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_CoverSafety_Report">Attached</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group mb-3">
+                                    <div class="container">
+                                        <div class="row">
+                                            <input class="form-control" type="file" id="Attachment_CoverSafety_Report_File" name="Attachment_CoverSafety_Report_File">
+                                        </div>
+                                        <div class="row">
+                                            {% if target_Attachment.Attachment_CoverSafety_Report_File %}
+                                                {{ target_Attachment.Attachment_CoverSafety_Report_File }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Barcode Verification Report</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="Attachment_Barcode_Report" id="Attachment_Barcode_Report" value="Attached"
+                                            {% if target_Attachment.Attachment_Barcode_Report == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_Barcode_Report">Attached</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group mb-3">
+                                    <div class="container">
+                                        <div class="row">
+                                            <input class="form-control" type="file" id="Attachment_Barcode_Report_File" name="Attachment_Barcode_Report_File">
+                                        </div>
+                                        <div class="row">
+                                            {% if target_Attachment.Attachment_Barcode_Report_File %}
+                                                {{ target_Attachment.Attachment_Barcode_Report_File }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Position Verification Report</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="Attachment_Position_Report" id="Attachment_Position_Report" value="Attached"
+                                            {% if target_Attachment.Attachment_Position_Report == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_Position_Report">Attached</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group mb-3">
+                                    <div class="container">
+                                        <div class="row">
+                                            <input class="form-control" type="file" id="Attachment_Position_Report_File" name="Attachment_Position_Report_File">
+                                        </div>
+                                        <div class="row">
+                                            {% if target_Attachment.Attachment_Position_Report_File %}
+                                                {{ target_Attachment.Attachment_Position_Report_File }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Declaration of Quality(Hamilton Heater Shaker)</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline" >
+                                    <input class="form-check-input" type="checkbox" name="Attachment_Declaration_HHS" id="Attachment_Declaration_HHS" value="Attached"
+                                            {% if target_Attachment.Attachment_Declaration_HHS == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_Declaration_HHS">Attached</label>
+                                </div>
+                            </td>
+                            <td rowspan="4">
+                                <div class="input-group mb-3">
+                                    <div class="container">
+                                        <div class="row" >
+                                            <input class="form-control" type="file" id="formFileMultiple" name="Attachment_Files" multiple>
+                                        </div>
+                                        <div class="row">
+                                            {% if target_Attachment.Attachment_Files %}
+                                                {{ target_Attachment.Attachment_Files }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Declaration of Quality(Microlab STARlet IVD)</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="Attachment_Declaration" id="Attachment_Declaration" value="Attached"
+                                            {% if target_Attachment.Attachment_Declaration == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_Declaration">Attached</label>
+                                </div>
+                            </td>
+<!--                            <td>-->
+<!--                                <div class="input-group mb-3">-->
+<!--                                    <div class="container">-->
+<!--                                        <div class="row">-->
+<!--                                            <input class="form-control" type="file" id="Appearance_Shock_Watch_Image" name="Appearance_Shock_Watch_Image">-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            {% if target_Attachment.Appearance_Shock_Watch_Image %}-->
+<!--                                                {{ target_Attachment.Appearance_Shock_Watch_Image }}-->
+<!--                                            {% endif %}-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </td>-->
+                        </tr>
+                        <tr>
+                            <td colspan="6">Measurement Protocol ML STAR IVD</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="Attachment_Measurement_Protocol" id="Attachment_Measurement_Protocol" value="Attached"
+                                            {% if target_Attachment.Attachment_Measurement_Protocol == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_Measurement_Protocol">Attached</label>
+                                </div>
+                            </td>
+<!--                            <td>-->
+<!--                                <div class="input-group mb-3">-->
+<!--                                    <div class="container">-->
+<!--                                        <div class="row">-->
+<!--                                            <input class="form-control" type="file" id="Appearance_Shock_Watch_Image" name="Appearance_Shock_Watch_Image">-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            {% if target_Attachment.Appearance_Shock_Watch_Image %}-->
+<!--                                                {{ target_Attachment.Appearance_Shock_Watch_Image }}-->
+<!--                                            {% endif %}-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </td>-->
+                        </tr>
+                        <tr>
+                            <td colspan="6">STARLINE Electrical Safety Test Report</td>
+                            <td colspan="4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="Attachment_ElectricalSafety_Report" id="Attachment_ElectricalSafety_Report" value="Attached"
+                                            {% if target_Attachment.Attachment_ElectricalSafety_Report == 'Attached' %} checked {% endif %}>
+                                    <label class="form-check-label" for="Attachment_ElectricalSafety_Report">Attached</label>
+                                </div>
+                            </td>
+<!--                            <td>-->
+<!--                                <div class="input-group mb-3">-->
+<!--                                    <div class="container">-->
+<!--                                        <div class="row">-->
+<!--                                            <input class="form-control" type="file" id="Appearance_Shock_Watch_Image" name="Appearance_Shock_Watch_Image">-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            {% if target_Attachment.Appearance_Shock_Watch_Image %}-->
+<!--                                                {{ target_Attachment.Appearance_Shock_Watch_Image }}-->
+<!--                                            {% endif %}-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {# content 하단 #}
+            <div class="row">
+                <div class="col"></div>
+                {# 하단 버튼들 #}
+                <div class="col-6">
+                    <div class="row" style="text-align: left; font-size: 1rem">
+                        <div class="col">
+                            <div style="text-align: left">
+                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div style="text-align: right">
+                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음" onclick="alert_save()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+    </div>
+    <script src="{% static '../static/js/Attachmentapp.js' %}"></script>
+</div>
+{% endblock %}

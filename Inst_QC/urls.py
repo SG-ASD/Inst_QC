@@ -29,4 +29,5 @@ urlpatterns = [
     path("Electrical/", include('Electricalapp.urls')),
     path("Hardware/", include('Hardwareapp.urls')),
     path("Performance/", include('Performanceapp.urls')),
+    path("Attachment/", include('Attachmentapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

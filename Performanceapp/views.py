@@ -66,7 +66,7 @@ class Performance_second(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("Performanceapp:update_Performance_second", kwargs={"Instrument_SN": self.object})
+        return reverse("Attachmentapp:update", kwargs={"Instrument_SN": self.object})
 
 class Performance_excel(UpdateView):
     model = Inspection
@@ -85,5 +85,4 @@ class Performance_excel(UpdateView):
         return context
 
     def get_success_url(self):
-        excel = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
-        return reverse("Performanceapp:update_Performance_second", kwargs={"Instrument_SN": self.object})
+        return reverse("Attachmenetapp:update", kwargs={"Instrument_SN": self.object})

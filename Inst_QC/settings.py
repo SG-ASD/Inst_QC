@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'Electricalapp',
     'Hardwareapp',
     'Performanceapp',
+    'Attachmentapp',
 ]
 
 MIDDLEWARE = [
