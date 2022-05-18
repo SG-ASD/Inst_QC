@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'Hardwareapp',
     'Performanceapp',
     'Attachmentapp',
+    'AccesorieKitapp',
 ]
 
 MIDDLEWARE = [

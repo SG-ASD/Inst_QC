@@ -65,6 +65,31 @@ function select_subcategory(obj) {
     }
 }
 
+function onchange_check_Performance_first() {
+    debugger
+    const Perfomance_CoverSafety = document.getElementById('Perfomance_CoverSafety1');
+    const Perfomance_Barcode = document.getElementById('Perfomance_Barcode1');
+    const Perfomance_XYZpositioning = document.getElementById('Perfomance_XYZpositioning1');
+    const Perfomance_HHS_temperature = document.getElementById('Perfomance_HHS_temperature1');
+    const Perfomance_HHS_RPM = document.getElementById('Perfomance_HHS_RPM1');
+    const Perfomance_Loading_TipCarrier = document.getElementById('Perfomance_Loading_TipCarrier1');
+    const Perfomance_Loading_TubeCarrier = document.getElementById('Perfomance_Loading_TubeCarrier1');
+
+    const Perfomance_Loading_mtpCarrier = document.getElementById('Perfomance_Loading_mtpCarrier1');
+    const Perfomance_Loading_4mfxCarrier = document.getElementById('Perfomance_Loading_4mfxCarrier1');
+
+
+    Perfomance_CoverSafety.click()
+    Perfomance_Barcode.click()
+    Perfomance_XYZpositioning.click()
+    Perfomance_HHS_temperature.click()
+    Perfomance_HHS_RPM.click()
+    Perfomance_Loading_TipCarrier.click()
+    Perfomance_Loading_TubeCarrier.click()
+    Perfomance_Loading_mtpCarrier.click()
+    Perfomance_Loading_4mfxCarrier.click()
+
+}
 
 function onchange_check_Performance_second() {
     const Perfomance_VFV_Accuracy300ul1 = document.getElementById('Perfomance_VFV_Accuracy300ul1_P');
