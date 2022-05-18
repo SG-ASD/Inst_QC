@@ -159,29 +159,12 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     <div class="modal-body">
-                        <table id="sortTable" class="table table-bordered table-sm" style="text-align: center">
-                            <thead>
-                            <tr>
-                                <th data-field="instrument_name" data-sortable="true">장비명</th>
-                                <th data-field="instrument_SN" data-sortable="true">장비 S/N</th>
-                                <th data-field="computer_SN" data-sortable="true">컴퓨터 S/N</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div id="displayDiv">
-
+                        <div id="displayExcel">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="form-control" type="file" id="inputExcelRead"
-                               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="excelImport(event)">
+                        <input class="form-control" type="file" id="inputExcelRead" onchange="ExcelImport(event)"
+                               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                         <button type="submit" class="btn btn-primary">확인</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >취소</button>
                     </div>
@@ -288,25 +271,4 @@
     <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.7/package/dist/xlsx.mini.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-    <script>
-        function excelImport(Event){
-            alert("html")
-            alert(Event.target)
-            const file = Event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(){
-                const fileData = reader.result;
-                const wb = XLSX.read(fileData, {type : 'binary'});
-
-                wb.SheetNames.forEach(function(sheetName){
-                    const row =XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-                    console.log(JSON.stringify(row));
-                    alert(JSON.stringify(row))
-                })
-            };
-            reader.readAsBinaryString(file);
-        }
-    </script>
 {% endblock content %}

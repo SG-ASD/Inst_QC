@@ -26,9 +26,6 @@ class InstrumentListView(ListView):
     context_object_name = "inspection_list"
     pk_url_kwarg = "category"
 
-    # def get_success_url(self):
-    #     return reverse('Inspection:update', kwargs={'pk': self.object.pk})
-
     @transaction.atomic
     def get_queryset(self):
         # instrument_name = self.kwargs.get("instrument_name")
@@ -45,7 +42,6 @@ class InstrumentListView(ListView):
 
             if search_keyword:
                 search_result = instrument_list.filter(Instrument_SN__SN__icontains=search_keyword)
-                print(search_result)
                 return search_result
 
             if sort_name:
@@ -116,9 +112,13 @@ class InstrumentListView(ListView):
         category = self.kwargs.get("category")
 
         if self.request.method == "POST":
-            print(f"self.request.POST : {self.request.POST}")
+            excel_data = self.request.POST.get("excel_data")
             inst_name = self.request.POST.get("s1")
             inst_SN = self.request.POST.get("s2")
+
+            print(f"excel_data : {self.request.POST.get('excel_data')}")
+            print(f"inst_name : {self.request.POST.get('s1')}")
+            print(f"inst_SN : {self.request.POST.get('s2')}")
 
             context = {"s2": inst_SN, "s1": inst_name}
 
@@ -127,20 +127,16 @@ class InstrumentListView(ListView):
             # new_inspection = Inspection(Instrument_SN=new_inst.SN, Name=inst_name, Status="검사대기")
             # new_inspection.save()
 
-            new_instrument = Instrument.objects.create(
-                SN=inst_SN,
-                Name=inst_name
-            )
-
-            new_inspection = Inspection.objects.create(
-                Instrument_SN=new_instrument,
-                Name=inst_name,
-                Status="검사대기"
-            )
-
-        print(f"context : {context}")
-        print(f"category : {category}")
-        print(f"instrument_name : {instrument_name}")
+            # new_instrument = Instrument.objects.create(
+            #     SN=inst_SN,
+            #     Name=inst_name
+            # )
+            #
+            # new_inspection = Inspection.objects.create(
+            #     Instrument_SN=new_instrument,
+            #     Name=inst_name,
+            #     Status="검사대기"
+            # )
 
         # return render(self.request, "instrument", {'category': category, 'instrument_name': instrument_name})
         return redirect("Instrumentapp:instrument", category, instrument_name)
