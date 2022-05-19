@@ -201,3 +201,5 @@ class Inspection_Category(models.Model):
 
     def __str__(self):
         return self.Category
+
+

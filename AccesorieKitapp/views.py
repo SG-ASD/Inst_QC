@@ -8,21 +8,22 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
-from AccesorieKitapp.models import AccesorieKit
 from Inspectionapp.models import Inspection, Inspection_Category
-from .forms import AppearanceUnpackingForm
+from .forms import AccList_UpdateForm
+from .models import Accessories
+
 
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_first(UpdateView):
-    model = Inspection
-    form_class = AppearanceUnpackingForm
+    model = Accessories
+    form_class = AccList_UpdateForm
     template_name = 'AccesorieKitapp/AccKitUpdateView_first.html'
     context_object_name = 'target_Acc_first'
 
 
     def get_object(self):
-        object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
+        object = get_object_or_404(Accessories, Instrument_SN=self.kwargs['Instrument_SN'])
         return object
 
     @transaction.atomic
@@ -33,4 +34,4 @@ class AccKitUpdateView_first(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("AccesorieKitapp:AccKit_first", kwargs={"Instrument_SN": self.object})
+        return reverse("AccesorieKitapp:AccKitUpdateView_first", kwargs={"Instrument_SN": self.object})
