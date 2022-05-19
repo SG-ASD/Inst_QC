@@ -610,6 +610,30 @@
                         <hr>
                     </div>
                 </div>
+                <div class="container" style="text-align: center;">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Pipette Channel</h5>
+                        </div>
+                        <div class="col">
+                            <a>Adjust PIP</a>
+                        </div>
+                         <div class="col">
+                        </div>
+                        <div class="col" style="text-align: center">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="HardWare_Adjust" id="HardWare_Adjust1" value="Pass"
+                                       {% if target_Hardware.HardWare_Adjust == 'Pass' %} checked{% endif %}>
+                                <label class="form-check-label" for="HardWare_Adjust1">Pass</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="HardWare_Adjust" id="HardWare_Adjust2" value="Fail"
+                              {% if target_Hardware.HardWare_Adjust == 'Fail' %} checked{% endif %}>
+                              <label class="form-check-label" for="HardWare_Adjust2">Fail</label>
+                            </div>
+                        </div>
+                         <hr>
+                    </div>
 
                 <div class="container">
                     <div class="row" style="font-size: 1rem">
