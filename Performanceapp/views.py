@@ -21,8 +21,6 @@ from .forms import Performance_first
 from .forms import Performance_second
 
 
-
-
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class Performance_first(UpdateView):
@@ -42,7 +40,7 @@ class Performance_first(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("Performanceapp:update_Performance_second", kwargs={"Instrument_SN": self.object})
+        return reverse("Performanceapp:update_Performance2", kwargs={"Instrument_SN": self.object})
 
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
@@ -66,23 +64,5 @@ class Performance_second(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("Attachmentapp:update", kwargs={"Instrument_SN": self.object})
+        return reverse("Attachmentapp:update_Attachment", kwargs={"Instrument_SN": self.object})
 
-class Performance_excel(UpdateView):
-    model = Inspection
-    form_class = Performance_second
-    template_name = 'Performanceapp/Performance_Verification_second.html'
-    context_object_name = 'target_Performance_second'
-
-    def get_object(self):
-        object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
-        return object
-
-    @transaction.atomic
-    def get_context_data(self, **kwargs):
-        context = super(Performance_second, self).get_context_data(**kwargs)
-        context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        return context
-
-    def get_success_url(self):
-        return reverse("Attachmenetapp:update", kwargs={"Instrument_SN": self.object})

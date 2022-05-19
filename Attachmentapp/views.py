@@ -33,10 +33,9 @@ class AttachmentUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(AttachmentUpdateView, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):
-        return reverse("AccesorieKitapp:AccKit_first", kwargs={"Instrument_SN": self.object})
+        return reverse("AccesorieKitapp:update_AccKit1", kwargs={"Instrument_SN": self.object})
 
 

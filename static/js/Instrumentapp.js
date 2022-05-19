@@ -34,30 +34,6 @@ startModal.addEventListener('show.bs.modal', function (event) {
 /**
  * 장비 등록 엑셀파일 load
  */
-// function ExcelImport(Event) {
-//     alert("js")
-//     const file = Event.target.files[0]; //input file 객체를 가져온다.
-//     const reader = new FileReader(); // FileReader를 생성한다.
-//
-//     // 성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
-//     reader.onload = function () {
-//         const fileData = reader.result; //FileReader 결과 데이터(컨텐츠)를 가져온다.
-//         const wb = XLSX.read(fileData, {type: 'binary'}); // 바이너리 형태로 엑셀파일을 읽는다.
-//         const sheetName = '';
-//
-//         // 엑셀파일의 시트 정보를 읽어서 JSON 형태로 변환한다.
-//         wb.SheetNames.forEach(function (sheetName) {
-//             const row = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-//             console.log(JSON.stringify(row));
-//
-//             $("#displayExcel").html(XLSX.utils.sheet_to_html (wb.Sheets[sheetName]));
-//         })
-//
-//
-//     };
-//     reader.readAsBinaryString(file); // 파일객체를 읽는다. 완료되면 원시 이진 데이터가 문자열로 포함됨.
-// }
-
 function ExcelImport(Event) {
     let file = Event.target.files[0]; //input file 객체를 가져온다.
     let reader = new FileReader(); // FileReader를 생성한다.

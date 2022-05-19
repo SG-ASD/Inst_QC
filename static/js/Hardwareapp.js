@@ -1,6 +1,13 @@
 'use strict';
 
 /**
+ * 저장 버튼 클릭 시 팝업창 띄우기
+ */
+function alert_save(){
+    alert("저장되었습니다.")
+}
+
+/**
  * Tool 선택 시
  */
 function Cal_Get_Info(obj) {

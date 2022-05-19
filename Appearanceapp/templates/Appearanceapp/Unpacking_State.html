@@ -18,23 +18,25 @@
                                 {% if category == 'Appearance Inspection' %}
                                     <option value="{% url 'Appearanceapp:update_Packaging' target_Unpacking_State.Instrument_SN_id %}">1) Packaging Condition</option>
                                     <option selected value="{% url 'Appearanceapp:update_Unpacking' target_Unpacking_State.Instrument_SN_id %}">2) Appearance of instrument</option>
-                                    <option value="#">3) Instrument Accessories Kits</option>
                                 {% endif %}
                                 {% if category == 'Electrical Test' %}
                                     <option value="{% url 'Electricalapp:update_Electrical' target_Unpacking_State.Instrument_SN_id %}">1) Electrical Test</option>
                                 {% endif %}
                                 {% if category == 'Hardware Adjustment' %}
-                                    <option value="{% url 'Hardwareapp:hardware_first' target_Unpacking_State.Instrument_SN_id %}">1) X-Arm & Adjust PIP</option>
-                                    <option value="{% url 'Hardwareapp:hardware_second' target_Unpacking_State.Instrument_SN_id %}">2) Check PIP & Autoload</option>
+                                    <option value="{% url 'Hardwareapp:update_Hardware1' target_Unpacking_State.Instrument_SN_id %}">1) X-Arm & Adjust PIP</option>
+                                    <option value="{% url 'Hardwareapp:update_Hardware2' target_Unpacking_State.Instrument_SN_id %}">2) Check PIP & Autoload</option>
                                 {% endif %}
                                 {% if category == 'Performance Verification' %}
-                                    <option value="#">1) Performance Verification</option>
+                                    <option value="{% url 'Performanceapp:update_Performance1' target_Unpacking_State.Instrument_SN_id %}">1) Performance Verification (1)</option>
+                                    <option value="{% url 'Performanceapp:update_Performance2' target_Unpacking_State.Instrument_SN_id %}">2) Performance Verification (2)</option>
                                 {% endif %}
                                 {% if category == 'Attachment' %}
-                                    <option value="#">1) Attachment</option>
+                                    <option value="{% url 'Attachmentapp:update_Attachment' target_Unpacking_State.Instrument_SN_id %}">1) Attachment</option>
                                 {% endif %}
                                 {% if category == 'Accessories Kits' %}
-                                    <option value="#">1) Accessories Kits</option>
+                                    <option value="{% url 'AccesorieKitapp:update_AccKit1' target_Unpacking_State.Instrument_SN_id %}">1) Accessories Kits (1)</option>
+{#                                    <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Unpacking_State.Instrument_SN_id %}">2) Accessories Kits (2)</option>#}
+{#                                    <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Unpacking_State.Instrument_SN_id %}">3) Accessories Kits (3)</option>#}
                                 {% endif %}
                             {% endfor %}
                         </select>

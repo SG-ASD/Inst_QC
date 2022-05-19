@@ -18,22 +18,25 @@
                             {% if category == 'Appearance Inspection' %}
                                 <option value="{% url 'Appearanceapp:update_Packaging' target_Acc_first.Instrument_SN_id %}">1) Packaging Condition</option>
                                 <option value="{% url 'Appearanceapp:update_Unpacking' target_Acc_first.Instrument_SN_id %}">2) Appearance of instrument</option>
-                                <option value="#">3) Instrument Accessories Kits</option>
                             {% endif %}
                             {% if category == 'Electrical Test' %}
-                                <option  value="{% url 'Electricalapp:update_Electrical' target_Acc_first.Instrument_SN_id %}">1) Electrical Test</option>
+                                <option value="{% url 'Electricalapp:update_Electrical' target_Acc_first.Instrument_SN_id %}">1) Electrical Test</option>
                             {% endif %}
                             {% if category == 'Hardware Adjustment' %}
-                                <option value="#">1) Hardware Adjustment</option>
+                                <option value="{% url 'Hardwareapp:update_Hardware1' target_Acc_first.Instrument_SN_id %}">1) X-Arm & Adjust PIP</option>
+                                <option value="{% url 'Hardwareapp:update_Hardware2' target_Acc_first.Instrument_SN_id %}">2) Check PIP & Autoload</option>
                             {% endif %}
                             {% if category == 'Performance Verification' %}
-                                <option value="#">1) Performance Verification</option>
+                                <option value="{% url 'Performanceapp:update_Performance1' target_Acc_first.Instrument_SN_id %}">1) Performance Verification (1)</option>
+                                <option value="{% url 'Performanceapp:update_Performance2' target_Acc_first.Instrument_SN_id %}">2) Performance Verification (2)</option>
                             {% endif %}
                             {% if category == 'Attachment' %}
-                                <option value="#">1) Attachment</option>
+                                <option value="{% url 'Attachmentapp:update_Attachment' target_Acc_first.Instrument_SN_id %}">1) Attachment</option>
                             {% endif %}
                             {% if category == 'Accessories Kits' %}
-                                <option selected value="#">1) Accessories Kits</option>
+                                <option selected value="{% url 'AccesorieKitapp:update_AccKit1' target_Acc_first.Instrument_SN_id %}">1) Accessories Kits (1)</option>
+{#                                <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Acc_first.Instrument_SN_id %}">2) Accessories Kits (2)</option>#}
+{#                                <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Acc_first.Instrument_SN_id %}">3) Accessories Kits (3)</option>#}
                             {% endif %}
                         {% endfor %}
                     </select>
@@ -291,7 +294,7 @@
                         <div class="col">
                             <div style="text-align: right">
                                 <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
-                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음" onclick="alert_save()">
+                                <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음">
                             </div>
                         </div>
                     </div>
