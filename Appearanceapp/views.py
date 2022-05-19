@@ -35,8 +35,6 @@ class AppearanceUpdateView(UpdateView):
         context = super(AppearanceUpdateView, self).get_context_data(**kwargs)
         # subcategory = self.kwargs.get("category")
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(
-            Category="Appearance Inspection").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):
@@ -55,10 +53,7 @@ class AppearanceUnpackingView(UpdateView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(AppearanceUnpackingView, self).get_context_data(**kwargs)
-        # subcategory = self.kwargs.get("category")
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(
-            Category="Appearance Inspection").values_list('Subcategory', flat=True)
         return context
 
     def get_object(self):
