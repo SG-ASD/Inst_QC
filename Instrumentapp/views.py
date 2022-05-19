@@ -116,27 +116,47 @@ class InstrumentListView(ListView):
             inst_name = self.request.POST.get("s1")
             inst_SN = self.request.POST.get("s2")
 
-            print(f"excel_data : {self.request.POST.get('excel_data')}")
-            print(f"inst_name : {self.request.POST.get('s1')}")
-            print(f"inst_SN : {self.request.POST.get('s2')}")
-
             context = {"s2": inst_SN, "s1": inst_name}
+
+            if excel_data is not None and (inst_name is None or inst_SN is None):
+                excel_data = excel_data.split(',')
+                list_data = []
+                n = -1
+                for idx, v in enumerate(excel_data):
+                    if idx % 3 == 0:
+                        list_data.append([])
+                        n += 1
+                    list_data[n].append(v)
+                del list_data[0]
+                print(f"list_data : {list_data}")
+
+                for idx, v in enumerate(list_data):
+                    new_instrument = Instrument.objects.create(
+                        SN=v[1],
+                        Name=v[0]
+                    )
+                    new_inspection = Inspection.objects.create(
+                        Instrument_SN=new_instrument,
+                        Name=v[0],
+                        Status="검사대기",
+                        Computer_SN=v[2]
+                    )
+
+            elif excel_data is None and inst_name is not None and inst_SN is not None:
+                new_instrument = Instrument.objects.create(
+                    SN=inst_SN,
+                    Name=inst_name
+                )
+                new_inspection = Inspection.objects.create(
+                    Instrument_SN=new_instrument,
+                    Name=inst_name,
+                    Status="검사대기"
+                )
 
             # new_inst = Instrument(SN=inst_SN, Name=inst_name)
             # new_inst.save()
             # new_inspection = Inspection(Instrument_SN=new_inst.SN, Name=inst_name, Status="검사대기")
             # new_inspection.save()
-
-            # new_instrument = Instrument.objects.create(
-            #     SN=inst_SN,
-            #     Name=inst_name
-            # )
-            #
-            # new_inspection = Inspection.objects.create(
-            #     Instrument_SN=new_instrument,
-            #     Name=inst_name,
-            #     Status="검사대기"
-            # )
 
         # return render(self.request, "instrument", {'category': category, 'instrument_name': instrument_name})
         return redirect("Instrumentapp:instrument", category, instrument_name)
