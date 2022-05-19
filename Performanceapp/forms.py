@@ -17,6 +17,7 @@ class Performance_first(ModelForm):
             'Perfomance_Loading_TubeCarrier',
             'Perfomance_Loading_mtpCarrier',
             'Perfomance_Loading_4mfxCarrier',
+            'HardWare_Adjust',
         ]
 
 class Performance_second(ModelForm):
