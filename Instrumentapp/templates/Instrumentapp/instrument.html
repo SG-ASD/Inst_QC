@@ -262,7 +262,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <script src="{% static '../static/js/Inspectionapp.js' %}"></script>
@@ -271,4 +270,67 @@
     <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.7/package/dist/xlsx.mini.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+
+    <table id="example" class="display dataTable" style="width: 100%;" aria-describedby="example_info">
+      <thead>
+        <tr>
+          <th class="sorting th-sm" aria-sort="ascending" aria-controls="example" aria-label="Name: activate to sort column descending">Name
+          </th>
+          <th class="sorting th-sm" >Position
+          </th>
+          <th class="sorting th-sm">Office
+          </th>
+          <th class="sorting th-sm">Age
+          </th>
+          <th class="sorting th-sm">Start date
+          </th>
+          <th class="sorting th-sm">Salary
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+          <td>2011/04/25</td>
+          <td>$320,800</td>
+        </tr>
+        <tr>
+          <td>Garrett Winters</td>
+          <td>Accountant</td>
+          <td>Tokyo</td>
+          <td>63</td>
+          <td>2011/07/25</td>
+          <td>$170,750</td>
+        </tr>
+        <tr>
+          <td>Ashton Cox</td>
+          <td>Junior Technical Author</td>
+          <td>San Francisco</td>
+          <td>66</td>
+          <td>2009/01/12</td>
+          <td>$86,000</td>
+        </tr>
+        <tr>
+          <td>Cedric Kelly</td>
+          <td>Senior Javascript Developer</td>
+          <td>Edinburgh</td>
+          <td>22</td>
+          <td>2012/03/29</td>
+          <td>$433,060</td>
+        </tr>
+      </tbody>
+    </table>
+
 {% endblock content %}
+<!doctype html>

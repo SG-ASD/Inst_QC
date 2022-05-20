@@ -72,3 +72,7 @@ function ExcelImport(Event) {
         }
     };
 }
+
+$(document).ready(function () {
+    $('#example').DataTable();
+});
