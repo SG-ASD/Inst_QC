@@ -116,8 +116,6 @@ class InstrumentListView(ListView):
             inst_name = self.request.POST.get("s1")
             inst_SN = self.request.POST.get("s2")
 
-            context = {"s2": inst_SN, "s1": inst_name}
-
             if excel_data is not None and (inst_name is None or inst_SN is None):
                 excel_data = excel_data.split(',')
                 list_data = []

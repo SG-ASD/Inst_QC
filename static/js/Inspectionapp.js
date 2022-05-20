@@ -5,7 +5,6 @@
  */
 function alert_save(){
     alert("저장되었습니다.")
-    alert("Test!")
 }
 
 /**

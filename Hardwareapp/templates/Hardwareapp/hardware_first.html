@@ -3,659 +3,565 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<main class="site-body">
-    <div class="container-md">
-        <div class="bg-light rounded p-4" >
-<!--            <div class="col">-->
-<!--              <div style="text-align: right">-->
-<!--                  <input type="file" name="file" id="file" style="margin-bottom: .5rem" class="btn btn-primary" value="Import Result" onclick="openTextFile()">-->
-<!--                  <textarea id="output" style="width: 600px">-->
-<!--                  </textarea>-->
-<!--              </div>-->
-<!--            </div>-->
-
-            <!-- Calibration Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Calibration Tool</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                    <div class="modal-body">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">S/N</th>
-                            <th scope="col">Calibration</th>
-                            <th scope="col">Validate</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <!-- Calibration 리스트     -->
-                          {% for calibration in inspection_calibration %}
-                              <td id="id_1"value={{ calibration.pk }}>{{ calibration.pk }}</td>
-                              <td value={{ calibration.Calibration_Serial }}>{{ calibration.Calibration_Serial }}</td>
-                              <td value={{ calibration.Calibration_Date }}>{{ calibration.Calibration_Date }}</td>
-                              <td value={{ calibration.Validation_Date }}>{{ calibration.Validation_Date }}</td>
-                              <td>
-                                  <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
-                              </td>
-                              <tr>
+    <div class="container-fluid">
+        <div class="bg-light rounded p-4">
+            <form action="" method="post" autocomplete="on" enctype="multipart/form-data">
+                {% csrf_token %}
+                {# content 상단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 타이틀 #}
+                    <div class="col-6">
+                        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="location.href=(this.value);">
+                            {% for category in inspection_category %}
+                                <optgroup label="{{ forloop.counter }}. {{ category }}"></optgroup>
+                                {% if category == 'Appearance Inspection' %}
+                                    <option value="{% url 'Appearanceapp:update_Packaging' target_Hardware.Instrument_SN_id %}">1) Packaging Condition</option>
+                                    <option value="{% url 'Appearanceapp:update_Unpacking' target_Hardware.Instrument_SN_id %}">2) Appearance of instrument</option>
+                                {% endif %}
+                                {% if category == 'Electrical Test' %}
+                                    <option value="{% url 'Electricalapp:update_Electrical' target_Hardware.Instrument_SN_id %}">1) Electrical Test</option>
+                                {% endif %}
+                                {% if category == 'Hardware Adjustment' %}
+                                    <option selected value="{% url 'Hardwareapp:update_Hardware1' target_Hardware.Instrument_SN_id %}">1) X-Arm & Adjust PIP</option>
+                                    <option value="{% url 'Hardwareapp:update_Hardware2' target_Hardware.Instrument_SN_id %}">2) Check PIP & Autoload</option>
+                                {% endif %}
+                                {% if category == 'Performance Verification' %}
+                                    <option value="{% url 'Performanceapp:update_Performance1' target_Hardware.Instrument_SN_id %}">1) Performance Verification (1)</option>
+                                    <option value="{% url 'Performanceapp:update_Performance2' target_Hardware.Instrument_SN_id %}">2) Performance Verification (2)</option>
+                                {% endif %}
+                                {% if category == 'Attachment' %}
+                                    <option value="{% url 'Attachmentapp:update_Attachment' target_Hardware.Instrument_SN_id %}">1) Attachment</option>
+                                {% endif %}
+                                {% if category == 'Accessories Kits' %}
+                                    <option value="{% url 'AccesorieKitapp:update_AccKit1' target_Hardware.Instrument_SN_id %}">1) Accessories Kits (1)</option>
+{#                                    <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Hardware.Instrument_SN_id %}">2) Accessories Kits (2)</option>#}
+{#                                    <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Hardware.Instrument_SN_id %}">3) Accessories Kits (3)</option>#}
+                                {% endif %}
                             {% endfor %}
-                          </tr>
-                        </tbody>
-                      </table>
+                        </select>
                     </div>
-                  </div>
-              </div>
-            </div>
-            <!-- Calibration Modal -->
-            <!-- Barcode Modal -->
-            <div class="modal fade" id="BarcodeModal" tabindex="-1" aria-labelledby="BarcodeModal" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="Bacode_title">Calibration Block</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                    <div class="modal-body">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">S/N</th>
-                            <th scope="col">Calibration</th>
-                            <th scope="col">Validate</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <!-- Barcode 리스트     -->
-                          {% for barcode in inspection_Barcode %}
-<!--                              {% if barcode.Calibration_Date <= barcode.Validation_Date %}-->
-                                  <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
-                                  <td value={{ barcode.Calibration_Serial }}>{{ barcode.Calibration_Serial }}</td>
-                                  <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
-                                  <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
-<!--                              {% endif %}}-->
-                              <td>
-                                  <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
-                                      선택</button>
-                              </td>
-                              <tr>
-                            {% endfor %}
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <div class="col"></div>
                 </div>
-              </div>
-            </div>
-            <!-- Barcode Modal -->
-            <form action="{% url 'Hardwareapp:hardware_first' target_Hardware.Instrument_SN_id %}" method="post" autocomplete="on" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: .8rem">
+                            Calibration Block
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" readonly class="form-control-plaintext" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
+                                {% if target_Hardware.HardWare_CalibrationTool %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#BarcodeModal" style="font-size: .8rem">
+                            Barcode Block
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" readonly class="form-control-plaintext" id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier"  style="width: 12rem"
+                                {% if target_Hardware.HardWare_BarcodeCarrier %} value={{target_Hardware.HardWare_BarcodeCarrier}} {% endif %}>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            </form>
+            <form action="{% url 'Hardwareapp:update_Hardware1' target_Hardware.Instrument_SN_id %}" method="post" autocomplete="on" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- Button trigger modal -->
-            <div class="row">
-                <div class="col-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: .8rem">
-                        Calibration Block
-                    </button>
-                </div>
-                <div class="col-1" style="text-align: left">
-                    <input type="text" readonly class="form-control-plaintext" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
-                    {% if target_Hardware.HardWare_XArm_left %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}>
-                </div>
-            <div class="row">
-                <div class="col-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#BarcodeModal" style="font-size: .8rem">
-                        Barcode Block
-                    </button>
-                </div>
-                <div class="col-1" style="text-align: left">
-                    <input type="text" readonly class="form-control-plaintext" id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier"  style="width: 12rem"
-                    {% if target_Hardware.HardWare_BarcodeCarrier %} value={{target_Hardware.HardWare_BarcodeCarrier}} {% endif %}>
-                </div>
-<!--                <div class="row">-->
-<!--                    <div class="col"></div>-->
-<!--                    <div class="col-6">-->
-<!--                        <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="select_category(this);">-->
-<!--                            {% for category in inspection_category %}-->
-<!--                                {% if category == "Electrical Test" %}-->
-<!--                                <option selected value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
-<!--                                {% else %}-->
-<!--                                <option value="{{ category }}">{{ forloop.counter }}. {{ category }}</option>-->
-<!--                                {% endif %}-->
-<!--                            {% endfor %}-->
-<!--                        </select>-->
-<!--                        <select id="inspection_subcategory" name="inspection_subcategory" class="form-select mb-3" aria-label="Default select example" onchange="select_subcategory(this);">-->
-<!--                            {% for subcategory in inspection_subcategory %}-->
-<!--                            <option value="{{ category }}">{{ forloop.counter }}) {{ subcategory }}</option>-->
-<!--                            {% endfor %}-->
-<!--                        </select>-->
-<!--                        <div style="text-align: left">-->
-<!--                            <div class="form-check">-->
-<!--                              <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass" onclick="onchange_check()">-->
-<!--                              <label class="form-check-label" for="all_pass">-->
-<!--                                All Pass-->
-<!--                              </label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col"></div>-->
-<!--                </div>-->
+                <div class="container-fluid">
+                    <table class="table" style="text-align: center;">
+                        <tbody style="vertical-align: middle;">
+                            <tr>
+                                <td colspan="3" style="background-color: #DCEBFF">Category</td>
+                                <td colspan="3" style="background-color: #DCEBFF">Method</td>
+                                <td colspan="3" style="background-color: #DCEBFF">Acceptance Criteria</td>
+                                <td colspan="3" style="background-color: #DCEBFF">Result</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">X-Arm</td>
+                                <td colspan="3">AdjustArm Z using pip</td>
+                                <td colspan="3">≤+/-5</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Left</span>
+                                            <input type="text" class="form-control" name="HardWare_XArm_left" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                    {% if target_Hardware.HardWare_XArm_left %} value={{target_Hardware.HardWare_XArm_left}} {% endif %}>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Right</span>
+                                            <input type="text" class="form-control" name="HardWare_XArm_right" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                    {% if target_Hardware.HardWare_XArm_right %} value={{target_Hardware.HardWare_XArm_right}} {% endif %}>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">X-Arm</td>
+                                <td colspan="3">Check Arm Diff</td>
+                                <td colspan="3">≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-control form-control-sm" name="HardWare_XArm_Diff" type="text" placeholder="Input Result" aria-label="Input Result"
+                                                {% if target_Hardware.HardWare_XArm_Diff %} value={{target_Hardware.HardWare_XArm_Diff}} {% endif %}>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_1</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P1_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev1" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev1 %} value={{target_Hardware.HardWare_Xdev1}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P1_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt1 %} value={{target_Hardware.HardWare_Xtilt1}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P1_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt1 %} value={{target_Hardware.HardWare_Ytilt1}} {% endif %}>
+                                            </div>
+                                        </div>
 
-                <div class="row" style="text-align: center; padding: 1rem;">
-                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
-                        <a>Category<br></a>
-                    </div>
-                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
-                        <a>Method<br></a>
-                    </div>
-                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
-                        <a>Acceptance Criteria<br></a>
-                    </div>
-                    <div class="col" style="padding: 1rem; background-color: #DCEBFF">
-                        <a>Result<br></a>
-                    </div>
-                </div>
-                <div class="container" style="text-align: center;" id="Hardware_Info">
-                    <div class="row">
-                        <div class="col">
-                            <h5>X-Arm</h5>
-                        </div>
-                        <div class="col">
-                            <a>AdjustArm Z using pip</a>
-                        </div>
-                        <div class="col">
-                            <a>≤+/-5</a>
-                        </div>
-                        <div class="col" style="text-align: left">
-                            <div class="form-check form-check-inline">
-                               <div class="input-group input-group-sm mb-3">
-                                  <span class="input-group-text" id="inputGroup-sizing-sm">Left</span>
-                                  <input type="text" class="form-control" name="HardWare_XArm_left" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                   {% if target_Hardware.HardWare_XArm_left %} value={{target_Hardware.HardWare_XArm_left}} {% endif %}>
-                               </div>
-                            </div>
-                            <div class="form-check form-check-inline">
-                               <div class="input-group input-group-sm mb-3">
-                                  <span class="input-group-text" id="inputGroup-sizing-sm">Right</span>
-                                  <input type="text" class="form-control" name="HardWare_XArm_right" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                         {% if target_Hardware.HardWare_XArm_right %} value={{target_Hardware.HardWare_XArm_right}} {% endif %}>
-                               </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>X-Arm</h5>
-                        </div>
-                        <div class="col">
-                            <a>Check Arm Diff</a>
-                        </div>
-                        <div class="col">
-                            <a>≤+/-10</a>
-                        </div>
-                        <div class="col" style="text-align: left">
-                            <div class="form-check form-check-inline">
-                                <input class="form-control form-control-sm" name="HardWare_XArm_Diff" type="text" placeholder="Input Result" aria-label="Input Result"
-                                 {% if target_Hardware.HardWare_XArm_Diff %} value={{target_Hardware.HardWare_XArm_Diff}} {% endif %}>
-                            </div>
-                        </div>
-                        <hr>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P1_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN1 %} value={{target_Hardware.HardWare_SN1}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_2</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P2_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev2" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev2 %} value={{target_Hardware.HardWare_Xdev2}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P2_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt2 %} value={{target_Hardware.HardWare_Xtilt2}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P2_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt2 %} value={{target_Hardware.HardWare_Ytilt2}} {% endif %}>
+                                            </div>
+                                        </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_1</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" style="text-align: left;">
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P1_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev1" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev1 %} value={{target_Hardware.HardWare_Xdev1}} {% endif %}>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P2_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN2 %} value={{target_Hardware.HardWare_SN2}} {% endif %}>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P1_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt1 %} value={{target_Hardware.HardWare_Xtilt1}} {% endif %}>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_3</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P3_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev3" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev3 %} value={{target_Hardware.HardWare_Xdev3}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P3_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt3 %} value={{target_Hardware.HardWare_Xtilt3}} {% endif %}>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P1_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                       {% if target_Hardware.HardWare_Ytilt1 %} value={{target_Hardware.HardWare_Ytilt1}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P1_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN1 %} value={{target_Hardware.HardWare_SN1}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_2</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P2_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev2 %} value={{target_Hardware.HardWare_Xdev2}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P2_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt2 %} value={{target_Hardware.HardWare_Xtilt2}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P2_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt2 %} value={{target_Hardware.HardWare_Ytilt2}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P2_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN2 %} value={{target_Hardware.HardWare_SN2}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_3</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text"  id="inputGroup-sizing-sm">P3_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev3 %} value={{target_Hardware.HardWare_Xdev3}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P3_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt3 %} value={{target_Hardware.HardWare_Xtilt3}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text"  id="inputGroup-sizing-sm">P3_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt3 %} value={{target_Hardware.HardWare_Ytilt3}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P3_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN3 %} value={{target_Hardware.HardWare_SN3}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_4</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P4_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev4 %} value={{target_Hardware.HardWare_Xdev4}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text"  id="inputGroup-sizing-sm">P4_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt4 %} value={{target_Hardware.HardWare_Xtilt4}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P4_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt4 %} value={{target_Hardware.HardWare_Ytilt4}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P4_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN4 %} value={{target_Hardware.HardWare_SN4}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_5</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P5_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev5 %} value={{target_Hardware.HardWare_Xdev5}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P5_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt5 %} value={{target_Hardware.HardWare_Xtilt5}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P5_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt5 %} value={{target_Hardware.HardWare_Ytilt5}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P5_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN5 %} value={{target_Hardware.HardWare_SN5}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_6</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P6_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev6 %} value={{target_Hardware.HardWare_Xdev6}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P6_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt6 %} value={{target_Hardware.HardWare_Xtilt6}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P6_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt6 %} value={{target_Hardware.HardWare_Ytilt6}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P6_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN6 %} value={{target_Hardware.HardWare_SN6}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_7</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P7_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev7 %} value={{target_Hardware.HardWare_Xdev7}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P7_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt7 %} value={{target_Hardware.HardWare_Xtilt7}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P7_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt7 %} value={{target_Hardware.HardWare_Ytilt7}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P7_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN7 %} value={{target_Hardware.HardWare_SN7}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel_8</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP Manual</a>
-                        </div>
-                        <div class="col">
-                            <a>X dev/tilt ≤+/-20, <br> Y tilt : ≤+/-10 </a>
-                        </div>
-                        <div class="col" >
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P8_Dev_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xdev8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xdev8 %} value={{target_Hardware.HardWare_Xdev8}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P8_tilt_X:</span>
-                                      <input type="text" class="form-control" name="HardWare_Xtilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Xtilt8 %} value={{target_Hardware.HardWare_Xtilt8}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P8_tilt_Y:</span>
-                                      <input type="text" class="form-control" name="HardWare_Ytilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_Ytilt8 %} value={{target_Hardware.HardWare_Ytilt8}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col" style="text-align: left;">
-                                <div class="form-check form-check-inline">
-                                    <div class="input-group input-group-sm mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-sm">P8_S/N:</span>
-                                      <input type="text" class="form-control" name="HardWare_SN8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                                      {% if target_Hardware.HardWare_SN8 %} value={{target_Hardware.HardWare_SN8}} {% endif %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-                <div class="container" style="text-align: center;">
-                    <div class="row">
-                        <div class="col">
-                            <h5>Pipette Channel</h5>
-                        </div>
-                        <div class="col">
-                            <a>Adjust PIP</a>
-                        </div>
-                         <div class="col">
-                        </div>
-                        <div class="col" style="text-align: center">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="HardWare_Adjust" id="HardWare_Adjust1" value="Pass"
-                                       {% if target_Hardware.HardWare_Adjust == 'Pass' %} checked{% endif %}>
-                                <label class="form-check-label" for="HardWare_Adjust1">Pass</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="HardWare_Adjust" id="HardWare_Adjust2" value="Fail"
-                              {% if target_Hardware.HardWare_Adjust == 'Fail' %} checked{% endif %}>
-                              <label class="form-check-label" for="HardWare_Adjust2">Fail</label>
-                            </div>
-                        </div>
-                         <hr>
-                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P3_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt3 %} value={{target_Hardware.HardWare_Ytilt3}} {% endif %}>
+                                            </div>
+                                        </div>
 
-                <div class="container">
-                    <div class="row" style="font-size: 1rem">
-                      <div class="col">
-                          <div style="text-align: left">
-                              <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
-                          </div>
-                      </div>
-                      <div class="col">
-                          <div style="text-align: right">
-                              <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
-                              <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음" onclick="alert_save()">
-                          </div>
-                      </div>
-                    </div>
-                </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P3_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN3 %} value={{target_Hardware.HardWare_SN3}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_4</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P4_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev4" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev4 %} value={{target_Hardware.HardWare_Xdev4}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P4_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt4 %} value={{target_Hardware.HardWare_Xtilt4}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P4_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt4 %} value={{target_Hardware.HardWare_Ytilt4}} {% endif %}>
+                                            </div>
+                                        </div>
 
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P4_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN4 %} value={{target_Hardware.HardWare_SN4}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_5</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P5_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev5" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev5 %} value={{target_Hardware.HardWare_Xdev5}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P5_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt5 %} value={{target_Hardware.HardWare_Xtilt5}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P5_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt5 %} value={{target_Hardware.HardWare_Ytilt5}} {% endif %}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P5_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN5 %} value={{target_Hardware.HardWare_SN5}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_6</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P6_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev6" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev6 %} value={{target_Hardware.HardWare_Xdev6}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P6_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt6 %} value={{target_Hardware.HardWare_Xtilt6}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P6_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt6 %} value={{target_Hardware.HardWare_Ytilt6}} {% endif %}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P6_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN6 %} value={{target_Hardware.HardWare_SN6}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_7</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P7_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev7" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev7 %} value={{target_Hardware.HardWare_Xdev7}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P7_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt7 %} value={{target_Hardware.HardWare_Xtilt7}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P7_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt7 %} value={{target_Hardware.HardWare_Ytilt7}} {% endif %}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P7_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN7 %} value={{target_Hardware.HardWare_SN7}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel_8</td>
+                                <td colspan="3">Adjust PIP Manual</td>
+                                <td colspan="3">X dev/tilt : ≤+/-20<br>Y tilt : ≤+/-10</td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P8_dev_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xdev8" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xdev8 %} value={{target_Hardware.HardWare_Xdev8}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P8_tilt_X:</span>
+                                                <input type="text" class="form-control" name="HardWare_Xtilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Xtilt8 %} value={{target_Hardware.HardWare_Xtilt8}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P8_tilt_Y:</span>
+                                                <input type="text" class="form-control" name="HardWare_Ytilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_Ytilt8 %} value={{target_Hardware.HardWare_Ytilt8}} {% endif %}>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <div class="input-group input-group-sm mb-3">
+                                                <span class="input-group-text" id="inputGroup-sizing-sm">P8_S/N:</span>
+                                                <input type="text" class="form-control" name="HardWare_SN8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                        {% if target_Hardware.HardWare_SN8 %} value={{target_Hardware.HardWare_SN8}} {% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Pipette Channel</td>
+                                <td colspan="3">Adjust PIP</td>
+                                <td colspan="3"></td>
+                                <td colspan="3">
+                                    <div class="col">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="HardWare_Adjust" id="HardWare_Adjust1" value="Pass"
+                                                   {% if target_Hardware.HardWare_Adjust == 'Pass' %} checked{% endif %}>
+                                            <label class="form-check-label" for="HardWare_Adjust1">Pass</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="radio" name="HardWare_Adjust" id="HardWare_Adjust2" value="Fail"
+                                          {% if target_Hardware.HardWare_Adjust == 'Fail' %} checked{% endif %}>
+                                          <label class="form-check-label" for="HardWare_Adjust2">Fail</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {# content 하단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 하단 버튼들 #}
+                    <div class="col-6">
+                        <div class="row" style="text-align: left; font-size: 1rem">
+                            <div class="col">
+                                <div style="text-align: left">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="text-align: right">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
             </form>
         </div>
-    </div>
-    <script src="{% static '../static/js/Hardwareapp.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</main>
+        <!-- Calibration Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Calibration Block</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">S/N</th>
+                                <th scope="col">Calibration</th>
+                                <th scope="col">Validate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!-- Calibration 리스트     -->
+                                {% for calibration in inspection_calibration %}
+                                    <td id="id_1"value={{ calibration.Tool_Machine }}>{{ calibration.Description }}</td>
+                                    <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
+                                    <td value={{ calibration.Calibration_Date }}>{{ calibration.Calibration_Date }}</td>
+                                    <td value={{ calibration.Validation_Date }}>{{ calibration.Validation_Date }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
+                                    </td>
+                                    <tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Calibration Modal -->
+        <!-- Barcode Modal -->
+        <div class="modal fade" id="BarcodeModal" tabindex="-1" aria-labelledby="BarcodeModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Bacode_title">Calibration Block</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col"></th>
+                                <th scope="col">Calibration</th>
+                                <th scope="col">Validate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!-- Barcode 리스트     -->
+                                {% for barcode in inspection_Barcode %}
+                                    <td value={{ barcode.Tool_Machine }}>{{ barcode.Description }}</td>
+                                    <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
+                                    <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
+                                    <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
+                                            선택
+                                        </button>
+                                    </td>
+                                    <tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Barcode Modal -->
+        <script src="{% static '../static/js/Inspectionapp.js' %}"></script>
+        <script src="{% static '../static/js/Hardwareapp.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 {% endblock %}

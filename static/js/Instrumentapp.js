@@ -34,68 +34,6 @@ startModal.addEventListener('show.bs.modal', function (event) {
 /**
  * 장비 등록 엑셀파일 load
  */
-// function ExcelImport(Event) {
-//     alert("js")
-//     const file = Event.target.files[0]; //input file 객체를 가져온다.
-//     const reader = new FileReader(); // FileReader를 생성한다.
-//
-//     // 성공적으로 읽기 동작이 완료된 경우 실행되는 이벤트 핸들러를 설정한다.
-//     reader.onload = function () {
-//         const fileData = reader.result; //FileReader 결과 데이터(컨텐츠)를 가져온다.
-//         const wb = XLSX.read(fileData, {type: 'binary'}); // 바이너리 형태로 엑셀파일을 읽는다.
-//         const sheetName = '';
-//
-//         // 엑셀파일의 시트 정보를 읽어서 JSON 형태로 변환한다.
-//         wb.SheetNames.forEach(function (sheetName) {
-//             const row = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-//             console.log(JSON.stringify(row));
-//
-//             $("#displayExcel").html(XLSX.utils.sheet_to_html (wb.Sheets[sheetName]));
-//         })
-//
-//
-//     };
-//     reader.readAsBinaryString(file); // 파일객체를 읽는다. 완료되면 원시 이진 데이터가 문자열로 포함됨.
-// }
-
-// function ExcelImport(Event) {
-//     let file = Event.target.files[0]; //input file 객체를 가져온다.
-//     let reader = new FileReader(); // FileReader를 생성한다.
-//     reader.readAsArrayBuffer(file);
-//
-//     reader.onload = function () {
-//         let fileData = reader.result; //FileReader 결과 데이터를 가져온다.
-//         fileData = new Uint8Array(fileData);
-//         let wb = XLSX.read(fileData, {type: 'array'}); // array 형태로 엑셀파일을 읽는다.
-//         let sheetName = wb.SheetNames;
-//
-//         let sheet_data = XLSX.utils.sheet_to_json(wb.Sheets[sheetName[0]], {header:1});
-//
-//         console.log(XLSX.read(fileData, {type: 'array'}));
-//         console.log(sheet_data);
-//
-//         if(sheet_data.length > 0) {
-//             let table_output = '<table class="table table-striped table-bordered" name="excel_data" value='+sheet_data+'>';
-//
-//             for(let row = 0; row < sheet_data.length; row++) {
-//                 table_output += '<tr>';
-//                 for(let cell = 0; cell < sheet_data[row].length; cell++) {
-//                     if(row == 0) {  // 엑셀파일의 header
-//                         table_output += '<th>'+sheet_data[row][cell]+'</th>';
-//                     }
-//                     else {  // 엑셀파일의 data
-//                         table_output += '<td>'+sheet_data[row][cell]+'</td>';
-//                     }
-//                 }
-//                 table_output += '</tr>';
-//             }
-//             table_output += '</table>';
-//
-//             document.getElementById('displayExcel').innerHTML = table_output;
-//         }
-//     };
-// }
-
 function ExcelImport(Event) {
     let file = Event.target.files[0]; //input file 객체를 가져온다.
     let reader = new FileReader(); // FileReader를 생성한다.
@@ -117,9 +55,6 @@ function ExcelImport(Event) {
             table_output += '<input type="hidden" name="excel_data" value="'+sheet_data+'">';
 
             for(let row = 0; row < sheet_data.length; row++) {
-                // inst_list.push({"Name":sheet_data[row][0], "SN":sheet_data[row][1], "ComputerSN":sheet_data[row][2]});
-                // inst_list.splice(0, 1);
-
                 table_output += '<tr>';
                 for(let cell = 0; cell < sheet_data[row].length; cell++) {
                     if(row == 0) {  // 엑셀파일의 header
@@ -132,7 +67,6 @@ function ExcelImport(Event) {
                 table_output += '</tr>';
             }
             table_output += '</table>';
-            // table_output += '<input type="hidden" name="excel_data" value="'+inst_list+'">';
 
             document.getElementById('displayExcel').innerHTML = table_output;
         }

@@ -44,7 +44,7 @@ class HardwareUpdateView_first(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse("Hardwareapp:hardware_second", kwargs={"Instrument_SN": self.object})
+        return reverse("Hardwareapp:update_Hardware2", kwargs={"Instrument_SN": self.object})
 
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
@@ -62,8 +62,7 @@ class HardwareUpdateView_second(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(HardwareUpdateView_second, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
-        context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):
-        return reverse("Performanceapp:update_Performance_first", kwargs={"Instrument_SN": self.object})
+        return reverse("Performanceapp:update_Performance1", kwargs={"Instrument_SN": self.object})
