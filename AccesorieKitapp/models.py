@@ -10,7 +10,6 @@ class Accessories(models.Model):
     Final_Configuation = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Measurement_Protocol = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     DeclarationSTARlet = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
-    MeasurementProtocolSTARlet = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     EU_Declaration = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Declaration_Quality = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Packing_Checklist = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
@@ -24,6 +23,7 @@ class Accessories(models.Model):
     Left_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Right_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Top_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
+
     Sensor_4L = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Solid_Waste = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     USB_Liquid = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
@@ -42,6 +42,7 @@ class Accessories(models.Model):
     Screw = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Fitting = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Liq_Waste = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
+
     XArm = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Bar_Left = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Bar_Top = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
@@ -61,3 +62,4 @@ class Accessories(models.Model):
     HHS_Check = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     HHS_Manual = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Stop_Barcode = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
+    Remark = models.CharField(max_length=200, blank=True)  # 설비 및 계측기
