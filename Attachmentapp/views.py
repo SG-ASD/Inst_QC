@@ -39,3 +39,5 @@ class AttachmentUpdateView(UpdateView):
         return reverse("AccesorieKitapp:update_AccKit1", kwargs={"Instrument_SN": self.object})
 
 
+
+
