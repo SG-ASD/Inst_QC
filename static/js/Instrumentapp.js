@@ -35,20 +35,19 @@ startModal.addEventListener('show.bs.modal', function (event) {
  * 장비 등록 엑셀파일 load
  */
 function ExcelImport(Event) {
-    let file = Event.target.files[0]; //input file 객체를 가져온다.
-    let reader = new FileReader(); // FileReader를 생성한다.
-    reader.readAsArrayBuffer(file);
+    let file = Event.target.files[0];  // input file 객체를 가져온다.
+    let reader = new FileReader();  // FileReader를 생성한다.
+    reader.readAsArrayBuffer(file);  // FileReader API로 파일의 데이터를 읽는다. (readArrayBuffer : 데이터를 일정한 크기로 조각내 서버로 보낸다.)
 
     reader.onload = function () {
-        let fileData = reader.result; //FileReader 결과 데이터를 가져온다.
+        let fileData = reader.result;  // FileReader 결과 데이터를 가져온다.
         fileData = new Uint8Array(fileData);
-        let wb = XLSX.read(fileData, {type: 'array'}); // array 형태로 엑셀파일을 읽는다.
+        let wb = XLSX.read(fileData, {type: 'array'});  // array 형태로 엑셀파일을 읽는다.
         let sheetName = wb.SheetNames;
 
         let sheet_data = XLSX.utils.sheet_to_json(wb.Sheets[sheetName[0]], {header:1});
 
         console.log(sheet_data);
-        let inst_list = []  // 배열 선언
 
         if(sheet_data.length > 0) {
             let table_output = '<table class="table table-striped table-bordered">';
@@ -72,3 +71,7 @@ function ExcelImport(Event) {
         }
     };
 }
+
+// $(document).ready(function () {
+//     $('#foo-table').DataTable();
+// });
