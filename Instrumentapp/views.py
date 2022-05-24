@@ -101,9 +101,6 @@ class InstrumentListView(ListView):
         subcategory = self.kwargs.get("category")
         context["subcategory_list"] = Category.objects.filter(Category=subcategory).values()
 
-        print(f"subcategory : {subcategory}")
-        print(f"context : {context}")
-
         return context
 
     @transaction.atomic
@@ -116,6 +113,7 @@ class InstrumentListView(ListView):
             inst_name = self.request.POST.get("s1")
             inst_SN = self.request.POST.get("s2")
 
+            # 엑셀 파일로 장비 추가
             if excel_data is not None and (inst_name is None or inst_SN is None):
                 excel_data = excel_data.split(',')
                 list_data = []
@@ -126,7 +124,6 @@ class InstrumentListView(ListView):
                         n += 1
                     list_data[n].append(v)
                 del list_data[0]
-                print(f"list_data : {list_data}")
 
                 for idx, v in enumerate(list_data):
                     new_instrument = Instrument.objects.create(
@@ -140,6 +137,7 @@ class InstrumentListView(ListView):
                         Computer_SN=v[2]
                     )
 
+            # 직접 입력하여 장비 추가
             elif excel_data is None and inst_name is not None and inst_SN is not None:
                 new_instrument = Instrument.objects.create(
                     SN=inst_SN,
