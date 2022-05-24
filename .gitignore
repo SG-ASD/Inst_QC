@@ -90,3 +90,5 @@ __pycache__/
 media/
 
 .xlsx
+
+*.xlsx
