@@ -11,9 +11,12 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+
+from FinishedInspectionapp.models import FinishInspection
 from .models import Instrument
 from Mainapp.models import Category
 from Inspectionapp.models import Inspection
+from AccesorieKitapp.models import Accessories
 from .forms import InstrumentForm
 
 
@@ -136,6 +139,16 @@ class InstrumentListView(ListView):
                         Status="검사대기",
                         Computer_SN=v[2]
                     )
+                    new_Accesories = Accessories.objects.create(
+                        Instrument_SN=new_instrument
+                    )
+                    new_FinishInspection = FinishInspection.objects.create(
+                        Instrument_SN=new_instrument,
+                        Name=v[0],
+                        Status="검사대기",
+                        Computer_SN=v[2]
+                    )
+
 
             # 직접 입력하여 장비 추가
             elif excel_data is None and inst_name is not None and inst_SN is not None:
@@ -144,6 +157,14 @@ class InstrumentListView(ListView):
                     Name=inst_name
                 )
                 new_inspection = Inspection.objects.create(
+                    Instrument_SN=new_instrument,
+                    Name=inst_name,
+                    Status="검사대기"
+                )
+                new_Accesories = Accessories.objects.create(
+                    Instrument_SN=new_instrument
+                )
+                new_FinishInspection = FinishInspection.objects.create(
                     Instrument_SN=new_instrument,
                     Name=inst_name,
                     Status="검사대기"

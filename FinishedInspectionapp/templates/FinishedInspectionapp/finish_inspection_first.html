@@ -1,0 +1,174 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="bg-light rounded p-4">
+            <form action="" target_finish_first.Instrument_SN_id  method="post" autocomplete="on" enctype="multipart/form-data">
+                {% csrf_token %}
+                {# content 상단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 타이틀 #}
+                    <div class="col-6">
+                        <h3 class="text-center mb-4">Finished Product Inspection Report</h3>
+                        <h5 class="text-center">{{ target_finish_first.Name }}</h5>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                {# content #}
+                <div class="container-fluid">
+                    <table class="table table-borderless" style="text-align: center;">
+                        <tbody>
+                            <tr>
+                                <td style="background-color: #DCEBFF">Instrument SN</td>
+                                <td style="background-color: #DCEBFF">Computer SN</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5">{{ target_finish_first.Instrument_SN_id }}</td>
+                                <td class="px-5">
+                                    {% if target_finish_first.Computer_SN %}
+                                        <input class="form-control" type="text" name="Computer_SN" value={{ target_finish_first.Computer_SN }}>
+                                    {% else %}
+                                        <input class="form-control" type="text" name="Computer_SN" placeholder="Computer SN">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #DCEBFF">Inspector</td>
+                                <td style="background-color: #DCEBFF">Start Date</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5">
+                                    {% if target_finish_first.Inspector %}
+                                        <input class="form-control" type="text" name="Inspector" value={{ target_finish_first.Inspector }}>
+                                    {% else %}
+                                        <input class="form-control" type="text" name="Inspector" placeholder="Inspector">
+                                    {% endif %}
+                                </td>
+                                <td class="px-5">
+                                    {% if target_finish_first.Start_Date %}
+                                        <input class="form-control" type="date" name="Start_Date" value={{ target_finish_first.Start_Date }}>
+                                    {% else %}
+                                        <input class="form-control" type="date" name="Start_Date" placeholder="Start Date">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #DCEBFF">Hamilton SW Version</td>
+                                <td style="background-color: #DCEBFF">Seegene Launcher Version</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5">
+                                    {% if target_finish_first.SW_Version %}
+                                        <input class="form-control" type="text" name="SW_Version" value={{ target_finish_first.SW_Version }}>
+                                    {% else %}
+                                        <input class="form-control" type="text" name="SW_Version" placeholder="Hamilton SW Version">
+                                    {% endif %}
+                                </td>
+                                <td class="px-5">
+                                    {% if target_finish_first.SL_Version %}
+                                        <input class="form-control" type="text" name="SL_Version" value={{ target_finish_first.SL_Version }}>
+                                    {% else %}
+                                        <input class="form-control" type="text" name="SL_Version" placeholder="Seegene Launcher Version">
+                                    {% endif %}
+                                </td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td style="background-color: #DCEBFF">Pipette Ch(PX)</td>-->
+<!--                                <td style="background-color: #DCEBFF">X-drive(XO)</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="px-5">-->
+<!--                                    {% if target_Inspection.FW_PipetteCh %}-->
+<!--                                        <input class="form-control" type="text" name="FW_PipetteCh" value={{ target_Inspection.FW_PipetteCh }}>-->
+<!--                                    {% else %}-->
+<!--                                        <input class="form-control" type="text" name="FW_PipetteCh" placeholder="Pipette Ch(PX)">-->
+<!--                                    {% endif %}-->
+<!--                                </td>-->
+<!--                                <td class="px-5">-->
+<!--                                    {% if target_Inspection.FW_Xdrive %}-->
+<!--                                        <input class="form-control" type="text" name="FW_Xdrive" value={{ target_Inspection.FW_Xdrive }}>-->
+<!--                                    {% else %}-->
+<!--                                        <input class="form-control" type="text" name="FW_Xdrive" placeholder="X-drive(XO)">-->
+<!--                                    {% endif %}-->
+<!--                                </td>-->
+<!--                            </tr>-->
+                            <tr>
+                                <td style="background-color: #DCEBFF">Document No.</td>
+                                <td style="background-color: #DCEBFF">Management Number</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5">{{ target_finish_first.Revision }}</td>
+                                <td class="input-group mb-3">
+                                     <input type="text" readonly class="form-control" placeholder="new_Barcode_Scanner" aria-label="Barcode_Scanner" aria-describedby="button-addon2" name="Barcode_Scanner"
+                                       id="Barcode_Scanner" {% if target_finish_first.Barcode_Scanner %} value={{target_finish_first.Barcode_Scanner}} {% endif %}>
+                                    <button class="btn btn-outline-secondary"  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Click</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                {# content 하단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 하단 버튼들 #}
+                    <div class="col-6">
+                        <div class="row" style="text-align: left; font-size: 1rem">
+                            <div class="col">
+                                <div style="text-align: right">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </form>
+        </div>
+        <!-- Calibration Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Calibration Block</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="instrument-table" class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Management_No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">S/N</th>
+                                <th scope="col">Calibration_Date</th>
+                                <th scope="col">Click</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!-- Calibration 리스트     -->
+                                {% for calibration in inspection_calibration %}
+                                    <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
+                                    <td value={{ calibration.Instrument }}>{{ calibration.Instrument }}</td>
+                                    <td value={{ calibration.Calibration_Serial }}>{{ calibration.Calibration_Serial }}</td>
+                                    <td value={{ calibration.CalibrationDt }}>{{ calibration.CalibrationDt }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" onclick="Barcode_Scanner_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
+                                    </td>
+                                    <tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static '../static/js/FinishedInspectionapp.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

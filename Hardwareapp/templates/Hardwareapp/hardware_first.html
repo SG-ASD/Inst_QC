@@ -43,6 +43,11 @@
                     </div>
                     <div class="col"></div>
                 </div>
+
+            </form>
+            <form action="{% url 'Hardwareapp:update_Hardware1' target_Hardware.Instrument_SN_id %}" method="post" autocomplete="on" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Button trigger modal -->
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-2">
@@ -51,7 +56,7 @@
                         </button>
                     </div>
                     <div class="col-4">
-                        <input type="text" readonly class="form-control-plaintext" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
+                        <input type="text"  class="form-control-plaintext" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
                                 {% if target_Hardware.HardWare_CalibrationTool %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}>
                     </div>
                     <div class="col-3"></div>
@@ -69,10 +74,6 @@
                     </div>
                     <div class="col-3"></div>
                 </div>
-            </form>
-            <form action="{% url 'Hardwareapp:update_Hardware1' target_Hardware.Instrument_SN_id %}" method="post" autocomplete="on" enctype="multipart/form-data">
-                {% csrf_token %}
-                <!-- Button trigger modal -->
                 <div class="container-fluid">
                     <table class="table" style="text-align: center;">
                         <tbody style="vertical-align: middle;">
@@ -489,23 +490,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table class="table table-hover">
+                        <table id="instrument-table" class="table table-hover table-bordered">
                             <thead>
                             <tr>
+                                <th scope="col">Management_No</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">S/N</th>
-                                <th scope="col">Calibration</th>
-                                <th scope="col">Validate</th>
+                                <th scope="col">Calibration_Date</th>
+                                <th scope="col">Click</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <!-- Calibration 리스트     -->
                                 {% for calibration in inspection_calibration %}
-                                    <td id="id_1"value={{ calibration.Tool_Machine }}>{{ calibration.Description }}</td>
                                     <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
-                                    <td value={{ calibration.Calibration_Date }}>{{ calibration.Calibration_Date }}</td>
-                                    <td value={{ calibration.Validation_Date }}>{{ calibration.Validation_Date }}</td>
+                                    <td value={{ calibration.Instrument }}>{{ calibration.Instrument }}</td>
+                                    <td value={{ calibration.Calibration_Serial }}>{{ calibration.Calibration_Serial }}</td>
+                                    <td value={{ calibration.CalibrationDt }}>{{ calibration.CalibrationDt }}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
                                     </td>
@@ -531,20 +533,21 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
+                                <th scope="col">Management_No</th>
                                 <th scope="col">Name</th>
-                                <th scope="col"></th>
-                                <th scope="col">Calibration</th>
-                                <th scope="col">Validate</th>
+                                <th scope="col">S/N</th>
+                                <th scope="col">Calibration_Date</th>
+                                <th scope="col">Click</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <!-- Barcode 리스트     -->
                                 {% for barcode in inspection_Barcode %}
-                                    <td value={{ barcode.Tool_Machine }}>{{ barcode.Description }}</td>
                                     <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
-                                    <td value={{ barcode.Calibration_Date }}>{{ barcode.Calibration_Date }}</td>
-                                    <td value={{ barcode.Validation_Date }}>{{ barcode.Validation_Date }}</td>
+                                    <td value={{ barcode.Instrument }}>{{ barcode.Instrument }}</td>
+                                    <td value={{ barcode.Calibration_Serial }}>{{ barcode.Calibration_Serial }}</td>
+                                    <td value={{ barcode.CalibrationDt }}>{{ barcode.CalibrationDt }}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
                                             선택
@@ -563,5 +566,47 @@
         <script src="{% static '../static/js/Inspectionapp.js' %}"></script>
         <script src="{% static '../static/js/Hardwareapp.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--     {# DataTable (MIT license) #}-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
+    <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#instrument-table').DataTable({
+                dom: "<'row'<'col-sm-5'l><'col-sm-7'f>>" +
+                "<'row'<'col-sm-12't>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                // 현재 상태 보존
+                stateSave: true,
+                // 표시 건수 기능
+                {#lengthChange: false,#}
+                // 검색 기능
+                {#searching: false,#}
+                // 정렬 기능
+                {#ordering: false,#}
+                // 정보 표시 기능
+                {#info: false,#}
+                // 페이징 기능
+                {#paging: false#}
+
+                language: {
+                    emptyTable: "데이터가 없습니다.",
+                    lengthMenu: "페이지당 _MENU_ 개씩 보기",
+                    info: "현재 _START_ - _END_ / _TOTAL_건",
+                    infoEmpty: "데이터 없음",
+                    zeroRecords: "일치하는 데이터가 없습니다.",
+                    processing: "잠시만 기다려 주세요.",
+                    paginate: {
+                        next: "다음",
+                        previous: "이전",
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+        /* 필터링 (검색) */
+        div.dataTables_filter {text-align : left !important;}
+        div.dataTables_paging {text-align : left !important;}
+    </style>
     </div>
 {% endblock %}

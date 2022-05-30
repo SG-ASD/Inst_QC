@@ -9,8 +9,8 @@ class Accessories(models.Model):
     Installation_Qualification = models.CharField(max_length=20, blank=True)  # 장비명
     Final_Configuation = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Measurement_Protocol = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
-    DeclarationSTARlet = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     EU_Declaration = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
+    DeclarationSTARlet = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Declaration_Quality = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Packing_Checklist = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Maintenance = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
@@ -20,9 +20,10 @@ class Accessories(models.Model):
     Side_Cover_right = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Side_Cover_left = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Rear_Piexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
+    Top_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Left_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Right_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
-    Top_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
+
 
     Sensor_4L = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Solid_Waste = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
