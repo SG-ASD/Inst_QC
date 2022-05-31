@@ -41,7 +41,7 @@ function openTextFile() {
 /**
  * All Pass 체크 시 하위 체크박스에 체크 표시
  */
-function onchange_check_finished_report() {
+function onchange_check_finished() {
     debugger
     const Computer_Version = document.getElementById('Computer_Version1');
     const SL_Install = document.getElementById('SL_Install1');
