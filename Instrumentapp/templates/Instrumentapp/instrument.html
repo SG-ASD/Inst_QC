@@ -3,6 +3,18 @@
 {% load bootstrap4 %}
 
 {% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                 <div class="alert alert-danger" role="alert" >
+                      동일한 시리얼번호가 있습니다. 다시 장비 추가 해주시기 바랍니다.
+                    </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <div class="container-fluid">
         <div class="bg-light rounded p-4">
             {# content 상단 #}

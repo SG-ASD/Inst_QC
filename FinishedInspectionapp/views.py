@@ -1,5 +1,6 @@
 from datetime import date
 
+import openpyxl
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
@@ -42,6 +43,7 @@ class FinishedInspection_UpdateView_first(UpdateView):
         context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Barcode Scanner').\
             filter(CalibrationDt__lte=date.today(), ValidationDt__gte=date.today())
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
+        context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
         return context
 
     def get_success_url(self):
@@ -66,6 +68,117 @@ class FinishedInspection_UpdateView_second(UpdateView):
         return context
 
     def get_success_url(self):
+        self.Excel_Finished_Inspection1()
         return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+
+    def Excel_Finished_Inspection1(self):
+        object_Inspection = get_object_or_404(FinishInspection, Instrument_SN=self.kwargs['Instrument_SN'])
+        # 수입검사 성적서 엑셀 파일에 데이터 삽입
+        wb = openpyxl.load_workbook('D:\Inst_QC\Reportfinish.xlsx', data_only=True)
+        sheet = wb.active
+        sheet = wb['1']
+
+        # Inspection
+        sheet['K6'] = object_Inspection.Instrument_SN_id # 장비 SN
+        sheet['K7'] = object_Inspection.Computer_SN # 컴퓨터 SN
+        sheet['K8'] = object_Inspection.Barcode_Scanner # 바코드 스캐너
+        sheet['D10'] = object_Inspection.Inspector # 검사자
+        sheet['D11'] = object_Inspection.Start_Date # 검사시작일
+        # sheet['E16'] = object_Inspection.Completed_Date # 검사완료일
+        sheet['D13'] = object_Inspection.SW_Version # SW 버전
+        sheet['D14'] = object_Inspection.SL_Version # 씨젠런처 버전
+        # sheet['E18'] = object_Inspection.Revision # 검사성적서 Revision
+        # sheet['E18'] = object_Inspection.Status # 검사 상태
+
+        # 1. Computer verification
+        if object_Inspection.Computer_Version == "Accept":
+            sheet['K18'] = "■ Accept          □  Reject "
+        elif object_Inspection.Computer_Version == "Reject":
+            sheet['K18'] = "□ Accept          ■  Reject "
+
+        # 2. Seegene Launcher Installation process verification
+        if object_Inspection.SL_Install == "Accept":
+            sheet['K21'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Install == "Reject":
+            sheet['K21'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.Method_Import == "Accept":
+            sheet['K22'] = "■ Accept          □  Reject "
+        elif object_Inspection.Method_Import == "Reject":
+            sheet['K22'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.SL_Run_Version == "Accept":
+            sheet['K23'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Run_Version == "Reject":
+            sheet['K23'] = "□ Accept          ■  Reject "
+
+        # 3. Communication test
+        if object_Inspection.SL_Maintenance_Screen == "Accept":
+            sheet['K26'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Maintenance_Screen == "Reject":
+            sheet['K26'] = "□ Accept          ■  Reject "
+
+        # 4. Seegene Launcher performance verification
+        if object_Inspection.SL_Home_Screen == "Accept":
+            sheet['K29'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Home_Screen == "Reject":
+            sheet['K29'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.SL_mode == "Accept":
+            sheet['K30'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_mode == "Reject":
+            sheet['K30'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.SL_Protocol == "Accept":
+            sheet['K31'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Protocol == "Reject":
+            sheet['K31'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.SL_Setting_Screen == "Accept":
+            sheet['K32'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Setting_Screen == "Reject":
+            sheet['K32'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.SL_Trace == "Accept":
+            sheet['K33'] = "■ Accept          □  Reject "
+        elif object_Inspection.SL_Trace == "Reject":
+            sheet['K33'] = "□ Accept          ■  Reject "
+
+        # 5. Labeling & Packaging inspection
+        if object_Inspection.Condition == "Accept":
+            sheet['K36'] = "■ Accept          □  Reject "
+        elif object_Inspection.Condition == "Reject":
+            sheet['Kk36'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.HHS_Labeled == "Accept":
+            sheet['K37'] = "■ Accept          □  Reject "
+        elif object_Inspection.HHS_Labeled == "Reject":
+            sheet['Kk37'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.Acc_Labeled == "Accept":
+            sheet['K38'] = "■ Accept          □  Reject "
+        elif object_Inspection.Acc_Labeled == "Reject":
+            sheet['Kk38'] = "□ Accept          ■  Reject "
+
+        sheet['B39'] = f"[Label] Same as the Labeling & Packaging instruction [      {str(object_Inspection.Labeling_Instruction_Rev)}        ] "
+        sheet['B40'] = f"Label No: (Instrument Label) {str(object_Inspection.Labeling_Instruction)}                    (Box Label) {str(object_Inspection.Labeling_Box)}"
+        sheet['B41'] = f"S/N :   {str(object_Inspection.Label_SN)}                                            MFG:  {str(object_Inspection.Label_MFG)}"
+
+        if object_Inspection.Label_Option == "Accept":
+            sheet['K39'] = "■ Accept          □  Reject "
+        elif object_Inspection.Label_Option == "Reject":
+            sheet['Kk39'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.UDI_Barcode == "Accept":
+            sheet['K42'] = "■ Accept          □  Reject "
+        elif object_Inspection.UDI_Barcode == "Reject":
+            sheet['Kk42'] = "□ Accept          ■  Reject "
+
+        if object_Inspection.UDI_HRI == "Accept":
+            sheet['K43'] = "■ Accept          □  Reject "
+        elif object_Inspection.UDI_HRI == "Reject":
+            sheet['K43'] = "□ Accept          ■  Reject "
+
+        wb.save('D:\Inst_QC\Reportfinish.xlsx')
 
 
