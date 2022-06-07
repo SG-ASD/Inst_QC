@@ -207,17 +207,3 @@ class Inspection_Category(models.Model):
 
     def __str__(self):
         return self.Category
-
-
-# class Inspection_File(models.Model):
-#
-#     def test_path(instance, filename):
-#         print("Inspection_File 클래스 test_path 입니다.")
-#         print(f"filename:{filename}")
-#         # filename = "File_Image.jpg"
-#         print(f"instance.Instrument_SN_id:{instance.Instrument_SN_id}")
-#         return f'{instance.Instrument_SN_id}/{filename}'
-#
-#     Attachment_Files = models.FileField(upload_to=test_path, null=True, blank=True)  # 파일 경로
-#     Instrument_SN = models.ForeignKey(Inspection, on_delete=models.CASCADE, related_name='File')  # 장비 SN
-
