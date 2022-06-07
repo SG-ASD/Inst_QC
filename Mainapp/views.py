@@ -22,7 +22,6 @@ class IndexView(ListView):
     def get_queryset(self):
         temp1 = Category.objects.distinct().values_list('Category', flat=True)  # distinct() : 중복 제거, values_list() : 특정 필드를 조건으로 지정
         # print(Category.objects.distinct().values_list('Category').query)
-        print(temp1)
         return temp1
 
 
@@ -37,5 +36,4 @@ class SubcategoryView(ListView):
         main_category = self.kwargs.get("category_main")
         temp1 = Category.objects.filter(Category=main_category).values()
         # print(Category.objects.filter(Category=main_category).values('Subcategory').query)
-        print(temp1)
         return temp1

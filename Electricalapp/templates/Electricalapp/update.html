@@ -35,8 +35,8 @@
                                 {% endif %}
                                 {% if category == 'Accessories Kits' %}
                                     <option value="{% url 'AccesorieKitapp:update_AccKit1' target_Electrical.Instrument_SN_id %}">1) Accessories Kits (1)</option>
-                                    <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Electrical.Instrument_SN_id %}">2) Accessories Kits (2)</option>#}
-                                    <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Electrical.Instrument_SN_id %}">3) Accessories Kits (3)</option>#}
+                                    <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Electrical.Instrument_SN_id %}">2) Accessories Kits (2)</option>
+                                    <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Electrical.Instrument_SN_id %}">3) Accessories Kits (3)</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -122,7 +122,7 @@
                                         <label class="form-check-label" for="ElectricalTest_PowerLED1">Pass</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="ElectricalTest_HiPotential" id="ElectricalTest_PowerLED2" value="Fail"
+                                        <input class="form-check-input" type="radio" name="ElectricalTest_PowerLED" id="ElectricalTest_PowerLED2" value="Fail"
                                                 {% if target_Electrical.ElectricalTest_PowerLED == 'Fail' %} checked {% endif %}>
                                         <label class="form-check-label" for="ElectricalTest_PowerLED2">Fail</label>
                                     </div>

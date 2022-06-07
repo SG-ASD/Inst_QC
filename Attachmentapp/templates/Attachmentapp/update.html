@@ -9,7 +9,10 @@
             {% csrf_token %}
             {# content 상단 #}
             <div class="row">
-                <div class="col"></div>
+                <div class="col">
+                    <h5>Instrument S/N</h5>
+                    <input class="form-control" type="text" name="Instrument_SN" readonly value={{ target_Attachment.Instrument_SN_id }}>
+                </div>
                 {# 타이틀 #}
                 <div class="col-6">
                     <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="location.href=(this.value);">
@@ -35,8 +38,8 @@
                                 {% endif %}
                                 {% if category == 'Accessories Kits' %}
                                     <option value="{% url 'AccesorieKitapp:update_AccKit1' target_Attachment.Instrument_SN_id %}">1) Accessories Kits (1)</option>
-                                    <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Attachment.Instrument_SN_id %}">2) Accessories Kits (2)</option>#}
-                                    <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Attachment.Instrument_SN_id %}">3) Accessories Kits (3)</option>#}
+                                    <option value="{% url 'AccesorieKitapp:update_AccKit2' target_Attachment.Instrument_SN_id %}">2) Accessories Kits (2)</option>
+                                    <option value="{% url 'AccesorieKitapp:update_AccKit3' target_Attachment.Instrument_SN_id %}">3) Accessories Kits (3)</option>
                                 {% endif %}
                         {% endfor %}
                     </select>
@@ -255,20 +258,5 @@
         </form>
     </div>
     <script src="{% static '../static/js/Attachmentapp.js' %}"></script>
-    <script>
-        console.log(20 -5 )
-        // 아래의 코드는 브라우저
-        console.log(3000 * 2);
-        console.log(3000 * 2);
-        console.log(3000 * 2);
-        console.log(4200 * 2);
-        debugger
-        welcome("이신후");
-
-        function welcome(name) {
-            console.log('안녕하세요' + name + '님');
-        };
-
-    </script>
 </div>
 {% endblock %}

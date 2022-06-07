@@ -28,9 +28,10 @@ class InstrumentListView(ListView):
 
     @transaction.atomic
     def get_queryset(self):
-        # instrument_name = self.kwargs.get("instrument_name")
-        # instrument_list = Inspection.objects.filter(Name=instrument_name).values().order_by("-id")
-        instrument_list = Inspection.objects.values().order_by("-id")
+        instrument_name = self.kwargs.get("instrument_name")
+        instrument_list = Inspection.objects.filter(Name=instrument_name).values()
+        # instrument_list = Inspection.objects.values().order_by("-id")
+        # instrument_list = Inspection.objects.values()
 
         if self.request.method == "GET":
             search_keyword = self.request.GET.get("q", "")

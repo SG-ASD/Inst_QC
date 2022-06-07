@@ -1,4 +1,3 @@
-
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
@@ -13,6 +12,7 @@ from .forms import AccList1_UpdateForm, AccList2_UpdateForm, AccList3_UpdateForm
 from .models import Accessories
 import openpyxl
 
+
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_first(UpdateView):
@@ -20,7 +20,6 @@ class AccKitUpdateView_first(UpdateView):
     form_class = AccList1_UpdateForm
     template_name = 'AccesorieKitapp/AccKitUpdateView_first.html'
     context_object_name = 'target_Acc_first'
-
 
     def get_object(self):
         object = get_object_or_404(Accessories, Instrument_SN=self.kwargs['Instrument_SN'])
@@ -36,6 +35,7 @@ class AccKitUpdateView_first(UpdateView):
     def get_success_url(self):
         return reverse("AccesorieKitapp:update_AccKit2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
+
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_second(UpdateView):
@@ -43,7 +43,6 @@ class AccKitUpdateView_second(UpdateView):
     form_class = AccList2_UpdateForm
     template_name = 'AccesorieKitapp/AccKitUpdateView_second.html'
     context_object_name = 'target_Acc_second'
-
 
     def get_object(self):
         object = get_object_or_404(Accessories, Instrument_SN=self.kwargs['Instrument_SN'])
@@ -59,6 +58,7 @@ class AccKitUpdateView_second(UpdateView):
     def get_success_url(self):
         return reverse("AccesorieKitapp:update_AccKit3", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
+
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_third(UpdateView):
@@ -68,10 +68,8 @@ class AccKitUpdateView_third(UpdateView):
     template_name = 'AccesorieKitapp/AccKitUpdateView_third.html'
     context_object_name = 'target_Acc_third'
 
-
     def get_object(self):
         object = get_object_or_404(Accessories, Instrument_SN=self.kwargs['Instrument_SN'])
-
         return object
 
     @transaction.atomic

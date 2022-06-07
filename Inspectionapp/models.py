@@ -1,5 +1,4 @@
 import os
-
 from django.contrib.auth.models import User
 from django.db import models
 from Instrumentapp.models import Instrument
@@ -13,18 +12,25 @@ class Inspection(models.Model):
     # related_name = request.user.profile.nickname
     # user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
-
     def Attachment_image_path(instance, filename):
         # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
-        return f'{instance.Instrument_SN_id}/Attachment/{filename}'
+        return f'{instance.Instrument_SN_id}/{filename}'
 
     def Appearance_image_path(instance, filename):
         # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
-        return f'{instance.Instrument_SN_id}/Appearance/{filename}'
+        filename = "ShockWatch.jpg"
+        return f'{instance.Instrument_SN_id}/{filename}'
 
+    def test_path(instance, filename):
+        print("test_path")
+        print(f"filename:{filename}")
+        filename = "test_image.jpg"
+        print(f"type:{type(instance)}")
+        print(f"instance.Instrument_SN_id:{instance.Instrument_SN_id}")
+        return f'{instance.Instrument_SN_id}/{filename}'
 
     # Inspection
-    Instrument_SN = models.ForeignKey(Instrument, on_delete=models.CASCADE, db_column='Instrument_SN', related_name='Instrument_SN')  # 장비 SN
+    Instrument_SN = models.OneToOneField(Instrument, on_delete=models.CASCADE, db_column='Instrument_SN', related_name='Inspection', primary_key=True, unique=True)  # 장비 SN
     Name = models.CharField(max_length=60, blank=True)  # 장비명
     Inspector = models.CharField(max_length=20, blank=True)  # 검사자
     Start_Date = models.DateField(null=True, blank=True)  # 검사시작일
@@ -46,7 +52,7 @@ class Inspection(models.Model):
     Appearance_Wooden_Pallet = models.CharField(max_length=20, blank=True)
     Appearance_Transport_Jig = models.CharField(max_length=20, blank=True)
 
-    Appearance_Shock_Watch_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Shock_Watch_Image = models.ImageField(upload_to=test_path, blank=True)
     Appearance_Binding_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
     Appearance_Labels_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
     Appearance_Packaging_Box_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
@@ -179,17 +185,17 @@ class Inspection(models.Model):
     Perfomance_VFV_Precision1000ul8 = models.CharField(max_length=20, blank=True)
 
     # 5.Attachment
-    Attachment_CoverSafety_Report = models.CharField(max_length=20, blank=True)
-    Attachment_Barcode_Report = models.CharField(max_length=20, blank=True)
-    Attachment_Position_Report = models.CharField(max_length=20, blank=True)
-    Attachment_Declaration_HHS = models.CharField(max_length=20, blank=True)
-    Attachment_Declaration = models.CharField(max_length=20, blank=True)
-    Attachment_Measurement_Protocol = models.CharField(max_length=20, blank=True)
-    Attachment_ElectricalSafety_Report = models.CharField(max_length=20, blank=True)
+    Attachment_CoverSafety_Report = models.CharField(max_length=20, null=True, blank=True)
+    Attachment_Barcode_Report = models.CharField(max_length=20, null=True, blank=True)
+    Attachment_Position_Report = models.CharField(max_length=20, null=True, blank=True)
+    Attachment_Declaration_HHS = models.CharField(max_length=20, null=True, blank=True)
+    Attachment_Declaration = models.CharField(max_length=20, null=True, blank=True)
+    Attachment_Measurement_Protocol = models.CharField(max_length=20, null=True, blank=True)
+    Attachment_ElectricalSafety_Report = models.CharField(max_length=20, null=True, blank=True)
     Attachment_CoverSafety_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
     Attachment_Barcode_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
     Attachment_Position_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
-    Attachment_Files = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
+    Attachment_Files = models.FileField(upload_to=test_path, null=True, blank=True)
 
     def __str__(self):
         return self.Instrument_SN_id
@@ -202,4 +208,16 @@ class Inspection_Category(models.Model):
     def __str__(self):
         return self.Category
 
+
+# class Inspection_File(models.Model):
+#
+#     def test_path(instance, filename):
+#         print("Inspection_File 클래스 test_path 입니다.")
+#         print(f"filename:{filename}")
+#         # filename = "File_Image.jpg"
+#         print(f"instance.Instrument_SN_id:{instance.Instrument_SN_id}")
+#         return f'{instance.Instrument_SN_id}/{filename}'
+#
+#     Attachment_Files = models.FileField(upload_to=test_path, null=True, blank=True)  # 파일 경로
+#     Instrument_SN = models.ForeignKey(Inspection, on_delete=models.CASCADE, related_name='File')  # 장비 SN
 

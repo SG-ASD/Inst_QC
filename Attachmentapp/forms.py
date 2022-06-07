@@ -1,5 +1,4 @@
-from django.forms import ModelForm
-
+from django.forms import ModelForm, ClearableFileInput
 from Inspectionapp.models import Inspection
 
 
@@ -19,3 +18,22 @@ class AttachmentUpdateForm(ModelForm):
             'Attachment_Position_Report_File',
             'Attachment_Files',
         ]
+
+    # def save(self, **kwargs):
+    #     post = super().save(commit=False)
+    #     post.Instrument_SN = kwargs.get('Instrument_SN', None)
+    #     post.save()
+    #
+    #     return post
+
+
+# class AttachmentFileForm(ModelForm):
+#     class Meta:
+#         model = Inspection_File
+#         fields = [
+#             'Attachment_Files'
+#         ]
+#         # widget is important to upload multiple files
+#         widgets = {
+#             'Attachment_Files': ClearableFileInput(attrs={'multiple': True}),
+#         }
