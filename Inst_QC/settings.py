@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'Performanceapp',
     'Attachmentapp',
     'AccesorieKitapp',
+    'FinishedInspectionapp',
 ]
 
 MIDDLEWARE = [
@@ -148,4 +149,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

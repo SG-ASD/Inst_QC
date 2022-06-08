@@ -1,0 +1,386 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="bg-light rounded p-4">
+            <form action="" method="post" enctype="multipart/form-data" autocomplete="on" >
+                {% csrf_token %}
+                {# content 상단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 타이틀 #}
+                    <div class="col-6">
+                        <div style="text-align: left">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="all_pass" id="onchange_check_finished_report" onclick="onchange_check_finished()">
+                              <label class="form-check-label" for="onchange_check_finished_report">All Pass</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                {# content #}
+                <div class="container-fluid">
+                    <table class="table" style="text-align: center;">
+                        <tbody style="vertical-align: middle;">
+                             <tr>
+                                <td colspan="12" style="background-color: #ffffff; text-align: left"><b>1. Computer Verification</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="background-color: #DCEBFF">Acceptance Criteria</td>
+                                <td colspan="3" style="background-color: #DCEBFF">Method</td>
+                                <td colspan="3" style="background-color: #DCEBFF">Determined to</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6"> Is the Windows version on the laptop computer Windows 10 pro 64-bit</td>
+                                <td colspan="3">Visual</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Computer_Version" id="Computer_Version1" value="Accept"
+                                                {% if target_finish_second.Computer_Version == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Computer_Version1">Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Computer_Version" id="Computer_Version2" value="Reject"
+                                                {% if target_finish_second.Computer_Version == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Computer_Version2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="background-color: #ffffff; text-align: left"><b>2. Seegene Launcher Installation process verification</b></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6"> Is Seegene Launcher successfully installed without error</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Install" id="SL_Install1" value="Accept"
+                                                {% if target_finish_second.SL_Install == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Install1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Install" id="SL_Install2" value="Reject"
+                                                {% if target_finish_second.SL_Install == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Install2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6"> Are the methods imported automatically</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Method_Import" id="Method_Import1" value="Accept"
+                                                {% if target_finish_second.Method_Import == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Method_Import1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Method_Import" id="Method_Import2" value="Reject"
+                                                {% if target_finish_second.Method_Import == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Method_Import2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6"> Run Seegene Launcher and verify installed Seegene Launcher version is correct</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Run_Version" id="SL_Run_Version1" value="Accept"
+                                                {% if target_finish_second.SL_Run_Version == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Run_Version1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Run_Version" id="SL_Run_Version2" value="Reject"
+                                                {% if target_finish_second.SL_Run_Version == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Run_Version2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                 <td colspan="12" style="background-color: #ffffff; text-align: left"><b>3. Communication test</b></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6"> Is Seegene Launcher able to display Maintenance screen and applicable</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Maintenance_Screen" id="SL_Maintenance_Screen1" value="Accept"
+                                                {% if target_finish_second.SL_Maintenance_Screen == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Maintenance_Screen1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Maintenance_Screen" id="SL_Maintenance_Screen2" value="Reject"
+                                                {% if target_finish_second.SL_Maintenance_Screen == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Maintenance_Screen2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="background-color: #ffffff; text-align: left"><b>4. Seegene Launcher performance verification</b></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6">Is Seegene Launcher able to display home screen</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Home_Screen" id="SL_Home_Screen1" value="Accept"
+                                                {% if target_finish_second.SL_Home_Screen == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Home_Screen1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Home_Screen" id="SL_Home_Screen2" value="Reject"
+                                                {% if target_finish_second.SL_Home_Screen == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Home_Screen2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">Is Seegene Launcher able to change [User] mode from [Service] mode</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_mode" id="SL_mode1" value="Accept"
+                                                {% if target_finish_second.SL_mode == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_mode1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_mode" id="SL_mode2" value="Reject"
+                                                {% if target_finish_second.SL_mode == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_mode2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">Is Seegene Launcher able to add a procotol on [Service] mode</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Protocol" id="SL_Protocol1" value="Accept"
+                                                {% if target_finish_second.SL_Protocol == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Protocol1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Protocol" id="SL_Protocol2" value="Reject"
+                                                {% if target_finish_second.SL_Protocol == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Protocol2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="6">Is Seegene Launcher able to convert setting screen according to configuration</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Setting_Screen" id="SL_Setting_Screen1" value="Accept"
+                                                {% if target_finish_second.SL_Setting_Screen == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Setting_Screen1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Setting_Screen" id="SL_Setting_Screen2" value="Reject"
+                                                {% if target_finish_second.SL_Setting_Screen2 == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Setting_Screen2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">Is Seegene Launcher able to open trace file log folder</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Trace" id="SL_Trace1" value="Accept"
+                                                {% if target_finish_second.SL_Trace == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Trace1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="SL_Trace" id="SL_Trace2" value="Reject"
+                                                {% if target_finish_second.SL_Trace == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="SL_Trace2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="12" style="background-color: #ffffff; text-align: left "><b>5. Labeling & Packaging inspection</b></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6">Packaging condition</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Condition" id="Condition1" value="Accept"
+                                                {% if target_finish_second.Condition == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Condition1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Condition" id="Condition1" value="Reject"
+                                                {% if target_finish_second.Condition == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Condition1">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">[Caution of HHS cable disconnect] labeled</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="HHS_Labeled" id="HHS_Labeled1" value="Accept"
+                                                {% if target_finish_second.HHS_Labeled == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="HHS_Labeled1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="HHS_Labeled" id="HHS_Labeled2" value="Reject"
+                                                {% if target_finish_second.HHS_Labeled == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="HHS_Labeled2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">[Accessories check list] labled</td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Acc_Labeled" id="Acc_Labeled1" value="Accept"
+                                                {% if target_finish_second.Acc_Labeled == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Acc_Labeled1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Acc_Labeled" id="Acc_Labeled2" value="Reject"
+                                                {% if target_finish_second.Acc_Labeled == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Acc_Labeled2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+
+                             <tr>
+                                <td colspan="6">
+                                    <div class="input-group mb-3">
+                                      <span class="input-group-text" id="inputGroup-sizing-default">[Label] Same as the Labeling & Packaging instruction</span>
+                                      <input type="text" class="form-control" name="Labeling_Instruction_Rev" id="Labeling_Instruction_Rev" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                       {% if target_finish_second.Labeling_Instruction_Rev %} value={{target_finish_second.Labeling_Instruction_Rev}} {% endif %}>
+                                    </div>
+                                    <div class="container">
+                                      <div class="row">
+                                        <div class="col">
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text" id="inputGroup-sizing-default">Label No: (Instrument Label)</span>
+                                              <input type="text" class="form-control" name="Labeling_Instruction" id="Labeling_Instruction" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                                      {% if target_finish_second.Labeling_Instruction %} value={{target_finish_second.Labeling_Instruction}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text" id="inputGroup-sizing-default">(Box Label)</span>
+                                              <input type="text" class="form-control" name="Labeling_Box" id="Labeling_Box" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                                     {% if target_finish_second.Labeling_Box %} value={{target_finish_second.Labeling_Box}} {% endif %}>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="container">
+                                      <div class="row">
+                                        <div class="col">
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text" id="inputGroup-sizing-default">S/N :</span>
+                                              <input type="text" class="form-control" id="Label_SN", name="Label_SN" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                                     {% if target_finish_second.Label_SN %} value={{target_finish_second.Label_SN}} {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group mb-3">
+                                              <span class="input-group-text" id="inputGroup-sizing-default">MFG:</span>
+                                              <input type="text" class="form-control" name="Label_MFG" id="Label_MFG" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                                     {% if target_finish_second.Label_MFG %} value={{target_finish_second.Label_MFG}} {% endif %}>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </td>
+                                <td colspan="3">Implement</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Label_Option" id="Label_Option1" value="Accept"
+                                                {% if target_finish_second.Label_Option == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Label_Option1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Label_Option" id="Label_Option2" value="Reject"
+                                                {% if target_finish_second.Label_Option == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="Label_Option2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6">[UDI] Is information of GS1 2D Barcode DataMatrix correct : EX)
+                                                <img src="{% static 'assets/Finished_Inspection_2D_Barcode.jpg' %}"/>
+                                </td>
+                                <td colspan="3">Scan</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="UDI_Barcode" id="UDI_Barcode1" value="Accept"
+                                                {% if target_finish_second.UDI_Barcode == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="UDI_Barcode1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="UDI_Barcode" id="UDI_Barcode2" value="Reject"
+                                                {% if target_finish_second.UDI_Barcode == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="UDI_Barcode2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">[UDI] Is information of HRI(Human Readable Interpretation correct: EX)
+                                                <img src="{% static 'assets/Finished_Inspection_HRI.jpg' %}"/>
+                                </td>
+                                <td colspan="3">Visual</td>
+                                <td colspan="3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="UDI_HRI" id="UDI_HRI1" value="Accept"
+                                                {% if target_finish_second.UDI_HRI == 'Accept' %} checked {% endif %}>
+                                        <label class="form-check-label" for="UDI_HRI1" >Accept</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="UDI_HRI" id="UDI_HRI2" value="Reject"
+                                                {% if target_finish_second.UDI_HRI == 'Reject' %} checked {% endif %}>
+                                        <label class="form-check-label" for="UDI_HRI2">Reject</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {# content 하단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 하단 버튼들 #}
+                    <div class="col-6">
+                        <div class="row" style="text-align: left; font-size: 1rem">
+                            <div class="col">
+                                <div style="text-align: left">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="text-align: right">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </form>
+        </div>
+       <script src="{% static '../static/js/FinishedInspectionapp.js' %}"></script>
+    </div>
+{% endblock %}

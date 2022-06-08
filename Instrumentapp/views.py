@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db import transaction
+from django.core.exceptions import ValidationError
+from django.db import transaction, IntegrityError
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -11,9 +13,12 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+
+from FinishedInspectionapp.models import FinishInspection
 from .models import Instrument
 from Mainapp.models import Category
 from Inspectionapp.models import Inspection
+from AccesorieKitapp.models import Accessories
 from .forms import InstrumentForm
 
 
@@ -110,45 +115,71 @@ class InstrumentListView(ListView):
         category = self.kwargs.get("category")
 
         if self.request.method == "POST":
-            excel_data = self.request.POST.get("excel_data")
-            inst_name = self.request.POST.get("s1")
-            inst_SN = self.request.POST.get("s2")
+            # 동일한 시리얼번호 장비 추가 예외처리를 위한 Try ~ Catch문 사용
+            try:
+                excel_data = self.request.POST.get("excel_data")
+                inst_name = self.request.POST.get("s1")
+                inst_SN = self.request.POST.get("s2")
 
-            # 엑셀 파일로 장비 추가
-            if excel_data is not None and (inst_name is None or inst_SN is None):
-                excel_data = excel_data.split(',')
-                list_data = []
-                n = -1
-                for idx, v in enumerate(excel_data):
-                    if idx % 3 == 0:
-                        list_data.append([])
-                        n += 1
-                    list_data[n].append(v)
-                del list_data[0]
+                # 엑셀 파일로 장비 추가
+                if excel_data is not None and (inst_name is None or inst_SN is None):
+                    excel_data = excel_data.split(',')
+                    list_data = []
+                    n = -1
+                    for idx, v in enumerate(excel_data):
+                        if idx % 3 == 0:
+                            list_data.append([])
+                            n += 1
+                        list_data[n].append(v)
+                    del list_data[0]
 
-                for idx, v in enumerate(list_data):
+                    for idx, v in enumerate(list_data):
+                        new_instrument = Instrument.objects.create(
+                            SN=v[1],
+                            Name=v[0]
+                        )
+                        new_inspection = Inspection.objects.create(
+                            Instrument_SN=new_instrument,
+                            Name=v[0],
+                            Status="검사대기",
+                            Computer_SN=v[2]
+                        )
+                        new_Accesories = Accessories.objects.create(
+                            Instrument_SN=new_instrument
+                        )
+                        new_FinishInspection = FinishInspection.objects.create(
+                            Instrument_SN=new_instrument,
+                            Name=v[0],
+                            Status="검사대기",
+                            Computer_SN=v[2]
+                        )
+
+
+                # 직접 입력하여 장비 추가
+                elif excel_data is None and inst_name is not None and inst_SN is not None:
                     new_instrument = Instrument.objects.create(
-                        SN=v[1],
-                        Name=v[0]
+                        SN=inst_SN,
+                        Name=inst_name
                     )
                     new_inspection = Inspection.objects.create(
                         Instrument_SN=new_instrument,
-                        Name=v[0],
-                        Status="검사대기",
-                        Computer_SN=v[2]
+                        Name=inst_name,
+                        Status="검사대기"
                     )
+                    new_Accesories = Accessories.objects.create(
+                        Instrument_SN=new_instrument
+                    )
+                    new_FinishInspection = FinishInspection.objects.create(
+                        Instrument_SN=new_instrument,
+                        Name=inst_name,
+                        Status="검사대기"
+                    )
+            # 기존에 시리얼 번호가 있을경우 해당 IntegrityError가 발생
+            # Html Message tag에 Warning 전달
+            except IntegrityError:
+                messages.warning(request, '기존에 시리얼 번호가 있습니다. 다시 장비추가를 해주시기 바랍니다.')
+                return redirect("Instrumentapp:instrument", category, instrument_name)
 
-            # 직접 입력하여 장비 추가
-            elif excel_data is None and inst_name is not None and inst_SN is not None:
-                new_instrument = Instrument.objects.create(
-                    SN=inst_SN,
-                    Name=inst_name
-                )
-                new_inspection = Inspection.objects.create(
-                    Instrument_SN=new_instrument,
-                    Name=inst_name,
-                    Status="검사대기"
-                )
 
             # new_inst = Instrument(SN=inst_SN, Name=inst_name)
             # new_inst.save()
