@@ -9,10 +9,7 @@
             {% csrf_token %}
             {# content 상단 #}
             <div class="row">
-                <div class="col">
-                    <h5>Instrument S/N</h5>
-                    <input class="form-control" type="text" name="Instrument_SN" readonly value={{ target_Attachment.Instrument_SN_id }}>
-                </div>
+                <div class="col"></div>
                 {# 타이틀 #}
                 <div class="col-6">
                     <select id="inspection_category" name="inspection_category" class="form-select mb-3" aria-label="Default select example" required onchange="location.href=(this.value);">
@@ -75,7 +72,7 @@
                                 <div class="input-group mb-3">
                                     <div class="container">
                                         <div class="row">
-                                            <input class="form-control" type="file" id="Attachment_CoverSafety_Report_File" name="Attachment_CoverSafety_Report_File">
+                                            <input class="form-control" type="file" id="Attachment_CoverSafety_Report_File" name="Attachment_CoverSafety_Report_File" multiple>
                                         </div>
                                         <div class="row">
                                             {% if target_Attachment.Attachment_CoverSafety_Report_File %}
@@ -99,7 +96,7 @@
                                 <div class="input-group mb-3">
                                     <div class="container">
                                         <div class="row">
-                                            <input class="form-control" type="file" id="Attachment_Barcode_Report_File" name="Attachment_Barcode_Report_File">
+                                            <input class="form-control" type="file" id="Attachment_Barcode_Report_File" name="Attachment_Barcode_Report_File" multiple>
                                         </div>
                                         <div class="row">
                                             {% if target_Attachment.Attachment_Barcode_Report_File %}
@@ -123,7 +120,7 @@
                                 <div class="input-group mb-3">
                                     <div class="container">
                                         <div class="row">
-                                            <input class="form-control" type="file" id="Attachment_Position_Report_File" name="Attachment_Position_Report_File">
+                                            <input class="form-control" type="file" id="Attachment_Position_Report_File" name="Attachment_Position_Report_File" multiple>
                                         </div>
                                         <div class="row">
                                             {% if target_Attachment.Attachment_Position_Report_File %}
