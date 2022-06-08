@@ -76,10 +76,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="input-group mb-3">
+                                    <div class="file-content">
                                         <div class="container">
                                             <div class="row">
-                                                <input class="form-control" type="file" id="Appearance_Shock_Watch_Image" name="Appearance_Shock_Watch_Image">
+                                                <input class="form-control" type="file" id="Appearance_Shock_Watch_Image" name="Appearance_Shock_Watch_Image" multiple>
                                             </div>
                                             <div class="row">
                                                 {% if target_Appearance.Appearance_Shock_Watch_Image %}
@@ -106,17 +106,17 @@
                                     </div>
                                 </td>
                                 <td>
-                                   <div class="input-group mb-3">
+                                   <div class="file-content">
                                        <div class="container">
                                            <div class="row">
-                                               <input class="form-control" type="file" id="Appearance_Binding_Image" name="Appearance_Binding_Image">
+                                               <input class="form-control" type="file" id="Appearance_Binding_Image" name="Appearance_Binding_Image" multiple>
                                            </div>
                                            <div class="row">
                                                {% if target_Appearance.Appearance_Binding_Image %}
                                                    {{ target_Appearance.Appearance_Binding_Image }}
                                                {% endif %}
-                                        </div>
-                                     </div>
+                                           </div>
+                                       </div>
                                    </div>
                                 </td>
                             </tr>
@@ -139,13 +139,13 @@
                                     <div class="file-content">
                                         <div class="container">
                                             <div class="row">
-                                                <input class="form-control" type="file" id="Appearance_Labels_Image" name="Appearance_Labels_Image">
+                                                <input class="form-control" type="file" id="Appearance_Labels_Image" name="Appearance_Labels_Image" multiple>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            {% if target_Appearance.Appearance_Labels_Image %}
-                                                {{ target_Appearance.Appearance_Labels_Image }}
-                                            {% endif %}
+                                            <div class="row">
+                                                {% if target_Appearance.Appearance_Labels_Image %}
+                                                    {{ target_Appearance.Appearance_Labels_Image }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -166,16 +166,16 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="mb-3">
+                                    <div class="file-content">
                                         <div class="container">
                                             <div class="row">
-                                                <input class="form-control" type="file" id="Appearance_Packaging_Box_Image" name="Appearance_Packaging_Box_Image">
+                                                <input class="form-control" type="file" id="Appearance_Packaging_Box_Image" name="Appearance_Packaging_Box_Image" multiple>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            {% if target_Appearance.Appearance_Packaging_Box_Image %}
-                                                {{ target_Appearance.Appearance_Packaging_Box_Image }}
-                                            {% endif %}
+                                            <div class="row">
+                                                {% if target_Appearance.Appearance_Packaging_Box_Image %}
+                                                    {{ target_Appearance.Appearance_Packaging_Box_Image }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -199,13 +199,13 @@
                                     <div class="file-content">
                                         <div class="container">
                                             <div class="row">
-                                                <input class="form-control" type="file" id="Appearance_Wooden_Pallet_Image" name="Appearance_Wooden_Pallet_Image">
+                                                <input class="form-control" type="file" id="Appearance_Wooden_Pallet_Image" name="Appearance_Wooden_Pallet_Image" multiple>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            {% if target_Appearance.Appearance_Wooden_Pallet_Image %}
-                                                {{ target_Appearance.Appearance_Wooden_Pallet_Image }}
-                                            {% endif %}
+                                            <div class="row">
+                                                {% if target_Appearance.Appearance_Wooden_Pallet_Image %}
+                                                    {{ target_Appearance.Appearance_Wooden_Pallet_Image }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -229,13 +229,13 @@
                                     <div class="file-content">
                                         <div class="container">
                                             <div class="row">
-                                                <input class="form-control" type="file" id="Appearance_Transport_Jig_Image" name="Appearance_Transport_Jig_Image">
+                                                <input class="form-control" type="file" id="Appearance_Transport_Jig_Image" name="Appearance_Transport_Jig_Image" multiple>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            {% if target_Appearance.Appearance_Transport_Jig_Image %}
-                                                {{ target_Appearance.Appearance_Transport_Jig_Image }}
-                                            {% endif %}
+                                            <div class="row">
+                                                {% if target_Appearance.Appearance_Transport_Jig_Image %}
+                                                    {{ target_Appearance.Appearance_Transport_Jig_Image }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -250,7 +250,7 @@
                     {# 하단 버튼들 #}
                     <div class="col-6">
                         <div class="row">
-                            <input class="form-control" type="file" id="Appearance_Video" name="Appearance_Video" accept="video/*">
+                            <input class="form-control" type="file" id="Appearance_Video" name="Appearance_Video" accept="video/*" multiple>
                         </div>
                         <div class="row" style="text-align: left; font-size: 1rem">
                             <div class="file-content mb-4">

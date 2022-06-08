@@ -12,7 +12,6 @@ from Inspectionapp.models import Inspection, Inspection_Category
 from Userapp.decorators import User_ownership_required
 from .forms import AttachmentUpdateForm
 from QC_util import Util
-
 import os
 
 # Create your views here.
