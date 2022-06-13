@@ -17,7 +17,9 @@ from .forms import ElectricalUpdateForm
 
 has_ownership = [User_ownership_required]
 
-
+# 설명 : Seegene STARlet Electrical 업데이트 뷰 첫번째 화면
+# 작성자 : 이신후
+# 날짜 : 2022/06/09
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class ElectricalUpdateView(UpdateView):

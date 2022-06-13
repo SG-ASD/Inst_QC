@@ -11,9 +11,13 @@ from openpyxl.styles import Alignment
 from Inspectionapp.models import Inspection, Inspection_Category
 from .forms import AccList1_UpdateForm, AccList2_UpdateForm, AccList3_UpdateForm
 from .models import Accessories
+from Inspectionapp.models import Inspection
 import openpyxl
 
 
+# 설명 : Seegene STARlet 악세서리 키트 첫번째 화면
+# 작성자 : 이신후
+# 날짜 : 2022/06/09
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_first(UpdateView):
@@ -36,7 +40,9 @@ class AccKitUpdateView_first(UpdateView):
     def get_success_url(self):
         return reverse("AccesorieKitapp:update_AccKit2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
-
+# 설명 : Seegene STARlet 악세서리 키트 두번째 화면
+# 작성자 : 이신후
+# 날짜 : 2022/06/09
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_second(UpdateView):
@@ -59,7 +65,9 @@ class AccKitUpdateView_second(UpdateView):
     def get_success_url(self):
         return reverse("AccesorieKitapp:update_AccKit3", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
-
+# 설명 : Seegene STARlet 악세서리 키트 세번째 화면
+# 작성자 : 이신후
+# 날짜 : 2022/06/09
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class AccKitUpdateView_third(UpdateView):
@@ -76,16 +84,20 @@ class AccKitUpdateView_third(UpdateView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(AccKitUpdateView_third, self).get_context_data(**kwargs)
+        context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
         return context
 
     def get_success_url(self):
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
-
+        CompleteDt= self.request.POST.get("CompleteDt")
+        Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(CompleteDt=CompleteDt, Status='검사완료')
+        # 악세서리 키트에서 완제품 넘어갈 경우, 자동 Excel file 데이터 입력 기능
         self.Excel_Inspection1()
         self.Excel_Inspection2()
         self.Excel_Inspection3()
+        
         self.Excel_Inspection4()
 
         return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
@@ -99,7 +111,7 @@ class AccKitUpdateView_third(UpdateView):
         sheet = wb['1']
         sheet['E10'] = object_Inspection.Inspector
         sheet['E11'] = object_Inspection.Start_Date
-        sheet['E12'] = object_Inspection.Completed_Date
+        sheet['E12'] = object_Inspection.CompleteDt
         sheet['E14'] = object_Inspection.SW_Version
         sheet['E15'] = object_Inspection.FV2_Version
         sheet['E16'] = object_Inspection.FW_PipetteCh

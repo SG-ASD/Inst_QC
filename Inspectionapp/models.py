@@ -34,7 +34,7 @@ class Inspection(models.Model):
     Name = models.CharField(max_length=60, blank=True)  # 장비명
     Inspector = models.CharField(max_length=20, blank=True)  # 검사자
     Start_Date = models.DateField(null=True, blank=True)  # 검사시작일
-    Completed_Date = models.DateField(null=True, blank=True)  # 검사완료일
+    CompleteDt = models.DateField(null=True, blank=True)  # 검사완료일
     Status = models.CharField(max_length=20, blank=True)  # 검사 상태
     Revision = models.CharField(max_length=50, blank=True)  # 검사성적서 Revision
     SW_Version = models.CharField(max_length=50, blank=True)  # SW 버전

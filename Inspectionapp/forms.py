@@ -11,7 +11,6 @@ class InspectionUpdateForm(ModelForm):
             'Computer_SN',
             'Revision',
             'Start_Date',
-            'Completed_Date',
             'SW_Version',
             'FV2_Version',
             'FW_PipetteCh',

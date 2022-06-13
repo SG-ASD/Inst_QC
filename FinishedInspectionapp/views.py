@@ -22,7 +22,9 @@ from .models import FinishInspection
 
 has_ownership = [User_ownership_required]
 
-
+# 설명 : Seegene STARlet 완제품 성적서 업데이트 뷰 첫번째 화면
+# 작성자 : 이신후
+# 날짜 : 2022/06/09
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class FinishedInspection_UpdateView_first(UpdateView):
@@ -49,6 +51,9 @@ class FinishedInspection_UpdateView_first(UpdateView):
     def get_success_url(self):
         return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
+# 설명 : Seegene STARlet 완제품 성적서 업데이트 뷰 두번째 화면
+# 작성자 : 이신후
+# 날짜 : 2022/06/09
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class FinishedInspection_UpdateView_second(UpdateView):
@@ -71,6 +76,9 @@ class FinishedInspection_UpdateView_second(UpdateView):
         self.Excel_Finished_Inspection1()
         return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
+    # 설명 : Seegene STARlet 완제품 성적서 완료시, Excel 데이터 자동 입력 기능
+    # 작성자 : 이신후
+    # 날짜 : 2022/06/09
     def Excel_Finished_Inspection1(self):
         object_Inspection = get_object_or_404(FinishInspection, Instrument_SN=self.kwargs['Instrument_SN'])
         # 수입검사 성적서 엑셀 파일에 데이터 삽입
