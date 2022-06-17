@@ -154,7 +154,6 @@ class InstrumentListView(ListView):
                             Computer_SN=v[2]
                         )
 
-
                 # 직접 입력하여 장비 추가
                 elif excel_data is None and inst_name is not None and inst_SN is not None:
                     new_instrument = Instrument.objects.create(
