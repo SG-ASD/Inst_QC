@@ -7,15 +7,12 @@ from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 from Userapp.decorators import User_ownership_required
-from .decorators import Inspection_ownership_required
 from .models import Inspection
 from .forms import InspectionUpdateForm
 
-has_ownership = [Inspection_ownership_required, login_required]
 
-
-@method_decorator(has_ownership, 'get')
-@method_decorator(has_ownership, 'post')
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
 class InspectionUpdateView(UpdateView):
     model = Inspection
     form_class = InspectionUpdateForm
@@ -27,5 +24,9 @@ class InspectionUpdateView(UpdateView):
         return object
 
     def get_success_url(self):
-        # return reverse('Instrumentapp:instrument', kwargs={'pk': self.object.pk})
+        object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
+        Start_Date = self.request.POST.get("Start_Date")
+        CompleteDt = self.request.POST.get("CompleteDt")
+        if Start_Date != "" and CompleteDt != "":
+            Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(Status='검사진행중')
         return reverse("Appearanceapp:update_Packaging", kwargs={"Instrument_SN": self.object})

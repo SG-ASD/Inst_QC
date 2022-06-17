@@ -97,13 +97,12 @@ class AccKitUpdateView_third(UpdateView):
         self.Excel_Inspection1()
         self.Excel_Inspection2()
         self.Excel_Inspection3()
-        
         self.Excel_Inspection4()
+
 
         return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
     def Excel_Inspection1(self):
-
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
         # 수입검사 성적서 엑셀 파일에 데이터 삽입
         wb = openpyxl.load_workbook('D:\Inst_QC\Report.xlsx', data_only=True)
@@ -187,6 +186,8 @@ class AccKitUpdateView_third(UpdateView):
         elif object_Inspection.Appearance_Back == "Fail":
             sheet['K45'] = "□  Pass"
             sheet['K46'] = "■  Fail"
+
+        wb.save('D:\Inst_QC\Report.xlsx')
 
 
 
@@ -303,6 +304,8 @@ class AccKitUpdateView_third(UpdateView):
             sheet['E46'] = "■ Pass          □  Fail"
         elif object_Inspection.HardWare_Noise == "Fail":
             sheet['E46'] = "□ Pass          ■  Fail"
+
+        wb.save('D:\Inst_QC\Report.xlsx')
 
     def Excel_Inspection3(self):
         # 성적서 3페이지
@@ -570,6 +573,8 @@ class AccKitUpdateView_third(UpdateView):
             sheet['L56'] = "■"
         if object_Inspection.Attachment_ElectricalSafety_Report == "Attached":
             sheet['L57'] = "■"
+
+        wb.save('D:\Inst_QC\Report.xlsx')
 
     def Excel_Inspection4(self):
         # 성적서 2페이지

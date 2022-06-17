@@ -128,12 +128,9 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if instrument.Status == "검사완료" or instrument.Status == "부적합" %}
-                                    {% else %}
-                                        <a href="{% url 'Inspectionapp:update' instrument.Instrument_SN_id %}">
-                                            <button type="button" class="btn btn-outline-primary" >Start</button>
-                                        </a>
-                                    {% endif %}
+                                    <a href="{% url 'Inspectionapp:update' instrument.Instrument_SN_id %}">
+                                        <button type="button" class="btn btn-outline-primary" >Start</button>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
