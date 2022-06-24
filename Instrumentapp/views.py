@@ -156,6 +156,7 @@ class InstrumentListView(ListView):
 
                 # 직접 입력하여 장비 추가
                 elif excel_data is None and inst_name is not None and inst_SN is not None:
+                    print(f"inst_name : {inst_name}")
                     new_instrument = Instrument.objects.create(
                         SN=inst_SN,
                         Name=inst_name
@@ -178,7 +179,6 @@ class InstrumentListView(ListView):
             except IntegrityError:
                 messages.warning(request, '기존에 시리얼 번호가 있습니다. 다시 장비추가를 해주시기 바랍니다.')
                 return redirect("Instrumentapp:instrument", category, instrument_name)
-
 
             # new_inst = Instrument(SN=inst_SN, Name=inst_name)
             # new_inst.save()

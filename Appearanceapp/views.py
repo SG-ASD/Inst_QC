@@ -103,7 +103,7 @@ class AppearanceUpdateView(UpdateView):
 
                 if request.FILES.getlist('Appearance_Video'):
                     Appearance_Video_files = request.FILES.getlist('Appearance_Video')
-                    Appearance_Video_files_name = Util.upload_files(self, Appearance_Video_files, path, 'Appearance Video')
+                    Appearance_Video_files_name = Util.upload_files(self, Appearance_Video_files, path, 'Unpacking')
                     form_instance.Appearance_Video = Appearance_Video_files_name
                 else:
                     form_instance.Appearance_Video = ""
