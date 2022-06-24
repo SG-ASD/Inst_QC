@@ -21,6 +21,8 @@ WORKDIR /home/Inst_QC/
 
 RUN pip install -r requirements.txt
 
+#RUN conda install --file packagelist.txt
+
 RUN python manage.py migrate
 
 EXPOSE 8000
