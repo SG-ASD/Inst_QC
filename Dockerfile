@@ -21,7 +21,7 @@ WORKDIR /home/Inst_QC/
 
 RUN pip install -r requirements.txt
 
-#RUN conda install --file packagelist.txt
+RUN conda install --file packagelist.txt  # conda 패키지
 
 RUN python manage.py migrate
 
