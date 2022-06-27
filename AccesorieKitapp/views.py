@@ -92,7 +92,7 @@ class AccKitUpdateView_third(UpdateView):
     def get_success_url(self):
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
         CompleteDt= self.request.POST.get("CompleteDt")
-        Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(CompleteDt=CompleteDt, Status='검사완료')
+        Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(CompleteDt=CompleteDt)
         # 악세서리 키트에서 완제품 넘어갈 경우, 자동 Excel file 데이터 입력 기능
         self.Excel_Inspection1()
         self.Excel_Inspection2()

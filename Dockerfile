@@ -1,10 +1,9 @@
 FROM python:3.9.0
 
-RUN mkdir /root/.ssh/
+#RUN mkdir /root/.ssh/
 
 # 이미지를 가지는 사람은 private key 또한 압수 가능!
 #ADD D:/.ssh/id_rsa /root/.ssh/id_rsa
-RUN echo "test"
 
 # 권한 추가
 #RUN chmod 600 /root/.ssh/id_rsa
@@ -15,7 +14,7 @@ RUN echo "test"
 
 WORKDIR /home/
 
-RUN git clone https://github.com/SG-ASD/Inst_QC.git
+RUN git clone https://github.com/SG-ASD/Inst_QC/tree/Dev_Hoo
 
 WORKDIR /home/Inst_QC/
 
