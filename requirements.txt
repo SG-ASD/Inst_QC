@@ -5,6 +5,7 @@ Django==4.0.3
 django-bootstrap4==22.1
 et-xmlfile==1.1.0
 figma-export==0.1
+gunicorn==20.1.0
 importlib-metadata==4.11.3
 openpyxl==3.0.10
 Pillow==9.0.1
