@@ -52,7 +52,7 @@
                                 </td>
                                 <td class="px-5">
                                     {% if target_finish_first.Start_Date %}
-                                        <input class="form-control" type="date" name="Start_Date" value={{ target_finish_first.Start_Date }}>
+                                        <input class="form-control" type="date" name="Start_Date" value={{ target_finish_first.Start_Date | date:'Y-m-d'}}>
                                     {% else %}
                                         <input class="form-control" type="date" name="Start_Date" placeholder="Start Date">
                                     {% endif %}

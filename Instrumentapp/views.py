@@ -42,7 +42,7 @@ class InstrumentListView(ListView):
             search_keyword = self.request.GET.get("q", "")
             sort_name = self.request.GET.get("inst_name", "")
             sort_start_date = self.request.GET.get("start_date", "")
-            sort_completed_date = self.request.GET.get("completed_date", "")
+            sort_CompleteDt = self.request.GET.get("CompleteDt", "")
             sort_inspector = self.request.GET.get("inspector", "")
             sort_status = self.request.GET.get("status", "")
 
@@ -66,13 +66,13 @@ class InstrumentListView(ListView):
                     sort_result = instrument_list.order_by("-Start_Date")
                 return sort_result
 
-            if sort_completed_date:
-                if sort_completed_date == "":
+            if sort_CompleteDt:
+                if sort_CompleteDt == "":
                     sort_result = instrument_list
-                elif sort_completed_date == "오름차순":
-                    sort_result = instrument_list.order_by("Completed_Date")
-                elif sort_completed_date == "내림차순":
-                    sort_result = instrument_list.order_by("-Completed_Date")
+                elif sort_CompleteDt == "오름차순":
+                    sort_result = instrument_list.order_by("CompleteDt")
+                elif sort_CompleteDt == "내림차순":
+                    sort_result = instrument_list.order_by("-CompleteDt")
                 return sort_result
 
             if sort_inspector:

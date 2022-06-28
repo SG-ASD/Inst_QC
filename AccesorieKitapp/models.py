@@ -24,7 +24,6 @@ class Accessories(models.Model):
     Left_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Right_Plexiglas = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
 
-
     Sensor_4L = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     Solid_Waste = models.CharField(max_length=20, blank=True)  # 설비 및 계측기
     USB_Liquid = models.CharField(max_length=20, blank=True)  # 설비 및 계측기

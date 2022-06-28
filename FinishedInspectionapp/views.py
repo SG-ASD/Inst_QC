@@ -35,17 +35,20 @@ class FinishedInspection_UpdateView_first(UpdateView):
 
     def get_object(self):
         object = get_object_or_404(FinishInspection, Instrument_SN=self.kwargs['Instrument_SN'])
+        Computer_SN = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN']).Computer_SN
+        FinishInspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN']).update(Computer_SN=Computer_SN)
         return object
 
     @transaction.atomic
     def get_context_data(self, **kwargs):
-
         context = super(FinishedInspection_UpdateView_first, self).get_context_data(**kwargs)
         Instrument_Nm = context['object'].Name
+
         context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Barcode Scanner').\
             filter(CalibrationDt__lte=date.today(), ValidationDt__gte=date.today())
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
+
         return context
 
     def get_success_url(self):
