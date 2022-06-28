@@ -69,11 +69,15 @@ class FinishedInspection_UpdateView_second(UpdateView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(FinishedInspection_UpdateView_second, self).get_context_data(**kwargs)
+        context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         return context
 
     def get_success_url(self):
+        object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
+
         self.Excel_Finished_Inspection1()
+        Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(Status='검사완료')
         return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
     # 설명 : Seegene STARlet 완제품 성적서 완료시, Excel 데이터 자동 입력 기능
@@ -91,8 +95,8 @@ class FinishedInspection_UpdateView_second(UpdateView):
         sheet['K7'] = object_Inspection.Computer_SN # 컴퓨터 SN
         sheet['K8'] = object_Inspection.Barcode_Scanner # 바코드 스캐너
         sheet['D10'] = object_Inspection.Inspector # 검사자
-        sheet['D11'] = object_Inspection.Start_Date # 검사시작일
-        # sheet['E16'] = object_Inspection.Completed_Date # 검사완료일
+        sheet['D11'] = self.request.POST.get("CompleteDt") # 완제품 성적서 완료일
+        sheet['E16'] = object_Inspection.Completed_Date # 검사완료일
         sheet['D13'] = object_Inspection.SW_Version # SW 버전
         sheet['D14'] = object_Inspection.SL_Version # 씨젠런처 버전
         # sheet['E18'] = object_Inspection.Revision # 검사성적서 Revision

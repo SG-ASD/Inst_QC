@@ -92,3 +92,5 @@ media/
 .xlsx
 
 *.xlsx
+
+Dockerfile
