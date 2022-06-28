@@ -34,9 +34,9 @@ class FinishedInspection_UpdateView_first(UpdateView):
     context_object_name = 'target_finish_first'
 
     def get_object(self):
-        object = get_object_or_404(FinishInspection, Instrument_SN=self.kwargs['Instrument_SN'])
         Computer_SN = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN']).Computer_SN
         FinishInspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN']).update(Computer_SN=Computer_SN)
+        object = get_object_or_404(FinishInspection, Instrument_SN=self.kwargs['Instrument_SN'])
         return object
 
     @transaction.atomic
