@@ -14,7 +14,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo "testing12"
+RUN echo "testing123"
 
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 
@@ -23,9 +23,9 @@ WORKDIR /home/Inst_QC/
 # pip 패키지
 RUN pip install -r requirements.txt
 
-RUN pip install mysqlclient
-
 RUN pip install gunicorn
+
+RUN pip install mysqlclient
 
 RUN echo "SECRET_KEY = django-insecure-wkv0eo^r-u#aneynu^*y1j08e4r2c)(#jh9_163)5ilctaqw-e"
 
