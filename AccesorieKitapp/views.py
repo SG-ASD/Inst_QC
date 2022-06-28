@@ -78,9 +78,9 @@ class AccKitUpdateView_third(UpdateView):
     context_object_name = 'target_Acc_third'
 
     def get_object(self):
-        object = get_object_or_404(Accessories, Instrument_SN=self.kwargs['Instrument_SN'])
         HHS_SN = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN']).Perfomance_HHS_SN
         Accessories.objects.filter(Instrument_SN=self.kwargs['Instrument_SN']).update(HHS_SN=HHS_SN)
+        object = get_object_or_404(Accessories, Instrument_SN=self.kwargs['Instrument_SN'])
         return object
 
     @transaction.atomic
