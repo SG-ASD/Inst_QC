@@ -61,49 +61,49 @@ class AppearanceUpdateView(UpdateView):
                 path = os.path.join(os.getcwd(), 'media', instrument_SN)  # 파일 생성 경로
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
                     Shock_Watch_files = request.FILES.getlist('Appearance_Shock_Watch_Image')
-                    Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, 'Shock Watch')
+                    Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, 'Shock Watch', True)
                     form_instance.Appearance_Shock_Watch_Image = Shock_Watch_files_name
                 else:
                     form_instance.Appearance_Shock_Watch_Image = ""
 
                 if request.FILES.getlist('Appearance_Binding_Image'):
                     Binding_files = request.FILES.getlist('Appearance_Binding_Image')
-                    Binding_files_name = Util.upload_files(self, Binding_files, path, 'Binding')
+                    Binding_files_name = Util.upload_files(self, Binding_files, path, 'Binding', True)
                     form_instance.Appearance_Binding_Image = Binding_files_name
                 else:
                     form_instance.Appearance_Binding_Image = ""
 
                 if request.FILES.getlist('Appearance_Labels_Image'):
                     Labels_files = request.FILES.getlist('Appearance_Labels_Image')
-                    Labels_files_name = Util.upload_files(self, Labels_files, path, 'Labels')
+                    Labels_files_name = Util.upload_files(self, Labels_files, path, 'Labels', True)
                     form_instance.Appearance_Labels_Image = Labels_files_name
                 else:
                     form_instance.Appearance_Labels_Image = ""
 
                 if request.FILES.getlist('Appearance_Packaging_Box_Image'):
                     Packaging_Box_files = request.FILES.getlist('Appearance_Packaging_Box_Image')
-                    Packaging_Box_files_name = Util.upload_files(self, Packaging_Box_files, path, 'Packaging Box')
+                    Packaging_Box_files_name = Util.upload_files(self, Packaging_Box_files, path, 'Packaging Box', True)
                     form_instance.Appearance_Packaging_Box_Image = Packaging_Box_files_name
                 else:
                     form_instance.Appearance_Packaging_Box_Image = ""
 
                 if request.FILES.getlist('Appearance_Wooden_Pallet_Image'):
                     Wooden_Pallet_files = request.FILES.getlist('Appearance_Wooden_Pallet_Image')
-                    Wooden_Pallet_files_name = Util.upload_files(self, Wooden_Pallet_files, path, 'Wooden Pallet')
+                    Wooden_Pallet_files_name = Util.upload_files(self, Wooden_Pallet_files, path, 'Wooden Pallet', True)
                     form_instance.Appearance_Wooden_Pallet_Image = Wooden_Pallet_files_name
                 else:
                     form_instance.Appearance_Wooden_Pallet_Image = ""
 
                 if request.FILES.getlist('Appearance_Transport_Jig_Image'):
                     Transport_Jig_files = request.FILES.getlist('Appearance_Transport_Jig_Image')
-                    Transport_Jig_files_name = Util.upload_files(self, Transport_Jig_files, path, 'Transport Jig')
+                    Transport_Jig_files_name = Util.upload_files(self, Transport_Jig_files, path, 'Transport Jig', True)
                     form_instance.Appearance_Transport_Jig_Image = Transport_Jig_files_name
                 else:
                     form_instance.Appearance_Transport_Jig_Image = ""
 
                 if request.FILES.getlist('Appearance_Video'):
                     Appearance_Video_files = request.FILES.getlist('Appearance_Video')
-                    Appearance_Video_files_name = Util.upload_files(self, Appearance_Video_files, path, 'Unpacking')
+                    Appearance_Video_files_name = Util.upload_files(self, Appearance_Video_files, path, 'Unpacking', True)
                     form_instance.Appearance_Video = Appearance_Video_files_name
                 else:
                     form_instance.Appearance_Video = ""

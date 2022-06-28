@@ -52,7 +52,7 @@
                     <div class="col-3"></div>
                     <div class="col-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: .8rem">
-                            Calibration Block
+                            Calibration Tool
                         </button>
                     </div>
                     <div class="col-4">
@@ -486,7 +486,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addModalLabel">Calibration Block</h5>
+                        <h5 class="modal-title" id="addModalLabel">Channel Calibration Tool</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -495,7 +495,7 @@
                             <tr>
                                 <th scope="col">Management_No</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">S/N</th>
+                                <th scope="col">SN</th>
                                 <th scope="col">Calibration_Date</th>
                                 <th scope="col">Click</th>
                             </tr>
@@ -507,7 +507,7 @@
                                     <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
                                     <td value={{ calibration.Instrument }}>{{ calibration.Instrument }}</td>
                                     <td value={{ calibration.Calibration_Serial }}>{{ calibration.Calibration_Serial }}</td>
-                                    <td value={{ calibration.CalibrationDt }}>{{ calibration.CalibrationDt }}</td>
+                                    <td value={{ calibration.CalibrationDt }}>{{ calibration.CalibrationDt | date:'Y-m-d'}}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
                                     </td>
@@ -526,7 +526,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="Bacode_title">Calibration Block</h5>
+                        <h5 class="modal-title" id="Bacode_title">Barcode Carrier</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -535,7 +535,7 @@
                             <tr>
                                 <th scope="col">Management_No</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">S/N</th>
+                                <th scope="col">SN</th>
                                 <th scope="col">Calibration_Date</th>
                                 <th scope="col">Click</th>
                             </tr>
@@ -547,7 +547,7 @@
                                     <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
                                     <td value={{ barcode.Instrument }}>{{ barcode.Instrument }}</td>
                                     <td value={{ barcode.Calibration_Serial }}>{{ barcode.Calibration_Serial }}</td>
-                                    <td value={{ barcode.CalibrationDt }}>{{ barcode.CalibrationDt }}</td>
+                                    <td value={{ barcode.CalibrationDt }}>{{ barcode.CalibrationDt | date:'Y-m-d'}}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
                                             선택

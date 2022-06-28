@@ -47,50 +47,13 @@
                     <form method="get" action="" class="selected">
                         <tr class="text-center" style="cursor:pointer">
                             <th scope="col">No.</th>
-                            <th scope="col">장비명
-{#                                <select name="inst_name" class="form-select" aria-label="Default select example" onchange="location=this.value;">#}
-{#                                    <option value="">장비명</option>#}
-{#                                    <option value="?inst_name=">전체</option>#}
-{#                                    {% for category in subcategory_list %}#}
-{#                                        <option value="?inst_name={{ category.Subcategory }}">{{ category.Subcategory }}</option>#}
-{#                                    {% endfor %}#}
-{#                                </select>#}
-                            </th>
-                            <th scope="col">장비 S/N</th>
-                            <th scope="col">컴퓨터 S/N</th>
-                            <th scope="col">시작일
-{#                                <select name="start_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">#}
-{#                                    <option value="" selected>순서</option>#}
-{#                                    <option value="?start_date=오름차순">오름차순</option>#}
-{#                                    <option value="?start_date=내림차순">내림차순</option>#}
-{#                                </select>#}
-                            </th>
-                            <th scope="col">완료일
-{#                                <select name="completed_date" class="form-select" aria-label="Default select example" onchange="location=this.value;">#}
-{#                                    <option value="" selected>순서</option>#}
-{#                                    <option value="?completed_date=오름차순">오름차순</option>#}
-{#                                    <option value="?completed_date=내림차순">내림차순</option>#}
-{#                                </select>#}
-                            </th>
-                            <th scope="col">
-                                검사자
-{#                                <select name="inspector" class="form-select" aria-label="Default select example" onchange="location=this.value;">#}
-{#                                    <option value="" selected>순서</option>#}
-{#                                    <option value="?inspector=오름차순">오름차순</option>#}
-{#                                    <option value="?inspector=내림차순">내림차순</option>#}
-{#                                </select>#}
-                            </th>
-                            <th scope="col">현황
-{#                                <select name="status" class="form-select" aria-label="Default select example" onchange="location=this.value;">#}
-{#                                    <option value="" selected>상태</option>#}
-{#                                    <option value="?status=">전체</option>#}
-{#                                    <option value="?status=검사대기">검사대기</option>#}
-{#                                    <option value="?status=검사진행중">검사진행중</option>#}
-{#                                    <option value="?status=부적합">부적합</option>#}
-{#                                    <option value="?status=재검사중">재검사중</option>#}
-{#                                    <option value="?status=검사완료">검사완료</option>#}
-{#                                </select>#}
-                            </th>
+                            <th scope="col">장비명</th>
+                            <th scope="col">장비 SN</th>
+                            <th scope="col">컴퓨터 SN</th>
+                            <th scope="col">시작일</th>
+                            <th scope="col">완료일</th>
+                            <th scope="col">검사자</th>
+                            <th scope="col">현황</th>
                             <th scope="col">검사</th>
                         </tr>
                     </form>
@@ -191,20 +154,16 @@
                             <thead>
                             <tr>
                                 <th scope="col">장비명</th>
-                                <th scope="col">장비 S/N</th>
+                                <th scope="col">장비 SN</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>
-                                    <select class="form-select" aria-label="Default select example" name="s1">
-                                        {% for category in subcategory_list %}
-                                            <option value={{ category.Subcategory }}>{{ category.Subcategory }}</option>
-                                        {% endfor %}
-                                    </select>
+                                    <h6>{{ instrument_name }}</h6>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" aria-label="Instrument_SN" aria-describedby="addon-wrapping" name="s2">
+                                    <input type="text" class="form-control" aria-label="Instrument_SN" aria-describedby="addon-wrapping" name="s1">
                                 </td>
                             </tr>
                             </tbody>
@@ -236,7 +195,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row">장비 S/N</th>
+                            <th scope="row">장비 SN</th>
                             <td>
                                 <h6 class="text-SN"></h6>
                             </td>

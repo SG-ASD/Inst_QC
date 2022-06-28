@@ -64,29 +64,28 @@ class AttachmentUpdateView(UpdateView):
                 path = os.path.join(os.getcwd(), 'media', instrument_SN)  # 파일 생성 경로
                 if request.FILES.getlist('Attachment_CoverSafety_Report_File'):
                     CoverSafety_files = request.FILES.getlist('Attachment_CoverSafety_Report_File')
-                    file_name = CoverSafety_files[0].name.split('.')[0]
-                    CoverSafety_files_name = Util.upload_files(self, CoverSafety_files, path, file_name)
+                    CoverSafety_files_name = Util.upload_files(self, CoverSafety_files, path, 'Cover Safety Verification Report', False)
                     form_instance.Attachment_CoverSafety_Report_File = CoverSafety_files_name
                 else:
                     form_instance.Attachment_CoverSafety_Report_File = ""
 
                 if request.FILES.getlist('Attachment_Barcode_Report_File'):
                     Barcode_files = request.FILES.getlist('Attachment_Barcode_Report_File')
-                    Barcode_files_name = Util.upload_files(self, Barcode_files, path, 'Barcode Verification Report')
+                    Barcode_files_name = Util.upload_files(self, Barcode_files, path, 'Barcode Verification Report', False)
                     form_instance.Attachment_Barcode_Report_File = Barcode_files_name
                 else:
                     form_instance.Attachment_Barcode_Report_File = ""
 
                 if request.FILES.getlist('Attachment_Position_Report_File'):
                     Position_files = request.FILES.getlist('Attachment_Position_Report_File')
-                    Position_files_name = Util.upload_files(self, Position_files, path, 'Position Verification Report')
+                    Position_files_name = Util.upload_files(self, Position_files, path, 'Position Verification Report', False)
                     form_instance.Attachment_Position_Report_File = Position_files_name
                 else:
                     form_instance.Attachment_Position_Report_File = ""
 
                 if request.FILES.getlist('Attachment_Files'):
                     Attachment_files = request.FILES.getlist('Attachment_Files')
-                    Attachment_files_name = Util.upload_files(self, Attachment_files, path, 'Attachment')
+                    Attachment_files_name = Util.upload_files(self, Attachment_files, path, 'Attachment', True)
                     form_instance.Attachment_Files = Attachment_files_name
                 else:
                     form_instance.Attachment_Files = ""

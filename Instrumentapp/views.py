@@ -104,8 +104,8 @@ class InstrumentListView(ListView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(InstrumentListView, self).get_context_data(**kwargs)
-        subcategory = self.kwargs.get("category")
-        context["subcategory_list"] = Category.objects.filter(Category=subcategory).values()
+        instrument_name = self.kwargs.get("instrument_name")
+        context["instrument_name"] = instrument_name
 
         return context
 
@@ -118,11 +118,10 @@ class InstrumentListView(ListView):
             # 동일한 시리얼번호 장비 추가 예외처리를 위한 Try ~ Catch문 사용
             try:
                 excel_data = self.request.POST.get("excel_data")
-                inst_name = self.request.POST.get("s1")
-                inst_SN = self.request.POST.get("s2")
+                inst_SN = self.request.POST.get("s1")
 
                 # 엑셀 파일로 장비 추가
-                if excel_data is not None and (inst_name is None or inst_SN is None):
+                if excel_data is not None and inst_SN is None:
                     excel_data = excel_data.split(',')
                     list_data = []
                     n = -1
@@ -155,15 +154,14 @@ class InstrumentListView(ListView):
                         )
 
                 # 직접 입력하여 장비 추가
-                elif excel_data is None and inst_name is not None and inst_SN is not None:
-                    print(f"inst_name : {inst_name}")
+                elif excel_data is None and inst_SN is not None:
                     new_instrument = Instrument.objects.create(
                         SN=inst_SN,
-                        Name=inst_name
+                        Name=instrument_name
                     )
                     new_inspection = Inspection.objects.create(
                         Instrument_SN=new_instrument,
-                        Name=inst_name,
+                        Name=instrument_name,
                         Status="검사대기"
                     )
                     new_Accesories = Accessories.objects.create(
@@ -171,7 +169,7 @@ class InstrumentListView(ListView):
                     )
                     new_FinishInspection = FinishInspection.objects.create(
                         Instrument_SN=new_instrument,
-                        Name=inst_name,
+                        Name=instrument_name,
                         Status="검사대기"
                     )
             # 기존에 시리얼 번호가 있을경우 해당 IntegrityError가 발생
