@@ -14,7 +14,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo "test1"
+RUN echo "test5"
 
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 
