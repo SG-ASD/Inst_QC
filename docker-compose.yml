@@ -27,7 +27,7 @@ services:
       MYSQL_ROOT_PASSWORD: password1234
       MYSQL_DATABASE: django
       MYSQL_USER: django
-      MYSQL_PASSWORD: django
+      MYSQL_PASSWORD: password1234
 
 networks:
   network:
