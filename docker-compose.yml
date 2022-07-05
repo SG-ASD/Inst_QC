@@ -11,23 +11,23 @@ services:
     ports:
       - 80:80
   django_container_gunicorn:
-    image: django_test_image:5
+    image: django_test_image:4
     networks:
       - network
     volumes:
       - static-volume:/home/Inst_QC/staticfiles
       - media-volume:/home/Inst_QC/media
-  mariadb:
-    image: mariadb:10.5
-    networks:
-      - network
-    volumes:
-    - maria-database:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password1234
-      MYSQL_DATABASE: django
-      MYSQL_USER: django
-      MYSQL_PASSWORD: password1234
+#  mariadb:
+#    image: mariadb:10.5
+#    networks:
+#      - network
+#    volumes:
+#    - maria-database:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: password1234
+#      MYSQL_DATABASE: django
+#      MYSQL_USER: django
+#      MYSQL_PASSWORD: password1234
 
 networks:
   network:

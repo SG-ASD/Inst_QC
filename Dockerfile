@@ -21,7 +21,7 @@ RUN python manage.py collectstatic
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "python manage.py migrate --settings=Inst_QC.settings.deploy && gunicorn Inst_QC.wsgi --env DJANGO_SETTINGS_MODULE=Inst_QC.settings.deploy --bind 0.0.0.0:8000"]
+CMD ["bash", "-c", "python manage.py migrate --settings=Inst_QC.settings.local && gunicorn Inst_QC.wsgi --env DJANGO_SETTINGS_MODULE=Inst_QC.settings.local --bind 0.0.0.0:8000"]
 
 # gunicorn 커맨드
 #CMD ["gunicorn", "Inst_QC.wsgi", "--bind", "0.0.0.0:8000"]
