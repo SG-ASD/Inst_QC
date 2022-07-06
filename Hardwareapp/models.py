@@ -12,8 +12,10 @@ class Calibration(models.Model):
     State = models.CharField(max_length=60)  # 상태
     Type = models.CharField(max_length=60)  # 교정 유형
     CalibrationCycle = models.CharField(max_length=20, blank=True) # 교정주기
-    CalibrationDt = models.DateField(auto_now=True) # 교정일자
-    ValidationDt = models.DateField(auto_now=True) # 유효기간
+
+    CalibrationDt = models.DateField(null=True, blank=True)  # 검사시작일
+    ValidationDt = models.DateField(null=True, blank=True)  # 검사완료일
+
     Real_Calibration_Date = models.DateField(auto_now=True) # 유효기간
     Cal_Location = models.CharField(max_length=20, blank=True) # 교정처
     Manufacturer = models.CharField(max_length=20, blank=True) # 제조자
@@ -27,12 +29,12 @@ class Calibration(models.Model):
     Store_Location = models.CharField(max_length=20, blank=True) # 보관위치
     Previous_Manage_Num = models.CharField(max_length=40, blank=True) # 구 관리번호
     Etc = models.CharField(max_length=50, blank=True) # 비고
-    Hide = models.IntegerField(null=True, blank=True) # 숨김여부
+    is_Hide = models.BooleanField(default=True, verbose_name='공개여부')
 
 
 
     def __str__(self):
-        return self.Calibration
+        return self.Managemant_Num
 
 
 
