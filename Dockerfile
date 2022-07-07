@@ -9,6 +9,7 @@ WORKDIR /home/Inst_QC/
 # pip 패키지
 RUN pip install -r requirements.txt
 
+RUN pip install gunicorn
 
 RUN echo "SECRET_KEY = django-insecure-wkv0eo^r-u#aneynu^*y1j08e4r2c)(#jh9_163)5ilctaqw-e"
 
