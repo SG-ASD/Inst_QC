@@ -100,7 +100,6 @@ class AccKitUpdateView_third(UpdateView):
         self.Excel_Inspection2()
         self.Excel_Inspection3()
         self.Excel_Inspection4()
-
         return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
     def Excel_Inspection1(self):
