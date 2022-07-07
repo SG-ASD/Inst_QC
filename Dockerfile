@@ -9,12 +9,10 @@ WORKDIR /home/Inst_QC/
 # pip 패키지
 RUN pip install -r requirements.txt
 
-RUN python -m pip install --upgrade pip
-
 RUN echo "SECRET_KEY = django-insecure-wkv0eo^r-u#aneynu^*y1j08e4r2c)(#jh9_163)5ilctaqw-e"
 
 RUN python manage.py migrate
 
 EXPOSE 8000
 
-CMD ["gunicorn", "Inst_QC.wsgi", "--bind", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
