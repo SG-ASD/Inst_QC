@@ -4,6 +4,8 @@ WORKDIR /home/
 
 RUN echo "testing"
 
+RUN echo "testing1"
+
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 
 WORKDIR /home/Inst_QC/
@@ -19,4 +21,4 @@ RUN python manage.py collectstatic
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "python manage.py migrate --settings=Inst_QC.settings.deploy && gunicorn Inst_QC.wsgi --env DJANGO_SETTINGS_MODULE=Inst_QC.settings.local --bind 0.0.0.0:8000"]
+CMD ["bash", "-c", "python manage.py migrate --settings=Inst_QC.settings.deploy && gunicorn Inst_QC.wsgi --env DJANGO_SETTINGS_MODULE=Inst_QC.settings.deploy --bind 0.0.0.0:8000"]
