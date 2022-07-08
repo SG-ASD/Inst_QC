@@ -2,7 +2,11 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo "testing123"
+RUN echo "testing"
+
+RUN echo "testing1"
+
+RUN echo "testing2"
 
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 
