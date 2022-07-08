@@ -13,6 +13,8 @@ RUN echo "SECRET_KEY = django-insecure-wkv0eo^r-u#aneynu^*y1j08e4r2c)(#jh9_163)5
 
 RUN python manage.py migrate
 
+RUN python manage.py collectstatic
+
 EXPOSE 8000
 
 CMD ["gunicorn", "Inst_QC.wsgi", "--bind", "0.0.0.0:8000"]
