@@ -30,9 +30,9 @@
                                 <td class="px-5">{{ target_Inspection.Instrument_SN_id }}</td>
                                 <td class="px-5">
                                     {% if target_Inspection.Computer_SN %}
-                                        <input class="form-control" type="text" name="Computer_SN" value={{ target_Inspection.Computer_SN }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="Computer_SN" value={{ target_Inspection.Computer_SN }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="Computer_SN" placeholder="Computer SN">
+                                        <input class="form-control" autocomplete="off" type="text" name="Computer_SN" placeholder="Computer SN">
                                     {% endif %}
                                 </td>
                             </tr>
@@ -43,16 +43,16 @@
                             <tr>
                                 <td class="px-5">
                                     {% if target_Inspection.Inspector %}
-                                        <input class="form-control" type="text" name="Inspector" value={{ target_Inspection.Inspector }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="Inspector" value={{ target_Inspection.Inspector }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="Inspector" placeholder="Inspector">
+                                        <input class="form-control" autocomplete="off" type="text" name="Inspector" placeholder="Inspector">
                                     {% endif %}
                                 </td>
                                 <td class="px-5">
                                     {% if target_Inspection.Start_Date %}
-                                        <input class="form-control" type="date" name="Start_Date" value="{{target_Inspection.Start_Date | date:'Y-m-d'}}">
+                                        <input class="form-control" autocomplete="off" type="date" name="Start_Date" value="{{target_Inspection.Start_Date | date:'Y-m-d'}}">
                                     {% else %}
-                                        <input class="form-control" type="date" name="Start_Date" placeholder="Start Date">
+                                        <input class="form-control" autocomplete="off" type="date" name="Start_Date" placeholder="Start Date">
                                     {% endif %}
                                 </td>
                             </tr>
@@ -63,16 +63,16 @@
                             <tr>
                                 <td class="px-5">
                                     {% if target_Inspection.SW_Version %}
-                                        <input class="form-control" type="text" name="SW_Version" value={{ target_Inspection.SW_Version }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" value={{ target_Inspection.SW_Version }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="SW_Version" placeholder="Hamilton SW Version">
+                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" placeholder="Hamilton SW Version">
                                     {% endif %}
                                 </td>
                                 <td class="px-5">
                                     {% if target_Inspection.FV2_Version %}
-                                        <input class="form-control" type="text" name="FV2_Version" value={{ target_Inspection.FV2_Version }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" value={{ target_Inspection.FV2_Version }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="FV2_Version" placeholder="Hamilton FV2 Version">
+                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" placeholder="Hamilton FV2 Version" >
                                     {% endif %}
                                 </td>
                             </tr>
@@ -83,16 +83,16 @@
                             <tr>
                                 <td class="px-5">
                                     {% if target_Inspection.FW_PipetteCh %}
-                                        <input class="form-control" type="text" name="FW_PipetteCh" value={{ target_Inspection.FW_PipetteCh }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="FW_PipetteCh" value={{ target_Inspection.FW_PipetteCh }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="FW_PipetteCh" placeholder="Pipette Ch(PX)">
+                                        <input class="form-control" autocomplete="off" type="text" name="FW_PipetteCh" placeholder="Pipette Ch(PX)">
                                     {% endif %}
                                 </td>
                                 <td class="px-5">
                                     {% if target_Inspection.FW_Xdrive %}
-                                        <input class="form-control" type="text" name="FW_Xdrive" value={{ target_Inspection.FW_Xdrive }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="FW_Xdrive" value={{ target_Inspection.FW_Xdrive }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="FW_Xdrive" placeholder="X-drive(XO)">
+                                        <input class="form-control" autocomplete="off" type="text" name="FW_Xdrive" placeholder="X-drive(XO)">
                                     {% endif %}
                                 </td>
                             </tr>
@@ -104,9 +104,9 @@
                                 <td class="px-5">{{ target_Inspection.Revision }}</td>
                                 <td class="px-5">
                                     {% if target_Inspection.FW_Master %}
-                                        <input class="form-control" type="text" name="FW_Master" value={{ target_Inspection.FW_Master }}>
+                                        <input class="form-control" autocomplete="off" type="text" name="FW_Master" value={{ target_Inspection.FW_Master }}>
                                     {% else %}
-                                        <input class="form-control" type="text" name="FW_Master" placeholder="Master(CO)">
+                                        <input class="form-control" autocomplete="off" type="text" name="FW_Master" placeholder="Master(CO)">
                                     {% endif %}
                                 </td>
                             </tr>

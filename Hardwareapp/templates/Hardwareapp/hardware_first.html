@@ -466,6 +466,7 @@
                             <div class="col">
                                 <div style="text-align: left">
                                     <input type="submit" style="margin-bottom: .5rem" class="btn btn-danger" value="부적합품 보고서작성">
+                                    <input type="file" name="file" id="file">
                                 </div>
                             </div>
                             <div class="col">
@@ -479,7 +480,19 @@
                     <div class="col"></div>
                 </div>
             </form>
-        </div>
+            <form action="" method="get">
+            <input type="text" name="q" value="abc"/>
+            <input type="submit" value="검색">
+            </form>
+
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Default file input example</label>
+              <input class="form-control" type="file" id="formFile">
+                <button> 입력</button>
+              </a>
+            </div>
+
+
 
         <!-- Calibration Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
@@ -493,10 +506,10 @@
                         <table id="instrument-table" class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th scope="col">Management_No</th>
-                                <th scope="col">Name</th>
+                                <th scope="col">Mgt_Num</th>
+                                <th scope="col">Equipment_Name</th>
                                 <th scope="col">SN</th>
-                                <th scope="col">Calibration_Date</th>
+                                <th scope="col">CAL_Date</th>
                                 <th scope="col">Click</th>
                             </tr>
                             </thead>
@@ -504,10 +517,10 @@
                             <tr>
                                 <!-- Calibration 리스트     -->
                                 {% for calibration in inspection_calibration %}
-                                    <td value={{ calibration.pk }}>{{ calibration.pk }}</td>
+                                    <td value={{ calibration.Mgt_Num }}>{{ calibration.Mgt_Num }}</td>
                                     <td value={{ calibration.Instrument }}>{{ calibration.Instrument }}</td>
-                                    <td value={{ calibration.Calibration_Serial }}>{{ calibration.Calibration_Serial }}</td>
-                                    <td value={{ calibration.CalibrationDt }}>{{ calibration.CalibrationDt | date:'Y-m-d'}}</td>
+                                    <td value={{ calibration.Serial_Num }}>{{ calibration.Serial_Num }}</td>
+                                    <td value={{ calibration.CAL_Date }}>{{ calibration.CAL_Date | date:'Y-m-d'}}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
                                     </td>
@@ -533,7 +546,7 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Management_No</th>
+                                <th scope="col">Mgt_Num</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">SN</th>
                                 <th scope="col">Calibration_Date</th>
@@ -544,10 +557,10 @@
                             <tr>
                                 <!-- Barcode 리스트     -->
                                 {% for barcode in inspection_Barcode %}
-                                    <td value={{ barcode.pk }}>{{ barcode.pk }}</td>
+                                    <td value={{ barcode.Mgt_Num }}>{{ barcode.Mgt_Num }}</td>
                                     <td value={{ barcode.Instrument }}>{{ barcode.Instrument }}</td>
-                                    <td value={{ barcode.Calibration_Serial }}>{{ barcode.Calibration_Serial }}</td>
-                                    <td value={{ barcode.CalibrationDt }}>{{ barcode.CalibrationDt | date:'Y-m-d'}}</td>
+                                    <td value={{ barcode.Serial_Num }}>{{ barcode.Serial_Num }}</td>
+                                    <td value={{ barcode.CAL_Date }}>{{ barcode.CAL_Date | date:'Y-m-d'}}</td>
                                     <td>
                                         <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
                                             선택
@@ -602,6 +615,28 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function readFile2(){
+        document.getElementById('file').onchange = function(){
+
+          var file = this.files[0];
+
+          var reader = new FileReader();
+          reader.onload = function(progressEvent){
+            // Entire file
+            console.log(this.result);
+
+            // By lines
+            var lines = this.result.split('\n');
+            for(var line = 0; line < lines.length; line++){
+              console.log(lines[line]);
+            }
+          };
+          reader.readAsText(file);
+};
+        }
     </script>
 
     <style>
