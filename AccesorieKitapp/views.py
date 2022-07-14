@@ -1,18 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
-
-# Create your views here.
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
-from openpyxl.styles import Alignment
-
+from .models import Accessories, AccessoriesFiles
 from Inspectionapp.models import Inspection, Inspection_Category
 from .forms import AccList1_UpdateForm, AccList2_UpdateForm, AccList3_UpdateForm
-from .models import Accessories
-from Inspectionapp.models import Inspection
+from openpyxl.styles import Alignment
 import openpyxl
+from QC_util import Util
+import os
+# Create your views here.
 
 
 # 설명 : Seegene STARlet 악세서리 키트 첫번째 화면
@@ -35,10 +34,179 @@ class AccKitUpdateView_first(UpdateView):
         context = super(AccKitUpdateView_first, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
+        context['target_Acc_first_files'] = AccessoriesFiles.objects.filter(Instrument_SN=self.kwargs.get('Instrument_SN'))
         return context
 
     def get_success_url(self):
         return reverse("AccesorieKitapp:update_AccKit2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        instrument_SN = self.kwargs.get('Instrument_SN')
+
+        if request.method == 'POST':
+            form = AccList1_UpdateForm(request.POST)  # request된 폼
+
+            if form.is_valid():  # 폼이 유효하면
+                # db에 값 저장
+                form_instance = get_object_or_404(Accessories, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+                form_instance.Unpack_Instructions = request.POST.get('Unpack_Instructions')
+                form_instance.Installation_Qualification = request.POST.get('Installation_Qualification')
+                form_instance.Final_Configuation = request.POST.get('Final_Configuation')
+                form_instance.Measurement_Protocol = request.POST.get('Unpack_Instructions')
+                form_instance.EU_Declaration = request.POST.get('EU_Declaration')
+                form_instance.DeclarationSTARlet = request.POST.get('DeclarationSTARlet')
+                form_instance.Declaration_Quality = request.POST.get('Declaration_Quality')
+                form_instance.Packing_Checklist = request.POST.get('Packing_Checklist')
+                form_instance.Maintenance = request.POST.get('Maintenance')
+                form_instance.Channel_Adjust = request.POST.get('Channel_Adjust')
+                form_instance.Test_Report = request.POST.get('Test_Report')
+                form_instance.Loading_Table = request.POST.get('Loading_Table')
+                form_instance.Side_Cover_right = request.POST.get('Side_Cover_right')
+                form_instance.Side_Cover_left = request.POST.get('Side_Cover_left')
+                form_instance.Rear_Piexiglas = request.POST.get('Rear_Piexiglas')
+                form_instance.Top_Plexiglas = request.POST.get('Top_Plexiglas')
+                form_instance.Left_Plexiglas = request.POST.get('Left_Plexiglas')
+                form_instance.Right_Plexiglas = request.POST.get('Right_Plexiglas')
+
+                # 파일 upload
+                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
+                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+
+                if request.FILES.getlist('Unpack_Instructions_Files'):
+                    Unpack_Instructions_Files = request.FILES.getlist('Unpack_Instructions_Files')
+                    Unpack_Instructions_Files_name = Util.upload_files(self, Unpack_Instructions_Files, path, 'Unpacking Instructions', True)
+                    file_instance.Unpack_Instructions_Files = Unpack_Instructions_Files_name
+                else:
+                    file_instance.Unpack_Instructions_Files = ""
+
+                if request.FILES.getlist('Installation_Qualification_Files'):
+                    Installation_Qualification_Files = request.FILES.getlist('Installation_Qualification_Files')
+                    Installation_Qualification_Files_name = Util.upload_files(self, Installation_Qualification_Files, path, 'Installation Qualification', True)
+                    file_instance.Installation_Qualification_Files = Installation_Qualification_Files_name
+                else:
+                    file_instance.Installation_Qualification_Files = ""
+
+                if request.FILES.getlist('Final_Configuation_Files'):
+                    Final_Configuation_Files = request.FILES.getlist('Final_Configuation_Files')
+                    Final_Configuation_Files_name = Util.upload_files(self, Final_Configuation_Files, path, 'Final Configuration TEST STAR-Checklist', True)
+                    file_instance.Final_Configuation_Files = Final_Configuation_Files_name
+                else:
+                    file_instance.Final_Configuation_Files = ""
+
+                if request.FILES.getlist('Measurement_Protocol_Files'):
+                    Measurement_Protocol_Files = request.FILES.getlist('Measurement_Protocol_Files')
+                    Measurement_Protocol_Files_name = Util.upload_files(self, Measurement_Protocol_Files, path, 'Measurement Protocol', True)
+                    file_instance.Measurement_Protocol_Files = Measurement_Protocol_Files_name
+                else:
+                    file_instance.Measurement_Protocol_Files = ""
+
+                if request.FILES.getlist('EU_Declaration_Files'):
+                    EU_Declaration_Files = request.FILES.getlist('EU_Declaration_Files')
+                    EU_Declaration_Files_name = Util.upload_files(self, EU_Declaration_Files, path, 'EU Declaration of Conformity', True)
+                    file_instance.EU_Declaration_Files = EU_Declaration_Files_name
+                else:
+                    file_instance.EU_Declaration_Files = ""
+
+                if request.FILES.getlist('Declaration_Quality_Files'):
+                    Declaration_Quality_Files = request.FILES.getlist('Declaration_Quality_Files')
+                    Declaration_Quality_Files_name = Util.upload_files(self, Declaration_Quality_Files, path, 'Declaration of Quality_Base Assembly Unit', True)
+                    file_instance.Declaration_Quality_Files = Declaration_Quality_Files_name
+                else:
+                    file_instance.Declaration_Quality_Files = ""
+
+                if request.FILES.getlist('DeclarationSTARlet_Files'):
+                    DeclarationSTARlet_Files = request.FILES.getlist('DeclarationSTARlet_Files')
+                    DeclarationSTARlet_Files_name = Util.upload_files(self, DeclarationSTARlet_Files, path, 'Declaration of Quality_Base Assembly Unit', True)
+                    file_instance.DeclarationSTARlet_Files = DeclarationSTARlet_Files_name
+                else:
+                    file_instance.DeclarationSTARlet_Files = ""
+
+                if request.FILES.getlist('Packing_Checklist_Files'):
+                    Packing_Checklist_Files = request.FILES.getlist('Packing_Checklist_Files')
+                    Packing_Checklist_Files_name = Util.upload_files(self, Packing_Checklist_Files, path, 'STARLINE Packing Checklist', True)
+                    file_instance.Packing_Checklist_Files = Packing_Checklist_Files_name
+                else:
+                    file_instance.Packing_Checklist_Files = ""
+
+                if request.FILES.getlist('Maintenance_Files'):
+                    Maintenance_Files = request.FILES.getlist('Maintenance_Files')
+                    Maintenance_Files_name = Util.upload_files(self, Maintenance_Files, path, 'Maintenance', True)
+                    file_instance.Maintenance_Files = Maintenance_Files_name
+                else:
+                    file_instance.Maintenance_Files = ""
+
+                if request.FILES.getlist('Channel_Adjust_Files'):
+                    Channel_Adjust_Files = request.FILES.getlist('Channel_Adjust_Files')
+                    Channel_Adjust_Files_name = Util.upload_files(self, Channel_Adjust_Files, path, 'Channel Adjust Value for Guldi Device', True)
+                    file_instance.Channel_Adjust_Files = Channel_Adjust_Files_name
+                else:
+                    file_instance.Channel_Adjust_Files = ""
+
+                if request.FILES.getlist('Test_Report_Files'):
+                    Test_Report_Files = request.FILES.getlist('Test_Report_Files')
+                    Test_Report_Files_name = Util.upload_files(self, Test_Report_Files, path, 'STARLINE Electrical Safety Test Report', True)
+                    file_instance.Test_Report_Files = Test_Report_Files_name
+                else:
+                    file_instance.Test_Report_Files = ""
+
+                if request.FILES.getlist('Loading_Table_Files'):
+                    Loading_Table_Files = request.FILES.getlist('Loading_Table_Files')
+                    Loading_Table_Files_name = Util.upload_files(self, Loading_Table_Files, path, 'Loading Table', True)
+                    file_instance.Loading_Table_Files = Loading_Table_Files_name
+                else:
+                    file_instance.Loading_Table_Files = ""
+
+                if request.FILES.getlist('Side_Cover_right_Files'):
+                    Side_Cover_right_Files = request.FILES.getlist('Side_Cover_right_Files')
+                    Side_Cover_right_Files_name = Util.upload_files(self, Side_Cover_right_Files, path, 'Side Cover Plexiglas right(Flip up)', True)
+                    file_instance.Side_Cover_right_Files = Side_Cover_right_Files_name
+                else:
+                    file_instance.Side_Cover_right_Files = ""
+
+                if request.FILES.getlist('Side_Cover_left_Files'):
+                    Side_Cover_left_Files = request.FILES.getlist('Side_Cover_left_Files')
+                    Side_Cover_left_Files_name = Util.upload_files(self, Side_Cover_left_Files, path, 'Side Cover Plexiglas left', True)
+                    file_instance.Side_Cover_left_Files = Side_Cover_left_Files_name
+                else:
+                    file_instance.Side_Cover_left_Files = ""
+
+                if request.FILES.getlist('Rear_Piexiglas_Files'):
+                    Rear_Piexiglas_Files = request.FILES.getlist('Rear_Piexiglas_Files')
+                    Rear_Piexiglas_Files_name = Util.upload_files(self, Rear_Piexiglas_Files, path, 'REAR Plexiglas Cover 30T', True)
+                    file_instance.Rear_Piexiglas_Files = Rear_Piexiglas_Files_name
+                else:
+                    file_instance.Rear_Piexiglas_Files = ""
+
+                if request.FILES.getlist('Top_Plexiglas_Files'):
+                    Top_Plexiglas_Files = request.FILES.getlist('Top_Plexiglas_Files')
+                    Top_Plexiglas_Files_name = Util.upload_files(self, Top_Plexiglas_Files, path, 'TOP Panel Plexiglas Cover 30T', True)
+                    file_instance.Top_Plexiglas_Files = Top_Plexiglas_Files_name
+                else:
+                    file_instance.Top_Plexiglas_Files = ""
+
+                if request.FILES.getlist('Left_Plexiglas_Files'):
+                    Left_Plexiglas_Files = request.FILES.getlist('Left_Plexiglas_Files')
+                    Left_Plexiglas_Files_name = Util.upload_files(self, Left_Plexiglas_Files, path, 'LEFT REAR CORNER COVER', True)
+                    file_instance.Left_Plexiglas_Files = Left_Plexiglas_Files_name
+                else:
+                    file_instance.Left_Plexiglas_Files = ""
+
+                if request.FILES.getlist('Right_Plexiglas_Files'):
+                    Right_Plexiglas_Files = request.FILES.getlist('Right_Plexiglas_Files')
+                    Right_Plexiglas_Files_name = Util.upload_files(self, Right_Plexiglas_Files, path, 'RIGHT REAR CORNER COVER', True)
+                    file_instance.Right_Plexiglas_Files = Right_Plexiglas_Files_name
+                else:
+                    file_instance.Right_Plexiglas_Files = ""
+
+                form_instance.save()
+                file_instance.save()
+
+                return redirect('AccesorieKitapp:update_AccKit2', instrument_SN)
+            else:
+                return redirect('AccesorieKitapp:update_AccKit1', instrument_SN)
+
 
 # 설명 : Seegene STARlet 악세서리 키트 두번째 화면
 # 작성자 : 이신후
@@ -60,10 +228,172 @@ class AccKitUpdateView_second(UpdateView):
         context = super(AccKitUpdateView_second, self).get_context_data(**kwargs)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
+        context['target_Acc_second_files'] = AccessoriesFiles.objects.filter(Instrument_SN=self.kwargs.get('Instrument_SN'))
         return context
 
     def get_success_url(self):
         return reverse("AccesorieKitapp:update_AccKit3", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        instrument_SN = self.kwargs.get('Instrument_SN')
+
+        if request.method == 'POST':
+            form = AccList2_UpdateForm(request.POST)  # request된 폼
+
+            if form.is_valid():  # 폼이 유효하면
+                # db에 값 저장
+                form_instance = get_object_or_404(Accessories, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+                form_instance.Sensor_4L = request.POST.get('Sensor_4L')
+                form_instance.Solid_Waste = request.POST.get('Solid_Waste')
+                form_instance.USB_Liquid = request.POST.get('USB_Liquid')
+                form_instance.USB_Solid_Liquid = request.POST.get('USB_Solid_Liquid')
+                form_instance.USB_Venus = request.POST.get('USB_Venus')
+                form_instance.Eppendorf = request.POST.get('Eppendorf')
+                form_instance.Core_Gripper = request.POST.get('Core_Gripper')
+                form_instance.Needle_Lot = request.POST.get('Needle_Lot')
+                form_instance.Needle_Check = request.POST.get('Needle_Check')
+                form_instance.Separator = request.POST.get('Separator')
+                form_instance.Tip_Eject = request.POST.get('Tip_Eject')
+                form_instance.Power_Cord7 = request.POST.get('Power_Cord7')
+                form_instance.Power_CordP = request.POST.get('Power_CordP')
+                form_instance.Cable_USB = request.POST.get('Cable_USB')
+                form_instance.Fuse = request.POST.get('Fuse')
+                form_instance.Screw = request.POST.get('Screw')
+                form_instance.Fitting = request.POST.get('Fitting')
+                form_instance.Liq_Waste = request.POST.get('Liq_Waste')
+
+                # 파일 upload
+                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
+                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+
+                if request.FILES.getlist('Sensor_4L_Files'):
+                    Sensor_4L_Files = request.FILES.getlist('Sensor_4L_Files')
+                    Sensor_4L_Files_name = Util.upload_files(self, Sensor_4L_Files, path, 'ASSY, LIQ WASTE, 5L, 4L-SENSOR', True)
+                    file_instance.Sensor_4L_Files = Sensor_4L_Files_name
+                else:
+                    file_instance.Sensor_4L_Files = ""
+
+                if request.FILES.getlist('Solid_Waste_Files'):
+                    Solid_Waste_Files = request.FILES.getlist('Solid_Waste_Files')
+                    Solid_Waste_Files_name = Util.upload_files(self, Solid_Waste_Files, path, 'SOLID WASTE CONTAINER', True)
+                    file_instance.Solid_Waste_Files = Solid_Waste_Files_name
+                else:
+                    file_instance.Solid_Waste_Files = ""
+
+                if request.FILES.getlist('USB_Liquid_Files'):
+                    USB_Liquid_Files = request.FILES.getlist('USB_Liquid_Files')
+                    USB_Liquid_name_Files = Util.upload_files(self, USB_Liquid_Files, path, 'Liquid and Tip Waste System', True)
+                    file_instance.USB_Liquid_Files = USB_Liquid_name_Files
+                else:
+                    file_instance.USB_Liquid_Files = ""
+
+                if request.FILES.getlist('USB_Solid_Liquid_Files'):
+                    USB_Solid_Liquid_Files = request.FILES.getlist('USB_Solid_Liquid_Files')
+                    USB_Solid_Liquid_Files_name = Util.upload_files(self, USB_Solid_Liquid_Files, path, 'Solid-Liquid Waste Sensor V1.3', True)
+                    file_instance.USB_Solid_Liquid_Files = USB_Solid_Liquid_Files_name
+                else:
+                    file_instance.USB_Solid_Liquid_Files = ""
+
+                if request.FILES.getlist('USB_Venus_Files'):
+                    USB_Venus_Files = request.FILES.getlist('USB_Venus_Files')
+                    USB_Venus_Files_name = Util.upload_files(self, USB_Venus_Files, path, 'VENUS FOUR CD SW', True)
+                    file_instance.USB_Venus_Files = USB_Venus_Files_name
+                else:
+                    file_instance.USB_Venus_Files = ""
+
+                if request.FILES.getlist('Eppendorf_Files'):
+                    Eppendorf_Files = request.FILES.getlist('Eppendorf_Files')
+                    Eppendorf_Files_name = Util.upload_files(self, Eppendorf_Files, path, 'Eppendorf Cups', True)
+                    file_instance.Eppendorf_Files = Eppendorf_Files_name
+                else:
+                    file_instance.Eppendorf_Files = ""
+
+                if request.FILES.getlist('Core_Gripper_Files'):
+                    Core_Gripper_Files = request.FILES.getlist('Core_Gripper_Files')
+                    Core_Gripper_Files_name = Util.upload_files(self, Core_Gripper_Files, path, 'CORE Gripper', True)
+                    file_instance.Core_Gripper_Files = Core_Gripper_Files_name
+                else:
+                    file_instance.Core_Gripper_Files = ""
+
+                if request.FILES.getlist('Needle_Check_Files'):
+                    Needle_Check_Files = request.FILES.getlist('Needle_Check_Files')
+                    Needle_Check_Files_name = Util.upload_files(self, Needle_Check_Files, path, 'Teaching Needle(8ea)', True)
+                    file_instance.Needle_Check_Files = Needle_Check_Files_name
+                else:
+                    file_instance.Needle_Check_Files = ""
+
+                if request.FILES.getlist('Separator_Files'):
+                    Separator_Files = request.FILES.getlist('Separator_Files')
+                    Separator_Files_name = Util.upload_files(self, Separator_Files, path, 'SEPARATOR, MAGNETIC, NUCLEO', True)
+                    file_instance.Separator_Files = Separator_Files_name
+                else:
+                    file_instance.Separator_Files = ""
+
+                if request.FILES.getlist('Tip_Eject_Files'):
+                    Tip_Eject_Files = request.FILES.getlist('Tip_Eject_Files')
+                    Tip_Eject_Files_name = Util.upload_files(self, Tip_Eject_Files, path, 'Tip Eject Plate', True)
+                    file_instance.Tip_Eject_Files = Tip_Eject_Files_name
+                else:
+                    file_instance.Tip_Eject_Files = ""
+
+                if request.FILES.getlist('Power_Cord7_Files'):
+                    Power_Cord7_Files = request.FILES.getlist('Power_Cord7_Files')
+                    Power_Cord7_Files_name = Util.upload_files(self, Power_Cord7_Files, path, 'POWER CORD, STD, CEE', True)
+                    file_instance.Power_Cord7_Files = Power_Cord7_Files_name
+                else:
+                    file_instance.Power_Cord7_Files = ""
+
+                if request.FILES.getlist('Power_CordP_Files'):
+                    Power_CordP_Files = request.FILES.getlist('Power_CordP_Files')
+                    Power_CordP_Files_name = Util.upload_files(self, Power_CordP_Files, path, 'POWER CORD, USA, NEMA', True)
+                    file_instance.Power_CordP_Files = Power_CordP_Files_name
+                else:
+                    file_instance.Power_CordP_Files = ""
+
+                if request.FILES.getlist('Cable_USB_Files'):
+                    Cable_USB_Files = request.FILES.getlist('Cable_USB_Files')
+                    Cable_USB_Files_name = Util.upload_files(self, Cable_USB_Files, path, 'CABLE USB 2.0 A-B 3M FERRIT', True)
+                    file_instance.Cable_USB_Files = Cable_USB_Files_name
+                else:
+                    file_instance.Cable_USB_Files = ""
+
+                if request.FILES.getlist('Fuse_Files'):
+                    Fuse_Files = request.FILES.getlist('Fuse_Files')
+                    Fuse_Files_name = Util.upload_files(self, Fuse_Files, path, 'FUSE 6.3AT', True)
+                    file_instance.Fuse_Files = Fuse_Files_name
+                else:
+                    file_instance.Fuse_Files = ""
+
+                if request.FILES.getlist('Screw_Files'):
+                    Screw_Files = request.FILES.getlist('Screw_Files')
+                    Screw_Files_name = Util.upload_files(self, Screw_Files, path, 'SCREW M4x16', True)
+                    file_instance.Power_Cord7_Files = Screw_Files_name
+                else:
+                    file_instance.Power_Cord7_Files = ""
+
+                if request.FILES.getlist('Fitting_Files'):
+                    Fitting_Files = request.FILES.getlist('Fitting_Files')
+                    Fitting_Files_name = Util.upload_files(self, Fitting_Files, path, 'FITTING, QIK-CON', True)
+                    file_instance.Fitting_Files = Fitting_Files_name
+                else:
+                    file_instance.Fitting_Files = ""
+
+                if request.FILES.getlist('Liq_Waste_Files'):
+                    Liq_Waste_Files = request.FILES.getlist('Liq_Waste_Files')
+                    Liq_Waste_Files_name = Util.upload_files(self, Liq_Waste_Files, path, 'ASSY, FILTER, AEROSOL, LIQ WASTE', True)
+                    file_instance.Liq_Waste_Files = Liq_Waste_Files_name
+                else:
+                    file_instance.Liq_Waste_Files = ""
+
+                form_instance.save()
+                file_instance.save()
+
+                return redirect('AccesorieKitapp:update_AccKit3', instrument_SN)
+            else:
+                return redirect('AccesorieKitapp:update_AccKit2', instrument_SN)
+
 
 # 설명 : Seegene STARlet 악세서리 키트 세번째 화면
 # 작성자 : 이신후
@@ -89,6 +419,7 @@ class AccKitUpdateView_third(UpdateView):
         context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_subcategory"] = Inspection_Category.objects.filter(Category="Electrical Test").values_list('Subcategory', flat=True)
+        context['target_Acc_third_files'] = AccessoriesFiles.objects.filter(Instrument_SN=self.kwargs.get('Instrument_SN'))
         return context
 
     def get_success_url(self):
@@ -101,6 +432,152 @@ class AccKitUpdateView_third(UpdateView):
         self.Excel_Inspection3()
         self.Excel_Inspection4()
         return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        instrument_SN = self.kwargs.get('Instrument_SN')
+
+        if request.method == 'POST':
+            form = AccList3_UpdateForm(request.POST)  # request된 폼
+
+            if form.is_valid():  # 폼이 유효하면
+                # db에 값 저장
+                form_instance = get_object_or_404(Accessories, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+                form_instance.XArm = request.POST.get('XArm')
+                form_instance.Bar_Left = request.POST.get('Bar_Left')
+                form_instance.Bar_Top = request.POST.get('Bar_Top')
+                form_instance.Bag = request.POST.get('Bag')
+                form_instance.Tube_32 = request.POST.get('Tube_32')
+                form_instance.TipRack_5 = request.POST.get('TipRack_5')
+                form_instance.MFX4 = request.POST.get('MFX4')
+                form_instance.SEEG = request.POST.get('SEEG')
+                form_instance.FLHX = request.POST.get('FLHX')
+                form_instance.SOHX = request.POST.get('SOHX')
+                form_instance.HHS_Plate = request.POST.get('HHS_Plate')
+                form_instance.MTP = request.POST.get('MTP')
+                form_instance.Verify_Kit = request.POST.get('Verify_Kit')
+                form_instance.STD = request.POST.get('STD')
+                form_instance.High = request.POST.get('High')
+                form_instance.HHS_Check = request.POST.get('HHS_Check')
+                form_instance.HHS_Manual = request.POST.get('HHS_Manual')
+                form_instance.Stop_Barcode = request.POST.get('Stop_Barcode')
+
+                # 파일 upload
+                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
+                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('Bar_Left_Files'):
+                    Bar_Left_Files = request.FILES.getlist('Bar_Left_Files')
+                    Bar_Left_Files_name = Util.upload_files(self, Bar_Left_Files, path, 'TRANSPORT SUPPORT BAR LEFT', True)
+                    file_instance.Bar_Left_Files = Bar_Left_Files_name
+                else:
+                    file_instance.Bar_Left_Files = ""
+
+                if request.FILES.getlist('Bar_Top_Files'):
+                    Bar_Top_Files = request.FILES.getlist('Bar_Top_Files')
+                    Bar_Top_Files_name = Util.upload_files(self, Bar_Top_Files, path, 'Support Bar on Top', True)
+                    file_instance.Bar_Top_Files = Bar_Top_Files_name
+                else:
+                    file_instance.Bar_Top_Files = ""
+
+                if request.FILES.getlist('Bag_Files'):
+                    Bag_Files = request.FILES.getlist('Bag_Files')
+                    Bag_Files_name = Util.upload_files(self, Bag_Files, path, 'BAG, BIO-HAZARD', True)
+                    file_instance.Bag_Files = Bag_Files_name
+                else:
+                    file_instance.Bag_Files = ""
+
+                if request.FILES.getlist('Tube_32_Files'):
+                    Tube_32_Files = request.FILES.getlist('Tube_32_Files')
+                    Tube_32_Files_name = Util.upload_files(self, Tube_32_Files, path, '3 Carrier for 32 Tubes', True)
+                    file_instance.Tube_32_Files = Tube_32_Files_name
+                else:
+                    file_instance.Tube_32_Files = ""
+
+                if request.FILES.getlist('TipRack_5_Files'):
+                    TipRack_5_Files = request.FILES.getlist('TipRack_5_Files')
+                    TipRack_5_Files_name = Util.upload_files(self, TipRack_5_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.TipRack_5_Files = TipRack_5_Files_name
+                else:
+                    file_instance.TipRack_5_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                if request.FILES.getlist('XArm_Files'):
+                    XArm_Files = request.FILES.getlist('XArm_Files')
+                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    file_instance.XArm_Files = XArm_Files_name
+                else:
+                    file_instance.XArm_Files = ""
+
+                form_instance.save()
+                file_instance.save()
+
+                return redirect('FinishedInspectionapp:update_finish1', instrument_SN)
+            else:
+                return redirect('AccesorieKitapp:update_AccKit3', instrument_SN)
 
     def Excel_Inspection1(self):
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])

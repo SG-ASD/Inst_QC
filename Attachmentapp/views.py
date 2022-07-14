@@ -62,6 +62,7 @@ class AttachmentUpdateView(UpdateView):
 
                 # 파일 upload
                 path = os.path.join(os.getcwd(), 'media', instrument_SN)  # 파일 생성 경로
+
                 if request.FILES.getlist('Attachment_CoverSafety_Report_File'):
                     CoverSafety_files = request.FILES.getlist('Attachment_CoverSafety_Report_File')
                     CoverSafety_files_name = Util.upload_files(self, CoverSafety_files, path, 'Cover Safety Verification Report', False)
