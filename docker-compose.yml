@@ -11,31 +11,21 @@ services:
     ports:
       - 80:80
   django_container_gunicorn:
-    image: django_test_image:4
+    image: django_test_image:5
     networks:
       - network
     volumes:
       - static-volume:/home/Inst_QC/staticfiles
       - media-volume:/home/Inst_QC/media
-
-    # 서비스 명
-    db:
-      image: nouchka/sqlite:latest
-      volumes:
-        - ./data/db:root/db
-      enviroment:
-        - SQLITE3_DB=db.sqlite3
-        -
-
 #  mariadb:
-#    image: postgresql
+#    image: mariadb:10.5
 #    networks:
 #      - network
 #    volumes:
-#    - maria-database:/var/lib/postgresql
+#    - maria-database:/var/lib/mysql
 #    environment:
 #      MYSQL_ROOT_PASSWORD: password1234
-#      MYSQL_DATABASE: mydatabase
+#      MYSQL_DATABASE: django
 #      MYSQL_USER: django
 #      MYSQL_PASSWORD: password1234
 
