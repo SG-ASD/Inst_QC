@@ -17,7 +17,7 @@ DATABASES = {
         'NAME': 'Inst_QC',
         'USER': 'root',
         'PASSWORD': 'mariadb',
-        'HOST': '127.0.0.1',
+        'HOST': '10.10.102.185',
         'PORT': '3306',
         'OPTIONS': {'charset': 'utf8mb4'},
     }
