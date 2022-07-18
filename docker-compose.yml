@@ -11,33 +11,27 @@ services:
     ports:
       - 80:80
   django_container_gunicorn:
-    image: django_test_image:4
+    image: django_test_image:6
     networks:
       - network
     volumes:
       - static-volume:/home/Inst_QC/staticfiles
       - media-volume:/home/Inst_QC/media
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - network
+    volumes:
+    - maria-database:/var/lib/mysql
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password1234
+      MYSQL_DATABASE: django
+      MYSQL_USER: django
+      MYSQL_PASSWORD: password1234
 
-    # 서비스 명
-    db:
-      image: nouchka/sqlite:latest
-      volumes:
-        - ./data/db:root/db
-      enviroment:
-        - SQLITE3_DB=db.sqlite3
-        -
-
-#  mariadb:
-#    image: postgresql
-#    networks:
-#      - network
-#    volumes:
-#    - maria-database:/var/lib/postgresql
-#    environment:
-#      MYSQL_ROOT_PASSWORD: password1234
-#      MYSQL_DATABASE: mydatabase
-#      MYSQL_USER: django
-#      MYSQL_PASSWORD: password1234
 
 networks:
   network:

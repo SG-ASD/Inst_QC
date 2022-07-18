@@ -14,10 +14,11 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Inst_QC_local',
+        'NAME': 'django',
         'USER': 'root',
-        'PASSWORD': 'mariadb',
+        'PASSWORD': 'admin123',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }

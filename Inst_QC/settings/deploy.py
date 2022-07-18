@@ -8,16 +8,18 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydatabase',
-        'USER': 'mydatabaseuser',
-        'PASSWORD': 'mypassword',
-        'HOST': 'postgresql',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Inst_QC',
+        'USER': 'root',
+        'PASSWORD': 'mariadb',
+        'HOST': '10.10.102.185',
+        'PORT': '3306',
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
+
