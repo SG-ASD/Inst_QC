@@ -14,7 +14,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo "test_first"
+RUN echo "testing_operater1"
 
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 
@@ -32,7 +32,6 @@ RUN echo "SECRET_KEY = django-insecure-wkv0eo^r-u#aneynu^*y1j08e4r2c)(#jh9_163)5
 RUN python manage.py collectstatic
 
 EXPOSE 8000
-
 
 CMD ["bash", "-c", "python manage.py migrate --settings=Inst_QC.settings.deploy && gunicorn Inst_QC.wsgi --env DJANGO_SETTINGS_MODULE=Inst_QC.settings.deploy --bind 0.0.0.0:8000"]
 
