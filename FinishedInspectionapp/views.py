@@ -44,8 +44,8 @@ class FinishedInspection_UpdateView_first(UpdateView):
         context = super(FinishedInspection_UpdateView_first, self).get_context_data(**kwargs)
         Instrument_Nm = context['object'].Name
 
-        context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Description__contains='Barcode Scanner').\
-            filter(CalibrationDt__lte=date.today(), ValidationDt__gte=date.today())
+        context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Equipment_Name__contains='Barcode Scanner').\
+            filter(CAL_Date__lte=date.today(), Expiration_Date__gte=date.today())
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
 
@@ -79,9 +79,10 @@ class FinishedInspection_UpdateView_second(UpdateView):
     def get_success_url(self):
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
 
-        self.Excel_Finished_Inspection1()
+        # self.Excel_Finished_Inspection1()
         Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(Status='검사완료')
         return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+
 
     # 설명 : Seegene STARlet 완제품 성적서 완료시, Excel 데이터 자동 입력 기능
     # 작성자 : 이신후

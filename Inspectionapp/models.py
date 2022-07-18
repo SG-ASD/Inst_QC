@@ -45,20 +45,20 @@ class Inspection(models.Model):
     Computer_SN = models.TextField(max_length=50, blank=True)  # 컴퓨터 SN
 
     # 1.Appearance
-    Appearance_Shock_Watch = models.TextField(max_length=20, blank=True)
-    Appearance_Binding = models.TextField(max_length=20, blank=True)
-    Appearance_Labels = models.TextField(max_length=20, blank=True)
-    Appearance_Packaging_Box = models.TextField(max_length=20, blank=True)
-    Appearance_Wooden_Pallet = models.TextField(max_length=20, blank=True)
-    Appearance_Transport_Jig = models.TextField(max_length=20, blank=True)
+    Appearance_Shock_Watch = models.TextField(max_length=20, blank=True, null=True)
+    Appearance_Binding = models.TextField(max_length=20, blank=True, null=True)
+    Appearance_Labels = models.TextField(max_length=20, blank=True, null=True)
+    Appearance_Packaging_Box = models.TextField(max_length=20, blank=True, null=True)
+    Appearance_Wooden_Pallet = models.TextField(max_length=20, blank=True, null=True)
+    Appearance_Transport_Jig = models.TextField(max_length=20, blank=True, null=True)
 
-    Appearance_Shock_Watch_Image = models.ImageField(upload_to=test_path, blank=True)
-    Appearance_Binding_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
-    Appearance_Labels_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
-    Appearance_Packaging_Box_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
-    Appearance_Wooden_Pallet_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
-    Appearance_Transport_Jig_Image = models.ImageField(upload_to=Appearance_image_path, blank=True)
-    Appearance_Video = models.FileField(upload_to=Appearance_image_path, blank=True)
+    Appearance_Shock_Watch_Image = models.ImageField(upload_to=test_path, blank=True, null=True)
+    Appearance_Binding_Image = models.ImageField(upload_to=Appearance_image_path, blank=True, null=True)
+    Appearance_Labels_Image = models.ImageField(upload_to=Appearance_image_path, blank=True, null=True)
+    Appearance_Packaging_Box_Image = models.ImageField(upload_to=Appearance_image_path, blank=True, null=True)
+    Appearance_Wooden_Pallet_Image = models.ImageField(upload_to=Appearance_image_path, blank=True, null=True)
+    Appearance_Transport_Jig_Image = models.ImageField(upload_to=Appearance_image_path, blank=True, null=True)
+    Appearance_Video = models.FileField(upload_to=Appearance_image_path, blank=True, null=True)
 
     Appearance_Front = models.TextField(max_length=20, blank=True)
     Appearance_Top = models.TextField(max_length=20, blank=True)

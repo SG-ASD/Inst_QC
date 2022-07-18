@@ -38,23 +38,12 @@ class HardwareUpdateView_first(UpdateView):
         context = super(HardwareUpdateView_first, self).get_context_data(**kwargs)
         Instrument_Nm = context['object'].Name
 
-
-
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Equipment_Name__contains='Channel Calibration Tool').\
             filter(CAL_Date__lte=date.today(), Expiration_Date__gte=date.today())
         context["inspection_Barcode"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Equipment_Name__contains='Barcode Carrier').\
             filter(CAL_Date__lte=date.today(), Expiration_Date__gte=date.today())
         return context
-
-    def get(request):
-        Left = request.GET.get('formFile', '')
-        Right = request.GET.get('formFile', '')
-        P1_dev = request.GET.get('formFile', '')
-        q = request.GET.get('formFile', '')
-        q = request.GET.get('formFile', '')
-        q = request.GET.get('formFile', '')
-        q = request.GET.get('formFile', '')
 
     def get_success_url(self):
         return reverse("Hardwareapp:update_Hardware2", kwargs={"Instrument_SN": self.object})
