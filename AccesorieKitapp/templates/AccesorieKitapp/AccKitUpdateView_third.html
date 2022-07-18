@@ -547,6 +547,24 @@
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="1"></td>
+                            <td colspan="2">기타사항</td>
+                            <td colspan="9">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Remark_Files" name="Remark_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Remark_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan="12">
                                <div class="form-floating">
                                   <textarea class="form-control" placeholder="Leave a comment here" id="Remark" style="height: 100px" name="Remark">

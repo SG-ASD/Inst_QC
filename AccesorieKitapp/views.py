@@ -461,6 +461,7 @@ class AccKitUpdateView_third(UpdateView):
                 form_instance.HHS_Check = request.POST.get('HHS_Check')
                 form_instance.HHS_Manual = request.POST.get('HHS_Manual')
                 form_instance.Stop_Barcode = request.POST.get('Stop_Barcode')
+                form_instance.Remark = request.POST.get('Remark')
 
                 # 파일 upload
                 NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
@@ -504,73 +505,101 @@ class AccKitUpdateView_third(UpdateView):
 
                 if request.FILES.getlist('TipRack_5_Files'):
                     TipRack_5_Files = request.FILES.getlist('TipRack_5_Files')
-                    TipRack_5_Files_name = Util.upload_files(self, TipRack_5_Files, path, '(Channel support)X-Arm Holding brakets', True)
+                    TipRack_5_Files_name = Util.upload_files(self, TipRack_5_Files, path, 'TIP CARRIER, 5 TIP RACKS', True)
                     file_instance.TipRack_5_Files = TipRack_5_Files_name
                 else:
                     file_instance.TipRack_5_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('MFX4_Files'):
+                    MFX4_Files = request.FILES.getlist('MFX4_Files')
+                    MFX4_Files_name = Util.upload_files(self, MFX4_Files, path, 'ASSY, CAR, 7T, HHS, 4MFX', True)
+                    file_instance.MFX4_Files = MFX4_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.MFX4_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('SEEG_Files'):
+                    SEEG_Files = request.FILES.getlist('SEEG_Files')
+                    SEEG_Files_name = Util.upload_files(self, SEEG_Files, path, 'PED, ADAPTER, SMALL TUBE, SEEG', True)
+                    file_instance.SEEG_Files = SEEG_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.SEEG_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('FLHX_Files'):
+                    FLHX_Files = request.FILES.getlist('FLHX_Files')
+                    FLHX_Files_name = Util.upload_files(self, FLHX_Files, path, 'SCREW, FLHX M3X8, DIN7991, A2SS', True)
+                    file_instance.FLHX_Files = FLHX_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.FLHX_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('SOHX_Files'):
+                    SOHX_Files = request.FILES.getlist('SOHX_Files')
+                    SOHX_Files_name = Util.upload_files(self, SOHX_Files, path, 'SCREW, SOHX, M3X8, DIN912, A2SS', True)
+                    file_instance.SOHX_Files = SOHX_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.SOHX_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('HHS_Plate_Files'):
+                    HHS_Plate_Files = request.FILES.getlist('HHS_Plate_Files')
+                    HHS_Plate_Files_name = Util.upload_files(self, HHS_Plate_Files, path, 'HHS Base Plate', True)
+                    file_instance.HHS_Plate_Files = HHS_Plate_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.HHS_Plate_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('MTP_Files'):
+                    MTP_Files = request.FILES.getlist('MTP_Files')
+                    MTP_Files_name = Util.upload_files(self, MTP_Files, path, 'ASSY, CAR, MFX, 6T, REAG, DW, MTP', True)
+                    file_instance.MTP_Files = MTP_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.MTP_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('Verify_Kit_Files'):
+                    Verify_Kit_Files = request.FILES.getlist('Verify_Kit_Files')
+                    Verify_Kit_Files_name = Util.upload_files(self, Verify_Kit_Files, path, 'RENO KIT 3, STAR VERIFY KIT', True)
+                    file_instance.Verify_Kit_Files = Verify_Kit_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.Verify_Kit_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('STD_Files'):
+                    STD_Files = request.FILES.getlist('STD_Files')
+                    STD_Files_name = Util.upload_files(self, STD_Files, path, 'STD VOL CO-RE TIPS FIL 5x96', True)
+                    file_instance.STD_Files = STD_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.STD_Files = ""
 
-                if request.FILES.getlist('XArm_Files'):
-                    XArm_Files = request.FILES.getlist('XArm_Files')
-                    XArm_Files_name = Util.upload_files(self, XArm_Files, path, '(Channel support)X-Arm Holding brakets', True)
-                    file_instance.XArm_Files = XArm_Files_name
+                if request.FILES.getlist('High_Files'):
+                    High_Files = request.FILES.getlist('High_Files')
+                    High_Files_name = Util.upload_files(self, High_Files, path, 'HIGH VOL EO-RE TIPS FIL 5x96', True)
+                    file_instance.High_Files = High_Files_name
                 else:
-                    file_instance.XArm_Files = ""
+                    file_instance.High_Files = ""
+
+                if request.FILES.getlist('HHS_Check_Files'):
+                    HHS_Check_Files = request.FILES.getlist('HHS_Check_Files')
+                    HHS_Check_Files_name = Util.upload_files(self, HHS_Check_Files, path, 'Hamiltion Heater & Shaker', True)
+                    file_instance.HHS_Check_Files = HHS_Check_Files_name
+                else:
+                    file_instance.HHS_Check_Files = ""
+
+                if request.FILES.getlist('HHS_Manual_Files'):
+                    HHS_Manual_Files = request.FILES.getlist('HHS_Manual_Files')
+                    HHS_Manual_Files_name = Util.upload_files(self, HHS_Manual_Files, path, 'Hamilton Heater Shaker Manual', True)
+                    file_instance.HHS_Manual_Files = HHS_Manual_Files_name
+                else:
+                    file_instance.HHS_Manual_Files = ""
+
+                if request.FILES.getlist('Stop_Barcode_Files'):
+                    Stop_Barcode_Files = request.FILES.getlist('Stop_Barcode_Files')
+                    Stop_Barcode_Files_name = Util.upload_files(self, Stop_Barcode_Files, path, 'Stop Barcode', True)
+                    file_instance.Stop_Barcode_Files = Stop_Barcode_Files_name
+                else:
+                    file_instance.Stop_Barcode_Files = ""
+
+                if request.FILES.getlist('Remark_Files'):
+                    Remark_Files = request.FILES.getlist('Remark_Files')
+                    Remark_Files_name = Util.upload_files(self, Remark_Files, path, 'Remark_Files', True)
+                    file_instance.Remark_Files = Remark_Files_name
+                else:
+                    file_instance.Remark_Files = ""
 
                 form_instance.save()
                 file_instance.save()
