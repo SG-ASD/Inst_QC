@@ -44,12 +44,12 @@ class Inspection(models.Model):
     Computer_SN = models.TextField(max_length=50, blank=True)  # 컴퓨터 SN
 
     # 1.Appearance
-    Appearance_Shock_Watch = models.TextField(max_length=20, blank=True, null=True)
-    Appearance_Binding = models.TextField(max_length=20, blank=True, null=True)
-    Appearance_Labels = models.TextField(max_length=20, blank=True, null=True)
-    Appearance_Packaging_Box = models.TextField(max_length=20, blank=True, null=True)
-    Appearance_Wooden_Pallet = models.TextField(max_length=20, blank=True, null=True)
-    Appearance_Transport_Jig = models.TextField(max_length=20, blank=True, null=True)
+    Appearance_Shock_Watch = models.TextField(max_length=20, blank=True)
+    Appearance_Binding = models.TextField(max_length=20, blank=True)
+    Appearance_Labels = models.TextField(max_length=20, blank=True)
+    Appearance_Packaging_Box = models.TextField(max_length=20, blank=True)
+    Appearance_Wooden_Pallet = models.TextField(max_length=20, blank=True)
+    Appearance_Transport_Jig = models.TextField(max_length=20, blank=True)
 
     Appearance_Shock_Watch_Image = models.ImageField(upload_to=test_path, blank=True, null=True)
     Appearance_Binding_Image = models.ImageField(upload_to=Appearance_image_path, blank=True, null=True)
@@ -188,13 +188,13 @@ class Inspection(models.Model):
     Perfomance_VFV_Precision1000ul8 = models.TextField(max_length=20, blank=True)
 
     # 5.Attachment
-    Attachment_CoverSafety_Report = models.TextField(max_length=20, null=True, blank=True)
-    Attachment_Barcode_Report = models.TextField(max_length=20, null=True, blank=True)
-    Attachment_Position_Report = models.TextField(max_length=20, null=True, blank=True)
-    Attachment_Declaration_HHS = models.TextField(max_length=20, null=True, blank=True)
-    Attachment_Declaration = models.TextField(max_length=20, null=True, blank=True)
-    Attachment_Measurement_Protocol = models.TextField(max_length=20, null=True, blank=True)
-    Attachment_ElectricalSafety_Report = models.TextField(max_length=20, null=True, blank=True)
+    Attachment_CoverSafety_Report = models.TextField(max_length=20, blank=True)
+    Attachment_Barcode_Report = models.TextField(max_length=20, blank=True)
+    Attachment_Position_Report = models.TextField(max_length=20, blank=True)
+    Attachment_Declaration_HHS = models.TextField(max_length=20, blank=True)
+    Attachment_Declaration = models.TextField(max_length=20, blank=True)
+    Attachment_Measurement_Protocol = models.TextField(max_length=20, blank=True)
+    Attachment_ElectricalSafety_Report = models.TextField(max_length=20, blank=True)
     Attachment_CoverSafety_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
     Attachment_Barcode_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
     Attachment_Position_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)

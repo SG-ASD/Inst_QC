@@ -61,7 +61,8 @@ class AttachmentUpdateView(UpdateView):
                 form_instance.Attachment_ElectricalSafety_Report = request.POST.get('Attachment_ElectricalSafety_Report')
 
                 # 파일 upload
-                path = os.path.join(os.getcwd(), 'media', instrument_SN)  # 파일 생성 경로
+                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
+                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
 
                 if request.FILES.getlist('Attachment_CoverSafety_Report_File'):
                     CoverSafety_files = request.FILES.getlist('Attachment_CoverSafety_Report_File')

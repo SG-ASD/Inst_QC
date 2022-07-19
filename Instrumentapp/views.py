@@ -180,7 +180,8 @@ class InstrumentListView(ListView):
                     )
             # 기존에 시리얼 번호가 있을경우 해당 IntegrityError가 발생
             # Html Message tag에 Warning 전달
-            except IntegrityError:
+            except IntegrityError as e:
+                print(e)
                 messages.warning(request, '기존에 시리얼 번호가 있습니다. 다시 장비추가를 해주시기 바랍니다.')
                 return redirect("Instrumentapp:instrument", category, instrument_name)
 
