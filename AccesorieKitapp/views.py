@@ -427,10 +427,10 @@ class AccKitUpdateView_third(UpdateView):
         CompleteDt = self.request.POST.get("CompleteDt")
         Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(CompleteDt=CompleteDt)
         # 악세서리 키트에서 완제품 넘어갈 경우, 자동 Excel file 데이터 입력 기능
-        self.Excel_Inspection1()
-        self.Excel_Inspection2()
-        self.Excel_Inspection3()
-        self.Excel_Inspection4()
+        # self.Excel_Inspection1()
+        # self.Excel_Inspection2()
+        # self.Excel_Inspection3()
+        # self.Excel_Inspection4()
         return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
     @transaction.atomic

@@ -18,7 +18,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'mariadb',
         'HOST': '10.10.102.185',
-        'PORT': '3306',
+        'PORT': '3966',
         'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
