@@ -195,10 +195,10 @@ class Inspection(models.Model):
     Attachment_Declaration = models.TextField(max_length=20, blank=True)
     Attachment_Measurement_Protocol = models.TextField(max_length=20, blank=True)
     Attachment_ElectricalSafety_Report = models.TextField(max_length=20, blank=True)
-    Attachment_CoverSafety_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
-    Attachment_Barcode_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
-    Attachment_Position_Report_File = models.FileField(upload_to=Attachment_image_path, null=True, blank=True)
-    Attachment_Files = models.FileField(upload_to=test_path, null=True, blank=True)
+    Attachment_CoverSafety_Report_File = models.TextField(blank=True)
+    Attachment_Barcode_Report_File = models.TextField(blank=True)
+    Attachment_Position_Report_File = models.TextField(blank=True)
+    Attachment_Files = models.TextField(blank=True)
 
     def __str__(self):
         return self.Instrument_SN_id
