@@ -43,3 +43,8 @@ class Revision(models.Model):
     Rev = models.IntegerField(null=False) # Revision
     Start_Dt = models.DateField(auto_now=True, verbose_name='사용 시작일')
     End_Dt = models.DateField(auto_now=True, verbose_name='사용 종료일')
+
+    class Meta:
+        db_table = 'instrumentapp_revision'
+        verbose_name = "개정문서 데이터"
+        verbose_name_plural = "개정문서 데이터"

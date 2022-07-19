@@ -15,7 +15,7 @@ class RevisionAdmin(ImportExportMixin, admin.ModelAdmin):
                     ]
     list_display_links = ['Instrument']
     list_filter = ['Instrument', 'Report_Category', 'Start_Dt']
-    search_fields = ['Report_Category']
+    search_fields = ['Rev_Num']
 
     class Meta:
         db_table = 'Instrumentapp_revision'
