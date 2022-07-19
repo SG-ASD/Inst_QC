@@ -468,7 +468,8 @@
                             <td colspan="5">
                                  <div class="input-group mb-3">
                                   <span class="input-group-text" id="inputGroup-sizing-default">Hamiltion Heater & Shaker(HHS) SN :</span>
-                                  <input type="text" name="HHS_SN" id="Needle_Lot" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="off"
+                                  <input type="text" name="HHS_SN" id="Needle_Lot" class="form-control" autocomplete="off"
+                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="off"
                                           {% if target_Acc_third.HHS_SN %} value={{target_Acc_third.HHS_SN}} {% endif %}>
                                 </div>
                             </td>
@@ -567,7 +568,7 @@
                         <tr>
                             <td colspan="12">
                                <div class="form-floating">
-                                  <textarea class="form-control" placeholder="Leave a comment here" id="Remark" style="height: 100px" name="Remark">
+                                  <textarea class="form-control" placeholder="Leave a comment here" id="Remark" style="height: 100px" name="Remark" autocomplete="off">
                                    {% if target_Acc_third.Remark %} {{target_Acc_third.Remark}} {% endif %}
                                   </textarea>
                                   <label for="Remark">Remark</label>
