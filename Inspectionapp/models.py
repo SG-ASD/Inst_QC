@@ -18,7 +18,6 @@ class Inspection(models.Model):
 
     def Appearance_image_path(instance, filename):
         # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
-        filename = "ShockWatch.jpg"
         return f'{instance.Instrument_SN_id}/{filename}'
 
     def test_path(instance, filename):

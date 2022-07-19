@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="bg-light rounded p-4">
-        <form action="" target_Acc_third.Instrument_SN_id  method="post" enctype="multipart/form-data" autocomplete="on" >
+        <form action="" target_Acc_third.Instrument_SN_id method="post" enctype="multipart/form-data" autocomplete="on" >
             {% csrf_token %}
             {# content 상단 #}
             <div class="row">
@@ -42,7 +42,7 @@
                     </select>
                     <div style="text-align: left">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass_electrical" onclick="onchange_check_AccKit3()">
+                          <input class="form-check-input" type="checkbox" value="all_pass" id="all_pass_electrical" onclick="onchange_check_AccKit3()" autocomplete="off">
                           <label class="form-check-label" for="all_pass_electrical">All Pass</label>
                         </div>
                     </div>
@@ -56,235 +56,511 @@
                     <tbody>
                         <tr>
                             <td colspan="1" style="background-color: #DCEBFF">No</td>
-                            <td colspan="3" style="background-color: #DCEBFF">Part Number</td>
-                            <td colspan="5" style="background-color: #DCEBFF">Description </td>
+                            <td colspan="2" style="background-color: #DCEBFF">Part Number</td>
+                            <td colspan="5" style="background-color: #DCEBFF">Transport materials</td>
                             <td colspan="1" style="background-color: #DCEBFF">Qty</td>
                             <td colspan="1" style="background-color: #DCEBFF">Ckeck</td>
+                            <td colspan="2" style="background-color: #DCEBFF">files</td>
                         </tr>
                         </tr>
                         <tr>
                             <td colspan="1">1</td>
-                            <td colspan="3">N/A</td>
+                            <td colspan="2">N/A</td>
                             <td colspan="5">(Channel support)X-Arm Holding brakets</td>
                             <td colspan="1">2</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="XArm" id="XArm" value="checked"
-                                            {% if target_Acc_third.XArm == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.XArm == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="XArm_Files" name="XArm_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.XArm_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">2</td>
-                            <td colspan="3">190148</td>
+                            <td colspan="2">190148</td>
                             <td colspan="5">TRANSPORT SUPPORT BAR LEFT</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="Bar_Left" id="Bar_Left" value="checked"
-                                            {% if target_Acc_third.Bar_Left == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.Bar_Left == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Bar_Left_Files" name="Bar_Left_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Bar_Left_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">3</td>
-                            <td colspan="3">186675</td>
+                            <td colspan="2">186675</td>
                             <td colspan="5">Support Bar on Top (for Top Plexiglas Cover)</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="Bar_Top" id="Bar_Top" value="checked"
-                                            {% if target_Acc_third.Bar_Top == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.Bar_Top == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Bar_Top_Files" name="Bar_Top_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Bar_Top_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="12" style="background-color: #DCEBFF">Accessories kit #3, Upper box</td>
+                            <td colspan="1" style="background-color: #DCEBFF">No</td>
+                            <td colspan="2" style="background-color: #DCEBFF">Part Number</td>
+                            <td colspan="5" style="background-color: #DCEBFF">Accessories kit #3, Upper box</td>
+                            <td colspan="1" style="background-color: #DCEBFF">Qty</td>
+                            <td colspan="1" style="background-color: #DCEBFF">Ckeck</td>
+                            <td colspan="2" style="background-color: #DCEBFF">files</td>
                         </tr>
                         <tr>
                             <td colspan="1">4</td>
-                            <td colspan="3">53686-01</td>
+                            <td colspan="2">53686-01</td>
                             <td colspan="5">BAG, BIO-HAZARD, 14.5 x 8.2 x 18, 200/CS</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="Bag" id="Bag" value="checked"
-                                            {% if target_Acc_third.Bag == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.Bag == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Bag_Files" name="Bag_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Bar_Top_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">5</td>
-                            <td colspan="3">173410</td>
+                            <td colspan="2">173410</td>
                             <td colspan="5">3 Carrier for 32 Tubes(11x60 - 14x120mm)</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="Tube_32" id="Tube_32" value="checked"
-                                            {% if target_Acc_third.Tube_32 == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.Tube_32 == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Tube_32_Files" name="Tube_32_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Tube_32_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">6</td>
-                            <td colspan="3">182085</td>
+                            <td colspan="2">182085</td>
                             <td colspan="5">TIP CARRIER, 5 TIP RACKS</td>
                             <td colspan="1">2</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="TipRack_5" id="TipRack_5" value="checked"
-                                            {% if target_Acc_third.TipRack_5 == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.TipRack_5 == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="TipRack_5_Files" name="TipRack_5_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.TipRack_5_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">7</td>
-                            <td colspan="3">97076-01</td>
+                            <td colspan="2">97076-01</td>
                             <td colspan="5">ASSY, CAR, 7T, HHS, 4MFX</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="MFX4" id="MFX4" value="checked"
-                                            {% if target_Acc_third.MFX4 == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.MFX4 == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="MFX4_Files" name="MFX4_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.MFX4_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">8</td>
-                            <td colspan="3">97432-01</td>
+                            <td colspan="2">97432-01</td>
                             <td colspan="5">PED, ADAPTER, SMALL TUBE, SEEG</td>
                             </td>
                             <td colspan="1">2</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="SEEG" id="SEEG" value="checked"
-                                            {% if target_Acc_third.SEEG == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.SEEG == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="SEEG_Files" name="SEEG_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.SEEG_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">9</td>
-                            <td colspan="3">403453</td>
+                            <td colspan="2">403453</td>
                             <td colspan="5">SCREW, FLHX M3X8, DIN7991, A2SS</td>
                             <td colspan="1">4</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="FLHX" id="FLHX" value="checked"
-                                            {% if target_Acc_third.FLHX == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.FLHX == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="FLHX_Files" name="FLHX_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.FLHX_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">10</td>
-                            <td colspan="3">400263</td>
+                            <td colspan="2">400263</td>
                             <td colspan="5">SCREW, SOHX, M3X8, DIN912, A2SS</td>
                             <td colspan="1">2</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="SOHX" id="SOHX" value="checked"
-                                            {% if target_Acc_third.SOHX == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.SOHX == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="SOHX_Files" name="SOHX_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.SOHX_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">11</td>
-                            <td colspan="3">N/A</td>
+                            <td colspan="2">N/A</td>
                             <td colspan="5">HHS Base Plate</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="HHS_Plate" id="HHS_Plate" value="checked"
-                                            {% if target_Acc_third.HHS_Plate == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.HHS_Plate == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="HHS_Plate_Files" name="HHS_Plate_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.HHS_Plate_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">12</td>
-                            <td colspan="3">97319-01</td>
+                            <td colspan="2">97319-01</td>
                             <td colspan="5">ASSY, CAR, MFX, 6T, REAG, DW, MTP</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="MTP" id="MTP" value="checked"
-                                            {% if target_Acc_third.MTP == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.MTP == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="MTP_Files" name="MTP_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.MTP_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">13</td>
-                            <td colspan="3">62964-03</td>
+                            <td colspan="2">62964-03</td>
                             <td colspan="5">RENO KIT 3, STAR VERIFY KIT</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="Verify_Kit" id="Verify_Kit" value="checked"
-                                            {% if target_Acc_third.Verify_Kit == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.Verify_Kit == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Verify_Kit_Files" name="Verify_Kit_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Verify_Kit_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">14</td>
-                            <td colspan="3">235969</td>
+                            <td colspan="2">235969</td>
                             <td colspan="5">STD VOL CO-RE TIPS FIL 5x96</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="STD" id="STD" value="checked"
-                                            {% if target_Acc_third.STD == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.STD == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="STD_Files" name="STD_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.STD_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">15</td>
-                            <td colspan="3">235970</td>
+                            <td colspan="2">235970</td>
                             <td colspan="5">HIGH VOL EO-RE TIPS FIL 5x96</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="High" id="High" value="checked"
-                                            {% if target_Acc_third.High == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.High == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="High_Files" name="High_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.High_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">16</td>
-                            <td colspan="3">199034</td>
+                            <td colspan="2">199034</td>
                             <td colspan="5">
                                  <div class="input-group mb-3">
                                   <span class="input-group-text" id="inputGroup-sizing-default">Hamiltion Heater & Shaker(HHS) SN :</span>
-                                  <input type="text" name="HHS_SN" id="Needle_Lot" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                  {% if target_Acc_third.HHS_SN %} value={{target_Acc_third.HHS_SN}} {% endif %}>
+                                  <input type="text" name="HHS_SN" id="Needle_Lot" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="off"
+                                          {% if target_Acc_third.HHS_SN %} value={{target_Acc_third.HHS_SN}} {% endif %}>
                                 </div>
                             </td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="HHS_Check" id="HHS_Check" value="checked"
-                                            {% if target_Acc_third.HHS_Check == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.HHS_Check == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="HHS_Check_Files" name="HHS_Check_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.HHS_Check_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">17</td>
-                            <td colspan="3">99088-24</td>
+                            <td colspan="2">99088-24</td>
                             <td colspan="5">[USB] Hamilton Heater Shaker Manual</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="HHS_Manual" id="HHS_Manual" value="checked"
-                                            {% if target_Acc_third.HHS_Manual == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.HHS_Manual == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="HHS_Manual_Files" name="HHS_Manual_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.HHS_Manual_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="1">18</td>
-                            <td colspan="3">N/A</td>
+                            <td colspan="2">N/A</td>
                             <td colspan="5">Stop Barcode</td>
                             <td colspan="1">1</td>
                             <td colspan="1">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="Stop_Barcode" id="Stop_Barcode" value="checked"
-                                            {% if target_Acc_third.Stop_Barcode == 'checked' %} checked {% endif %}>
+                                            {% if target_Acc_third.Stop_Barcode == 'checked' %} checked {% endif %} autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Stop_Barcode_Files" name="Stop_Barcode_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Stop_Barcode_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"></td>
+                            <td colspan="2">기타사항</td>
+                            <td colspan="9">
+                                <div class="container">
+                                    <div class="row">
+                                        <input class="form-control" type="file" id="Remark_Files" name="Remark_Files" multiple autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        {% if target_Acc_third_files %}
+                                            {% for files in target_Acc_third_files %}
+                                                {{ files.Remark_Files }}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>

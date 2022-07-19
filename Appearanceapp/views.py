@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
-
 from Inspectionapp.models import Inspection, Inspection_Category
 from Userapp.decorators import User_ownership_required
 from .forms import AppearanceUpdateForm, AppearanceUnpackingForm
@@ -13,6 +12,7 @@ import os
 # Create your views here.
 
 has_ownership = [User_ownership_required]
+
 
 # 설명 : Seegene STARlet Appearance 업데이트 뷰 첫번째 화면
 # 작성자 : 이신후
@@ -59,6 +59,7 @@ class AppearanceUpdateView(UpdateView):
 
                 # 파일 upload
                 path = os.path.join(os.getcwd(), 'media', instrument_SN)  # 파일 생성 경로
+
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
                     Shock_Watch_files = request.FILES.getlist('Appearance_Shock_Watch_Image')
                     Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, 'Shock Watch', True)
@@ -113,6 +114,7 @@ class AppearanceUpdateView(UpdateView):
                 return redirect('Appearanceapp:update_Unpacking', instrument_SN)
             else:
                 return redirect('Appearanceapp:update_Packaging', instrument_SN)
+
 
 # 설명 : Seegene STARlet Appearance 업데이트 뷰 두번째 화면
 # 작성자 : 이신후

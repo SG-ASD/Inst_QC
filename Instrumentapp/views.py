@@ -18,7 +18,7 @@ from FinishedInspectionapp.models import FinishInspection
 from .models import Instrument
 from Mainapp.models import Category
 from Inspectionapp.models import Inspection
-from AccesorieKitapp.models import Accessories
+from AccesorieKitapp.models import Accessories, AccessoriesFiles
 from .forms import InstrumentForm
 
 
@@ -146,6 +146,9 @@ class InstrumentListView(ListView):
                         new_Accesories = Accessories.objects.create(
                             Instrument_SN=new_instrument
                         )
+                        new_AccessoriesFiles = AccessoriesFiles.objects.create(
+                            Instrument_SN=new_instrument
+                        )
                         new_FinishInspection = FinishInspection.objects.create(
                             Instrument_SN=new_instrument,
                             Name=v[0],
@@ -165,6 +168,9 @@ class InstrumentListView(ListView):
                         Status="검사대기"
                     )
                     new_Accesories = Accessories.objects.create(
+                        Instrument_SN=new_instrument
+                    )
+                    new_AccessoriesFiles = AccessoriesFiles.objects.create(
                         Instrument_SN=new_instrument
                     )
                     new_FinishInspection = FinishInspection.objects.create(
