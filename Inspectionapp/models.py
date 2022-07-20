@@ -12,22 +12,6 @@ class Inspection(models.Model):
     # related_name = request.user.profile.nickname
     # user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
-    def Attachment_image_path(instance, filename):
-        # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
-        return f'{instance.Instrument_SN_id}/{filename}'
-
-    def Appearance_image_path(instance, filename):
-        # MEDEIA_ROOT/user_<pk>/ 경로로 <filename> 이름으로 업로드
-        return f'{instance.Instrument_SN_id}/{filename}'
-
-    def test_path(instance, filename):
-        print("test_path")
-        print(f"filename:{filename}")
-        filename = "test_image.jpg"
-        print(f"type:{type(instance)}")
-        print(f"instance.Instrument_SN_id:{instance.Instrument_SN_id}")
-        return f'{instance.Instrument_SN_id}/{filename}'
-
     # Inspection
     Instrument_SN = models.OneToOneField(Instrument, on_delete=models.CASCADE, db_column='Instrument_SN', related_name='Inspection', primary_key=True, unique=True)  # 장비 SN
     Name = models.TextField(max_length=60, blank=True)  # 장비명
