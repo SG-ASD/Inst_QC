@@ -22,7 +22,7 @@ class Calibration(models.Model):
             ('기타', '기타'),
         ),
         default='Seegene STARlet', max_length=32, verbose_name='장비'
-    )  # 장비명
+    )  # 장비명State
     Mgt_Num = models.CharField(max_length=30, unique=True, verbose_name='관리번호')  # 관리번호
     Equipment_Name = models.CharField(max_length=60, null=True, verbose_name='설비 및 계측기')  # 설비 및 계측기
     Status = models.CharField(
@@ -52,7 +52,7 @@ class Calibration(models.Model):
     MFG_Company = models.CharField(max_length=20, blank=True, null=True, verbose_name='제조사')  # 제조사
     Model_Num = models.CharField(max_length=30, blank=True, null=True, verbose_name='모델번호')  # 모델번호
     Serial_Num = models.CharField(max_length=60, blank=True, verbose_name='시리얼번호')  # 시리얼번호
-    ERP_Name = models.CharField(max_length=20, blank=True, null=True, verbose_name='ERP명칭')  # ERP 명칭
+    ERP_Name = models.CharField(max_length=60, blank=True, null=True, verbose_name='ERP명칭')  # ERP 명칭
     ERP_Num = models.CharField(max_length=20, blank=True, null=True, verbose_name='ERP등록번호')  # ERP 번호
     ERP_Label_State = models.CharField(max_length=20, blank=True, null=True, verbose_name='ERP 라벨부착여부')  # ERP 라벨 부착여부
     ERP_Date = models.DateField(auto_now=True, null=True, verbose_name='ERP 취득일자')  # ERP 취득일자

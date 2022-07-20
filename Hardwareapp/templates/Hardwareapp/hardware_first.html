@@ -56,7 +56,7 @@
                         </button>
                     </div>
                     <div class="col-4">
-                        <input type="text"  class="form-control-plaintext" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
+                        <input type="text"  class="form-control-plaintext" autocomplete="off" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
                                 {% if target_Hardware.HardWare_CalibrationTool %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}>
                     </div>
                     <div class="col-3"></div>
@@ -69,7 +69,7 @@
                         </button>
                     </div>
                     <div class="col-4">
-                        <input type="text" readonly class="form-control-plaintext" id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier"  style="width: 12rem"
+                        <input type="text" readonly class="form-control-plaintext" autocomplete="off" id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier"  style="width: 12rem"
                                 {% if target_Hardware.HardWare_BarcodeCarrier %} value={{target_Hardware.HardWare_BarcodeCarrier}} {% endif %}>
                     </div>
                     <div class="col-3"></div>
@@ -91,14 +91,14 @@
                                     <div class="form-check form-check-inline">
                                         <div class="input-group input-group-sm mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-sm">Left</span>
-                                            <input type="text" class="form-control" name="HardWare_XArm_left" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                            <input type="text" class="form-control" autocomplete="off" name="HardWare_XArm_left" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                     {% if target_Hardware.HardWare_XArm_left %} value={{target_Hardware.HardWare_XArm_left}} {% endif %} onkeyup="Integer_Validate()">
                                         </div>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <div class="input-group input-group-sm mb-3">
                                             <span class="input-group-text" id="inputGroup-sizing-sm">Right</span>
-                                            <input type="text" class="form-control" name="HardWare_XArm_right" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                            <input type="text" class="form-control" autocomplete="off" name="HardWare_XArm_right" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                     {% if target_Hardware.HardWare_XArm_right %} value={{target_Hardware.HardWare_XArm_right}} {% endif %} onkeyup="Integer_Validate()">
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                 <td colspan="3">≤+/-10</td>
                                 <td colspan="3">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-control form-control-sm" name="HardWare_XArm_Diff" type="text" placeholder="Input Result" aria-label="Input Result"
+                                        <input class="form-control form-control-sm" autocomplete="off" name="HardWare_XArm_Diff" type="text" placeholder="Input Result" aria-label="Input Result"
                                                 {% if target_Hardware.HardWare_XArm_Diff %} value={{target_Hardware.HardWare_XArm_Diff}} onkeyup="Integer_Validate()" {% endif %}>
                                     </div>
                                 </td>
@@ -124,14 +124,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P1_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev1" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev1" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev1 %} value={{target_Hardware.HardWare_Xdev1}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P1_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt1 %} value={{target_Hardware.HardWare_Xtilt1}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P1_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt1 %} value={{target_Hardware.HardWare_Ytilt1}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -148,7 +148,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P1_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN1 %} value={{target_Hardware.HardWare_SN1}} {% endif %}>
                                             </div>
                                         </div>
@@ -164,14 +164,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P2_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev2" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev2" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev2 %} value={{target_Hardware.HardWare_Xdev2}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P2_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt2 %} value={{target_Hardware.HardWare_Xtilt2}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P2_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt2 %} value={{target_Hardware.HardWare_Ytilt2}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -188,7 +188,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P2_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN2 %} value={{target_Hardware.HardWare_SN2}} {% endif %}>
                                             </div>
                                         </div>
@@ -204,14 +204,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P3_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev3" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev3" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev3 %} value={{target_Hardware.HardWare_Xdev3}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P3_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt3 %} value={{target_Hardware.HardWare_Xtilt3}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -220,7 +220,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P3_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt3 %} value={{target_Hardware.HardWare_Ytilt3}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -228,7 +228,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P3_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN3" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN3 %} value={{target_Hardware.HardWare_SN3}} {% endif %}>
                                             </div>
                                         </div>
@@ -244,14 +244,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P4_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev4" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev4" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev4 %} value={{target_Hardware.HardWare_Xdev4}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P4_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt4 %} value={{target_Hardware.HardWare_Xtilt4}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -260,7 +260,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P4_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt4 %} value={{target_Hardware.HardWare_Ytilt4}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -268,7 +268,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P4_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN4" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN4 %} value={{target_Hardware.HardWare_SN4}} {% endif %}>
                                             </div>
                                         </div>
@@ -284,14 +284,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P5_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev5" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev5" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev5 %} value={{target_Hardware.HardWare_Xdev5}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P5_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt5 %} value={{target_Hardware.HardWare_Xtilt5}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -300,7 +300,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P5_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt5 %} value={{target_Hardware.HardWare_Ytilt5}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -308,7 +308,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P5_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN5 %} value={{target_Hardware.HardWare_SN5}} {% endif %}>
                                             </div>
                                         </div>
@@ -324,14 +324,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P6_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev6" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev6" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev6 %} value={{target_Hardware.HardWare_Xdev6}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P6_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt6 %} value={{target_Hardware.HardWare_Xtilt6}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -340,7 +340,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P6_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt6 %} value={{target_Hardware.HardWare_Ytilt6}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -348,7 +348,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P6_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN6" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN6 %} value={{target_Hardware.HardWare_SN6}} {% endif %}>
                                             </div>
                                         </div>
@@ -364,14 +364,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P7_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev7" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev7" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev7 %} value={{target_Hardware.HardWare_Xdev7}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P7_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt7 %} value={{target_Hardware.HardWare_Xtilt7}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -380,7 +380,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P7_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt7 %} value={{target_Hardware.HardWare_Ytilt7}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -388,7 +388,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P7_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN7" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN7 %} value={{target_Hardware.HardWare_SN7}} {% endif %}>
                                             </div>
                                         </div>
@@ -404,14 +404,14 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P8_dev_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xdev8" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xdev8" aria-label="Sizing example input"  aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xdev8 %} value={{target_Hardware.HardWare_Xdev8}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P8_tilt_X:</span>
-                                                <input type="text" class="form-control" name="HardWare_Xtilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Xtilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Xtilt8 %} value={{target_Hardware.HardWare_Xtilt8}} {% endif %} onkeyup="Channel_AdjustX_Validate()">
                                             </div>
                                         </div>
@@ -420,7 +420,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P8_tilt_Y:</span>
-                                                <input type="text" class="form-control" name="HardWare_Ytilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_Ytilt8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_Ytilt8 %} value={{target_Hardware.HardWare_Ytilt8}} {% endif %} onkeyup="Channel_AdjustY_Validate()">
                                             </div>
                                         </div>
@@ -428,7 +428,7 @@
                                         <div class="form-check form-check-inline">
                                             <div class="input-group input-group-sm mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">P8_S/N:</span>
-                                                <input type="text" class="form-control" name="HardWare_SN8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                                <input type="text" class="form-control" autocomplete="off" name="HardWare_SN8" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                                                         {% if target_Hardware.HardWare_SN8 %} value={{target_Hardware.HardWare_SN8}} {% endif %}>
                                             </div>
                                         </div>

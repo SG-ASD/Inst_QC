@@ -45,9 +45,9 @@ class CalibrationAdmin(ImportExportMixin, admin.ModelAdmin):
             return format_html(f'<span style="color:blue; font-weight:bold">{obj.Status}</span>')
         if obj.Status == '교정중':
             return format_html(f'<span style="color:red; font-weight:bold">{obj.Status}</span>')
-        if obj.Status == '불가(고장)' or obj.State == '불가(기타)':
+        if obj.Status == '불가(고장)' or obj.Status == '불가(기타)':
             return format_html(f'<span style="color:grey; font-weight:bold">{obj.Status}</span>')
-        if obj.Status == '불가(미등록)' or obj.State == '불가(미입고)':
+        if obj.Status == '불가(미등록)' or obj.Status == '불가(미입고)':
             return format_html(f'<span style="color:orange; font-weight:bold">{obj.Status}</span>')
         return format_html(f'<span">{obj.Status}</span>')
     styled_status.short_description = "상태표시 알림"
