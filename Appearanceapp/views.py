@@ -58,7 +58,7 @@ class AppearanceUpdateView(UpdateView):
                 form_instance.Appearance_Transport_Jig = request.POST.get('Appearance_Transport_Jig')
 
                 # 파일 upload
-                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
+                NAS_path = r'\\10.10.102.76\장비품질관리팀\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트'  # NAS 폴더 경로
                 path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
 
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
