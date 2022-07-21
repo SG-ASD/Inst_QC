@@ -76,126 +76,126 @@ class AccKitUpdateView_first(UpdateView):
 
                 if request.FILES.getlist('Unpack_Instructions_Files'):
                     Unpack_Instructions_Files = request.FILES.getlist('Unpack_Instructions_Files')
-                    Unpack_Instructions_Files_name = Util.upload_files(self, Unpack_Instructions_Files, path, 'Unpacking Instructions', True)
+                    Unpack_Instructions_Files_name = Util.upload_files(self, Unpack_Instructions_Files, path, '[Document] Unpacking Instructions, ML STAR', True)
                     file_instance.Unpack_Instructions_Files = Unpack_Instructions_Files_name
                 else:
                     file_instance.Unpack_Instructions_Files = ""
 
                 if request.FILES.getlist('Installation_Qualification_Files'):
                     Installation_Qualification_Files = request.FILES.getlist('Installation_Qualification_Files')
-                    Installation_Qualification_Files_name = Util.upload_files(self, Installation_Qualification_Files, path, 'Installation Qualification', True)
+                    Installation_Qualification_Files_name = Util.upload_files(self, Installation_Qualification_Files, path, '[Document] Installation Qualification, ML STAR, IVD', True)
                     file_instance.Installation_Qualification_Files = Installation_Qualification_Files_name
                 else:
                     file_instance.Installation_Qualification_Files = ""
 
                 if request.FILES.getlist('Final_Configuation_Files'):
                     Final_Configuation_Files = request.FILES.getlist('Final_Configuation_Files')
-                    Final_Configuation_Files_name = Util.upload_files(self, Final_Configuation_Files, path, 'Final Configuration TEST STAR-Checklist', True)
+                    Final_Configuation_Files_name = Util.upload_files(self, Final_Configuation_Files, path, '[Document] Final Configuration TEST STAR-Checklist', True)
                     file_instance.Final_Configuation_Files = Final_Configuation_Files_name
                 else:
                     file_instance.Final_Configuation_Files = ""
 
                 if request.FILES.getlist('Measurement_Protocol_Files'):
                     Measurement_Protocol_Files = request.FILES.getlist('Measurement_Protocol_Files')
-                    Measurement_Protocol_Files_name = Util.upload_files(self, Measurement_Protocol_Files, path, 'Measurement Protocol', True)
+                    Measurement_Protocol_Files_name = Util.upload_files(self, Measurement_Protocol_Files, path, '[Document] Measurement Protocol ML STAR IVD', True)
                     file_instance.Measurement_Protocol_Files = Measurement_Protocol_Files_name
                 else:
                     file_instance.Measurement_Protocol_Files = ""
 
                 if request.FILES.getlist('EU_Declaration_Files'):
                     EU_Declaration_Files = request.FILES.getlist('EU_Declaration_Files')
-                    EU_Declaration_Files_name = Util.upload_files(self, EU_Declaration_Files, path, 'EU Declaration of Conformity', True)
+                    EU_Declaration_Files_name = Util.upload_files(self, EU_Declaration_Files, path, '[Document] EU Declaration of Conformity, ML STAR, IVD', True)
                     file_instance.EU_Declaration_Files = EU_Declaration_Files_name
                 else:
                     file_instance.EU_Declaration_Files = ""
 
                 if request.FILES.getlist('Declaration_Quality_Files'):
                     Declaration_Quality_Files = request.FILES.getlist('Declaration_Quality_Files')
-                    Declaration_Quality_Files_name = Util.upload_files(self, Declaration_Quality_Files, path, 'Declaration of Quality_Base Assembly Unit', True)
+                    Declaration_Quality_Files_name = Util.upload_files(self, Declaration_Quality_Files, path, '[Document] Declaration of Quality, Base Assembly Unit', True)
                     file_instance.Declaration_Quality_Files = Declaration_Quality_Files_name
                 else:
                     file_instance.Declaration_Quality_Files = ""
 
                 if request.FILES.getlist('DeclarationSTARlet_Files'):
                     DeclarationSTARlet_Files = request.FILES.getlist('DeclarationSTARlet_Files')
-                    DeclarationSTARlet_Files_name = Util.upload_files(self, DeclarationSTARlet_Files, path, 'Declaration of Quality_Base Assembly Unit', True)
+                    DeclarationSTARlet_Files_name = Util.upload_files(self, DeclarationSTARlet_Files, path, '[Document] Declaration of Quality, ML STAR, IVD', True)
                     file_instance.DeclarationSTARlet_Files = DeclarationSTARlet_Files_name
                 else:
                     file_instance.DeclarationSTARlet_Files = ""
 
                 if request.FILES.getlist('Packing_Checklist_Files'):
                     Packing_Checklist_Files = request.FILES.getlist('Packing_Checklist_Files')
-                    Packing_Checklist_Files_name = Util.upload_files(self, Packing_Checklist_Files, path, 'STARLINE Packing Checklist', True)
+                    Packing_Checklist_Files_name = Util.upload_files(self, Packing_Checklist_Files, path, '[Document] STARLINE Packing Checklist', True)
                     file_instance.Packing_Checklist_Files = Packing_Checklist_Files_name
                 else:
                     file_instance.Packing_Checklist_Files = ""
 
                 if request.FILES.getlist('Maintenance_Files'):
                     Maintenance_Files = request.FILES.getlist('Maintenance_Files')
-                    Maintenance_Files_name = Util.upload_files(self, Maintenance_Files, path, 'Maintenance', True)
+                    Maintenance_Files_name = Util.upload_files(self, Maintenance_Files, path, '[Document] Maintenance (Barcode, Position, Weekly)', True)
                     file_instance.Maintenance_Files = Maintenance_Files_name
                 else:
                     file_instance.Maintenance_Files = ""
 
                 if request.FILES.getlist('Channel_Adjust_Files'):
                     Channel_Adjust_Files = request.FILES.getlist('Channel_Adjust_Files')
-                    Channel_Adjust_Files_name = Util.upload_files(self, Channel_Adjust_Files, path, 'Channel Adjust Value for Guldi Device', True)
+                    Channel_Adjust_Files_name = Util.upload_files(self, Channel_Adjust_Files, path, '[Document] Channel Adjust Value for Guldi Device', True)
                     file_instance.Channel_Adjust_Files = Channel_Adjust_Files_name
                 else:
                     file_instance.Channel_Adjust_Files = ""
 
                 if request.FILES.getlist('Test_Report_Files'):
                     Test_Report_Files = request.FILES.getlist('Test_Report_Files')
-                    Test_Report_Files_name = Util.upload_files(self, Test_Report_Files, path, 'STARLINE Electrical Safety Test Report', True)
+                    Test_Report_Files_name = Util.upload_files(self, Test_Report_Files, path, '[Document] STARLINE Electrical Safety Test Report', True)
                     file_instance.Test_Report_Files = Test_Report_Files_name
                 else:
                     file_instance.Test_Report_Files = ""
 
                 if request.FILES.getlist('Loading_Table_Files'):
                     Loading_Table_Files = request.FILES.getlist('Loading_Table_Files')
-                    Loading_Table_Files_name = Util.upload_files(self, Loading_Table_Files, path, 'Loading Table', True)
+                    Loading_Table_Files_name = Util.upload_files(self, Loading_Table_Files, path, '173240_Loading Table, 30T', True)
                     file_instance.Loading_Table_Files = Loading_Table_Files_name
                 else:
                     file_instance.Loading_Table_Files = ""
 
                 if request.FILES.getlist('Side_Cover_right_Files'):
                     Side_Cover_right_Files = request.FILES.getlist('Side_Cover_right_Files')
-                    Side_Cover_right_Files_name = Util.upload_files(self, Side_Cover_right_Files, path, 'Side Cover Plexiglas right(Flip up)', True)
+                    Side_Cover_right_Files_name = Util.upload_files(self, Side_Cover_right_Files, path, '185091-RNO_Side Cover Plexiglas right(Flip up)', True)
                     file_instance.Side_Cover_right_Files = Side_Cover_right_Files_name
                 else:
                     file_instance.Side_Cover_right_Files = ""
 
                 if request.FILES.getlist('Side_Cover_left_Files'):
                     Side_Cover_left_Files = request.FILES.getlist('Side_Cover_left_Files')
-                    Side_Cover_left_Files_name = Util.upload_files(self, Side_Cover_left_Files, path, 'Side Cover Plexiglas left', True)
+                    Side_Cover_left_Files_name = Util.upload_files(self, Side_Cover_left_Files, path, '186571_Side Cover Plexiglas left', True)
                     file_instance.Side_Cover_left_Files = Side_Cover_left_Files_name
                 else:
                     file_instance.Side_Cover_left_Files = ""
 
                 if request.FILES.getlist('Rear_Piexiglas_Files'):
                     Rear_Piexiglas_Files = request.FILES.getlist('Rear_Piexiglas_Files')
-                    Rear_Piexiglas_Files_name = Util.upload_files(self, Rear_Piexiglas_Files, path, 'REAR Plexiglas Cover 30T', True)
+                    Rear_Piexiglas_Files_name = Util.upload_files(self, Rear_Piexiglas_Files, path, '186572_REAR Plexiglas Cover 30T(for STARlet)', True)
                     file_instance.Rear_Piexiglas_Files = Rear_Piexiglas_Files_name
                 else:
                     file_instance.Rear_Piexiglas_Files = ""
 
                 if request.FILES.getlist('Top_Plexiglas_Files'):
                     Top_Plexiglas_Files = request.FILES.getlist('Top_Plexiglas_Files')
-                    Top_Plexiglas_Files_name = Util.upload_files(self, Top_Plexiglas_Files, path, 'TOP Panel Plexiglas Cover 30T', True)
+                    Top_Plexiglas_Files_name = Util.upload_files(self, Top_Plexiglas_Files, path, '186573_TOP Panel Plexiglas Cover 30T(for STARlet)', True)
                     file_instance.Top_Plexiglas_Files = Top_Plexiglas_Files_name
                 else:
                     file_instance.Top_Plexiglas_Files = ""
 
                 if request.FILES.getlist('Left_Plexiglas_Files'):
                     Left_Plexiglas_Files = request.FILES.getlist('Left_Plexiglas_Files')
-                    Left_Plexiglas_Files_name = Util.upload_files(self, Left_Plexiglas_Files, path, 'LEFT REAR CORNER COVER', True)
+                    Left_Plexiglas_Files_name = Util.upload_files(self, Left_Plexiglas_Files, path, '190201_LEFT REAR CORNER COVER (with Black)', True)
                     file_instance.Left_Plexiglas_Files = Left_Plexiglas_Files_name
                 else:
                     file_instance.Left_Plexiglas_Files = ""
 
                 if request.FILES.getlist('Right_Plexiglas_Files'):
                     Right_Plexiglas_Files = request.FILES.getlist('Right_Plexiglas_Files')
-                    Right_Plexiglas_Files_name = Util.upload_files(self, Right_Plexiglas_Files, path, 'RIGHT REAR CORNER COVER', True)
+                    Right_Plexiglas_Files_name = Util.upload_files(self, Right_Plexiglas_Files, path, '190202_RIGHT REAR CORNER COVER (with Black)', True)
                     file_instance.Right_Plexiglas_Files = Right_Plexiglas_Files_name
                 else:
                     file_instance.Right_Plexiglas_Files = ""
@@ -270,119 +270,119 @@ class AccKitUpdateView_second(UpdateView):
 
                 if request.FILES.getlist('Sensor_4L_Files'):
                     Sensor_4L_Files = request.FILES.getlist('Sensor_4L_Files')
-                    Sensor_4L_Files_name = Util.upload_files(self, Sensor_4L_Files, path, 'ASSY, LIQ WASTE, 5L, 4L-SENSOR', True)
+                    Sensor_4L_Files_name = Util.upload_files(self, Sensor_4L_Files, path, '96718-01_ASSY, LIQ WASTE, 5L, 4L-SENSOR', True)
                     file_instance.Sensor_4L_Files = Sensor_4L_Files_name
                 else:
                     file_instance.Sensor_4L_Files = ""
 
                 if request.FILES.getlist('Solid_Waste_Files'):
                     Solid_Waste_Files = request.FILES.getlist('Solid_Waste_Files')
-                    Solid_Waste_Files_name = Util.upload_files(self, Solid_Waste_Files, path, 'SOLID WASTE CONTAINER', True)
+                    Solid_Waste_Files_name = Util.upload_files(self, Solid_Waste_Files, path, '53873-07_SOLID WASTE CONTAINER', True)
                     file_instance.Solid_Waste_Files = Solid_Waste_Files_name
                 else:
                     file_instance.Solid_Waste_Files = ""
 
                 if request.FILES.getlist('USB_Liquid_Files'):
                     USB_Liquid_Files = request.FILES.getlist('USB_Liquid_Files')
-                    USB_Liquid_name_Files = Util.upload_files(self, USB_Liquid_Files, path, 'Liquid and Tip Waste System', True)
+                    USB_Liquid_name_Files = Util.upload_files(self, USB_Liquid_Files, path, '54698-01_[USB]Liquid and Tip Waste System, User Guide, Rev B', True)
                     file_instance.USB_Liquid_Files = USB_Liquid_name_Files
                 else:
                     file_instance.USB_Liquid_Files = ""
 
                 if request.FILES.getlist('USB_Solid_Liquid_Files'):
                     USB_Solid_Liquid_Files = request.FILES.getlist('USB_Solid_Liquid_Files')
-                    USB_Solid_Liquid_Files_name = Util.upload_files(self, USB_Solid_Liquid_Files, path, 'Solid-Liquid Waste Sensor V1.3', True)
+                    USB_Solid_Liquid_Files_name = Util.upload_files(self, USB_Solid_Liquid_Files, path, '54802-01_[CD] Solid-Liquid Waste Sensor V1.3, Rev B', True)
                     file_instance.USB_Solid_Liquid_Files = USB_Solid_Liquid_Files_name
                 else:
                     file_instance.USB_Solid_Liquid_Files = ""
 
                 if request.FILES.getlist('USB_Venus_Files'):
                     USB_Venus_Files = request.FILES.getlist('USB_Venus_Files')
-                    USB_Venus_Files_name = Util.upload_files(self, USB_Venus_Files, path, 'VENUS FOUR CD SW', True)
+                    USB_Venus_Files_name = Util.upload_files(self, USB_Venus_Files, path, '911265-01_[USB] VENUS FOUR CD SW & MANUAL STAR IVD 4.5, Rev X1', True)
                     file_instance.USB_Venus_Files = USB_Venus_Files_name
                 else:
                     file_instance.USB_Venus_Files = ""
 
                 if request.FILES.getlist('Eppendorf_Files'):
                     Eppendorf_Files = request.FILES.getlist('Eppendorf_Files')
-                    Eppendorf_Files_name = Util.upload_files(self, Eppendorf_Files, path, 'Eppendorf Cups', True)
+                    Eppendorf_Files_name = Util.upload_files(self, Eppendorf_Files, path, '182238_32 Inserts for 1.5ml Eppendorf Cups', True)
                     file_instance.Eppendorf_Files = Eppendorf_Files_name
                 else:
                     file_instance.Eppendorf_Files = ""
 
                 if request.FILES.getlist('Core_Gripper_Files'):
                     Core_Gripper_Files = request.FILES.getlist('Core_Gripper_Files')
-                    Core_Gripper_Files_name = Util.upload_files(self, Core_Gripper_Files, path, 'CORE Gripper', True)
+                    Core_Gripper_Files_name = Util.upload_files(self, Core_Gripper_Files, path, '184089_CORE Gripper (Screw x 4ea included)', True)
                     file_instance.Core_Gripper_Files = Core_Gripper_Files_name
                 else:
                     file_instance.Core_Gripper_Files = ""
 
                 if request.FILES.getlist('Needle_Check_Files'):
                     Needle_Check_Files = request.FILES.getlist('Needle_Check_Files')
-                    Needle_Check_Files_name = Util.upload_files(self, Needle_Check_Files, path, 'Teaching Needle(8ea)', True)
+                    Needle_Check_Files_name = Util.upload_files(self, Needle_Check_Files, path, '182136_Teaching Needle(8ea)', True)
                     file_instance.Needle_Check_Files = Needle_Check_Files_name
                 else:
                     file_instance.Needle_Check_Files = ""
 
                 if request.FILES.getlist('Separator_Files'):
                     Separator_Files = request.FILES.getlist('Separator_Files')
-                    Separator_Files_name = Util.upload_files(self, Separator_Files, path, 'SEPARATOR, MAGNETIC, NUCLEO', True)
+                    Separator_Files_name = Util.upload_files(self, Separator_Files, path, '53894-01_SEPARATOR, MAGNETIC, NUCLEO', True)
                     file_instance.Separator_Files = Separator_Files_name
                 else:
                     file_instance.Separator_Files = ""
 
                 if request.FILES.getlist('Tip_Eject_Files'):
                     Tip_Eject_Files = request.FILES.getlist('Tip_Eject_Files')
-                    Tip_Eject_Files_name = Util.upload_files(self, Tip_Eject_Files, path, 'Tip Eject Plate', True)
+                    Tip_Eject_Files_name = Util.upload_files(self, Tip_Eject_Files, path, '58938-01_Tip Eject Plate(DEFLECTOR, TIP, LIQUID WASTE)', True)
                     file_instance.Tip_Eject_Files = Tip_Eject_Files_name
                 else:
                     file_instance.Tip_Eject_Files = ""
 
                 if request.FILES.getlist('Power_Cord7_Files'):
                     Power_Cord7_Files = request.FILES.getlist('Power_Cord7_Files')
-                    Power_Cord7_Files_name = Util.upload_files(self, Power_Cord7_Files, path, 'POWER CORD, STD, CEE', True)
+                    Power_Cord7_Files_name = Util.upload_files(self, Power_Cord7_Files, path, '3892-01_POWER CORD, STD, CEE', True)
                     file_instance.Power_Cord7_Files = Power_Cord7_Files_name
                 else:
                     file_instance.Power_Cord7_Files = ""
 
                 if request.FILES.getlist('Power_CordP_Files'):
                     Power_CordP_Files = request.FILES.getlist('Power_CordP_Files')
-                    Power_CordP_Files_name = Util.upload_files(self, Power_CordP_Files, path, 'POWER CORD, USA, NEMA', True)
+                    Power_CordP_Files_name = Util.upload_files(self, Power_CordP_Files, path, '3892-05_POWER CORD, USA, NEMA 5-15P', True)
                     file_instance.Power_CordP_Files = Power_CordP_Files_name
                 else:
                     file_instance.Power_CordP_Files = ""
 
                 if request.FILES.getlist('Cable_USB_Files'):
                     Cable_USB_Files = request.FILES.getlist('Cable_USB_Files')
-                    Cable_USB_Files_name = Util.upload_files(self, Cable_USB_Files, path, 'CABLE USB 2.0 A-B 3M FERRIT', True)
+                    Cable_USB_Files_name = Util.upload_files(self, Cable_USB_Files, path, '355171_CABLE USB 2.0 A-B 3M FERRIT', True)
                     file_instance.Cable_USB_Files = Cable_USB_Files_name
                 else:
                     file_instance.Cable_USB_Files = ""
 
                 if request.FILES.getlist('Fuse_Files'):
                     Fuse_Files = request.FILES.getlist('Fuse_Files')
-                    Fuse_Files_name = Util.upload_files(self, Fuse_Files, path, 'FUSE 6.3AT', True)
+                    Fuse_Files_name = Util.upload_files(self, Fuse_Files, path, '363013_FUSE 6.3AT', True)
                     file_instance.Fuse_Files = Fuse_Files_name
                 else:
                     file_instance.Fuse_Files = ""
 
                 if request.FILES.getlist('Screw_Files'):
                     Screw_Files = request.FILES.getlist('Screw_Files')
-                    Screw_Files_name = Util.upload_files(self, Screw_Files, path, 'SCREW M4x16', True)
+                    Screw_Files_name = Util.upload_files(self, Screw_Files, path, '420629_SCREW M4x16', True)
                     file_instance.Power_Cord7_Files = Screw_Files_name
                 else:
                     file_instance.Power_Cord7_Files = ""
 
                 if request.FILES.getlist('Fitting_Files'):
                     Fitting_Files = request.FILES.getlist('Fitting_Files')
-                    Fitting_Files_name = Util.upload_files(self, Fitting_Files, path, 'FITTING, QIK-CON', True)
+                    Fitting_Files_name = Util.upload_files(self, Fitting_Files, path, '53866-01_FITTING, QIK-CON, IDX', True)
                     file_instance.Fitting_Files = Fitting_Files_name
                 else:
                     file_instance.Fitting_Files = ""
 
                 if request.FILES.getlist('Liq_Waste_Files'):
                     Liq_Waste_Files = request.FILES.getlist('Liq_Waste_Files')
-                    Liq_Waste_Files_name = Util.upload_files(self, Liq_Waste_Files, path, 'ASSY, FILTER, AEROSOL, LIQ WASTE', True)
+                    Liq_Waste_Files_name = Util.upload_files(self, Liq_Waste_Files, path, '54200-01_ASSY, FILTER, AEROSOL, LIQ WASTE', True)
                     file_instance.Liq_Waste_Files = Liq_Waste_Files_name
                 else:
                     file_instance.Liq_Waste_Files = ""
@@ -477,63 +477,63 @@ class AccKitUpdateView_third(UpdateView):
 
                 if request.FILES.getlist('Bar_Left_Files'):
                     Bar_Left_Files = request.FILES.getlist('Bar_Left_Files')
-                    Bar_Left_Files_name = Util.upload_files(self, Bar_Left_Files, path, 'TRANSPORT SUPPORT BAR LEFT', True)
+                    Bar_Left_Files_name = Util.upload_files(self, Bar_Left_Files, path, '190148_TRANSPORT SUPPORT BAR LEFT', True)
                     file_instance.Bar_Left_Files = Bar_Left_Files_name
                 else:
                     file_instance.Bar_Left_Files = ""
 
                 if request.FILES.getlist('Bar_Top_Files'):
                     Bar_Top_Files = request.FILES.getlist('Bar_Top_Files')
-                    Bar_Top_Files_name = Util.upload_files(self, Bar_Top_Files, path, 'Support Bar on Top', True)
+                    Bar_Top_Files_name = Util.upload_files(self, Bar_Top_Files, path, '186675_Support Bar on Top (for Top Plexiglas Cover)', True)
                     file_instance.Bar_Top_Files = Bar_Top_Files_name
                 else:
                     file_instance.Bar_Top_Files = ""
 
                 if request.FILES.getlist('Bag_Files'):
                     Bag_Files = request.FILES.getlist('Bag_Files')
-                    Bag_Files_name = Util.upload_files(self, Bag_Files, path, 'BAG, BIO-HAZARD', True)
+                    Bag_Files_name = Util.upload_files(self, Bag_Files, path, '53686-01_BAG, BIO-HAZARD, 14.5 x 8.2 x 18', True)
                     file_instance.Bag_Files = Bag_Files_name
                 else:
                     file_instance.Bag_Files = ""
 
                 if request.FILES.getlist('Tube_32_Files'):
                     Tube_32_Files = request.FILES.getlist('Tube_32_Files')
-                    Tube_32_Files_name = Util.upload_files(self, Tube_32_Files, path, '3 Carrier for 32 Tubes', True)
+                    Tube_32_Files_name = Util.upload_files(self, Tube_32_Files, path, '173410_3 Carrier for 32 Tubes(11x60 - 14x120mm)', True)
                     file_instance.Tube_32_Files = Tube_32_Files_name
                 else:
                     file_instance.Tube_32_Files = ""
 
                 if request.FILES.getlist('TipRack_5_Files'):
                     TipRack_5_Files = request.FILES.getlist('TipRack_5_Files')
-                    TipRack_5_Files_name = Util.upload_files(self, TipRack_5_Files, path, 'TIP CARRIER, 5 TIP RACKS', True)
+                    TipRack_5_Files_name = Util.upload_files(self, TipRack_5_Files, path, '182085_TIP CARRIER, 5 TIP RACKS', True)
                     file_instance.TipRack_5_Files = TipRack_5_Files_name
                 else:
                     file_instance.TipRack_5_Files = ""
 
                 if request.FILES.getlist('MFX4_Files'):
                     MFX4_Files = request.FILES.getlist('MFX4_Files')
-                    MFX4_Files_name = Util.upload_files(self, MFX4_Files, path, 'ASSY, CAR, 7T, HHS, 4MFX', True)
+                    MFX4_Files_name = Util.upload_files(self, MFX4_Files, path, '97076-01_ASSY, CAR, 7T, HHS, 4MFX', True)
                     file_instance.MFX4_Files = MFX4_Files_name
                 else:
                     file_instance.MFX4_Files = ""
 
                 if request.FILES.getlist('SEEG_Files'):
                     SEEG_Files = request.FILES.getlist('SEEG_Files')
-                    SEEG_Files_name = Util.upload_files(self, SEEG_Files, path, 'PED, ADAPTER, SMALL TUBE, SEEG', True)
+                    SEEG_Files_name = Util.upload_files(self, SEEG_Files, path, '97432-01_PED, ADAPTER, SMALL TUBE, SEEG', True)
                     file_instance.SEEG_Files = SEEG_Files_name
                 else:
                     file_instance.SEEG_Files = ""
 
                 if request.FILES.getlist('FLHX_Files'):
                     FLHX_Files = request.FILES.getlist('FLHX_Files')
-                    FLHX_Files_name = Util.upload_files(self, FLHX_Files, path, 'SCREW, FLHX M3X8, DIN7991, A2SS', True)
+                    FLHX_Files_name = Util.upload_files(self, FLHX_Files, path, '403453_SCREW, FLHX M3X8, DIN7991, A2SS', True)
                     file_instance.FLHX_Files = FLHX_Files_name
                 else:
                     file_instance.FLHX_Files = ""
 
                 if request.FILES.getlist('SOHX_Files'):
                     SOHX_Files = request.FILES.getlist('SOHX_Files')
-                    SOHX_Files_name = Util.upload_files(self, SOHX_Files, path, 'SCREW, SOHX, M3X8, DIN912, A2SS', True)
+                    SOHX_Files_name = Util.upload_files(self, SOHX_Files, path, '400263_SCREW, SOHX, M3X8, DIN912, A2SS', True)
                     file_instance.SOHX_Files = SOHX_Files_name
                 else:
                     file_instance.SOHX_Files = ""
@@ -547,42 +547,42 @@ class AccKitUpdateView_third(UpdateView):
 
                 if request.FILES.getlist('MTP_Files'):
                     MTP_Files = request.FILES.getlist('MTP_Files')
-                    MTP_Files_name = Util.upload_files(self, MTP_Files, path, 'ASSY, CAR, MFX, 6T, REAG, DW, MTP', True)
+                    MTP_Files_name = Util.upload_files(self, MTP_Files, path, '97319-01_ASSY, CAR, MFX, 6T, REAG, DW, MTP', True)
                     file_instance.MTP_Files = MTP_Files_name
                 else:
                     file_instance.MTP_Files = ""
 
                 if request.FILES.getlist('Verify_Kit_Files'):
                     Verify_Kit_Files = request.FILES.getlist('Verify_Kit_Files')
-                    Verify_Kit_Files_name = Util.upload_files(self, Verify_Kit_Files, path, 'RENO KIT 3, STAR VERIFY KIT', True)
+                    Verify_Kit_Files_name = Util.upload_files(self, Verify_Kit_Files, path, '62964-03_RENO KIT 3, STAR VERIFY KIT', True)
                     file_instance.Verify_Kit_Files = Verify_Kit_Files_name
                 else:
                     file_instance.Verify_Kit_Files = ""
 
                 if request.FILES.getlist('STD_Files'):
                     STD_Files = request.FILES.getlist('STD_Files')
-                    STD_Files_name = Util.upload_files(self, STD_Files, path, 'STD VOL CO-RE TIPS FIL 5x96', True)
+                    STD_Files_name = Util.upload_files(self, STD_Files, path, '235969_STD VOL CO-RE TIPS FIL 5x96', True)
                     file_instance.STD_Files = STD_Files_name
                 else:
                     file_instance.STD_Files = ""
 
                 if request.FILES.getlist('High_Files'):
                     High_Files = request.FILES.getlist('High_Files')
-                    High_Files_name = Util.upload_files(self, High_Files, path, 'HIGH VOL EO-RE TIPS FIL 5x96', True)
+                    High_Files_name = Util.upload_files(self, High_Files, path, '235970_HIGH VOL EO-RE TIPS FIL 5x96', True)
                     file_instance.High_Files = High_Files_name
                 else:
                     file_instance.High_Files = ""
 
                 if request.FILES.getlist('HHS_Check_Files'):
                     HHS_Check_Files = request.FILES.getlist('HHS_Check_Files')
-                    HHS_Check_Files_name = Util.upload_files(self, HHS_Check_Files, path, 'Hamiltion Heater & Shaker', True)
+                    HHS_Check_Files_name = Util.upload_files(self, HHS_Check_Files, path, '199034_Hamiltion Heater & Shaker', True)
                     file_instance.HHS_Check_Files = HHS_Check_Files_name
                 else:
                     file_instance.HHS_Check_Files = ""
 
                 if request.FILES.getlist('HHS_Manual_Files'):
                     HHS_Manual_Files = request.FILES.getlist('HHS_Manual_Files')
-                    HHS_Manual_Files_name = Util.upload_files(self, HHS_Manual_Files, path, 'Hamilton Heater Shaker Manual', True)
+                    HHS_Manual_Files_name = Util.upload_files(self, HHS_Manual_Files, path, '99088-24_[USB] Hamilton Heater Shaker Manual', True)
                     file_instance.HHS_Manual_Files = HHS_Manual_Files_name
                 else:
                     file_instance.HHS_Manual_Files = ""
