@@ -16,6 +16,7 @@ from django.views.generic import UpdateView
 
 from Hardwareapp.models import Calibration
 from Inspectionapp.models import Inspection, Inspection_Category
+from Instrumentapp.models import Version
 from Userapp.decorators import User_ownership_required
 from .forms import Finished_Inspection_first, Finished_Inspection_second
 from .models import FinishInspection
@@ -72,8 +73,12 @@ class FinishedInspection_UpdateView_second(UpdateView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(FinishedInspection_UpdateView_second, self).get_context_data(**kwargs)
+        Instrument_Nm = context['object'].Name
         context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
+        context["inst_label_kor"] = Version.objects.filter(Instrument=Instrument_Nm).exclude(Inst_Label_Kor__exact='')
+        context["inst_label_Eng"] = Version.objects.filter(Instrument=Instrument_Nm).exclude(Inst_Label_Eng__exact='')
+        context["box_label"] = Version.objects.filter(Instrument=Instrument_Nm)
         return context
 
     def get_success_url(self):

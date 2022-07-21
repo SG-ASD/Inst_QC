@@ -270,17 +270,42 @@
                                     <div class="container">
                                       <div class="row">
                                         <div class="col">
-                                            <div class="input-group mb-3">
-                                              <span class="input-group-text" id="inputGroup-sizing-default">Label No: (Instrument Label)</span>
-                                              <input type="text" class="form-control" name="Labeling_Instruction" id="Labeling_Instruction" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                                      {% if target_finish_second.Labeling_Instruction %} value={{target_finish_second.Labeling_Instruction}} {% endif %}>
+<!--                                            <div class="input-group mb-3">-->
+<!--                                              <span class="input-group-text" id="inputGroup-sizing-default">Label No: (Instrument Label)</span>-->
+<!--                                              <input type="text" class="form-control" name="Labeling_Instruction" id="Labeling_Instruction" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"-->
+<!--                                                      {% if target_finish_second.Labeling_Instruction %} value={{target_finish_second.Labeling_Instruction}} {% endif %}>-->
+<!--                                            </div>-->
+                                             <div class="form-floating" style="margin: .5rem">
+                                              <select class="form-select" id="Labeling_Instruction" name="Labeling_Instruction" aria-label="Floating label select example">
+
+                                                {% for version in inst_label_kor %}
+                                                  {% if target_finish_second.Labeling_instruction == version.Inst_Label_Kor %}
+                                                    <option selected>{{version.Inst_Label_Kor}}</option>
+                                                  {% else %}
+                                                    <option>{{version.Inst_Label_Kor}}</option>
+                                                  {% endif %}}
+                                                {% endfor %}
+                                                {% for version in inst_label_Eng %}
+                                                    <option>{{version.Inst_Label_Eng}}</option>
+                                                {% endfor %}
+                                              </select>
+                                              <label for="floatingSelect">Works with selects</label>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="input-group mb-3">
-                                              <span class="input-group-text" id="inputGroup-sizing-default">(Box Label)</span>
-                                              <input type="text" class="form-control" name="Labeling_Box" id="Labeling_Box" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                                     {% if target_finish_second.Labeling_Box %} value={{target_finish_second.Labeling_Box}} {% endif %}>
+<!--                                            <div class="input-group mb-3">-->
+<!--                                              <span class="input-group-text" id="inputGroup-sizing-default">(Box Label)</span>-->
+<!--                                              <input type="text" class="form-control" name="Labeling_Box" id="Labeling_Box" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"-->
+<!--                                                     {% if target_finish_second.Labeling_Box %} value={{target_finish_second.Labeling_Box}} {% endif %}>-->
+<!--                                            </div>-->
+                                            <div class="form-floating" style="margin: .5rem">
+                                              <select class="form-select" id="Labeling_Box" name="Labeling_Box" aria-label="Floating label select example">
+                                                {% for version in box_label %}
+                                                    <option>{{version.Box_Label_Kor}}</option>
+                                                    <option>{{version.Box_Label_Eng}}</option>
+                                                {% endfor %}
+                                              </select>
+                                              <label for="floatingSelect">Label No: (Box Label)</label>
                                             </div>
                                         </div>
                                       </div>

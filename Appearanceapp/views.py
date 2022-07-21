@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 from Inspectionapp.models import Inspection, Inspection_Category
+from Instrumentapp.models import Revision
 from Userapp.decorators import User_ownership_required
 from .forms import AppearanceUpdateForm, AppearanceUnpackingForm
 from QC_util import Util
@@ -32,7 +33,6 @@ class AppearanceUpdateView(UpdateView):
     @transaction.atomic
     def get_context_data(self, **kwargs):
         context = super(AppearanceUpdateView, self).get_context_data(**kwargs)
-        # subcategory = self.kwargs.get("category")
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         return context
 

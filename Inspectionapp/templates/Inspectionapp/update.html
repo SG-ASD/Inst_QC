@@ -3,6 +3,18 @@
 {% load bootstrap4 %}
 
 {% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                 <div class="alert alert-danger" role="alert" >
+                      검사 시작일을 지정해주세요. 시작일에 따라 Revision이 결정됩니다.
+                    </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <div class="container-fluid">
         <div class="bg-light rounded p-4">
             <form method="post" autocomplete="on" enctype="multipart/form-data">
@@ -27,7 +39,7 @@
                                 <td style="background-color: #DCEBFF">Computer SN</td>
                             </tr>
                             <tr>
-                                <td class="px-5">{{ target_Inspection.Instrument_SN_id }}</td>
+                                <td class="px-5" id="Instrument_SN" name="Instrument_SN">{{ target_Inspection.Instrument_SN_id }}</td>
                                 <td class="px-5">
                                     {% if target_Inspection.Computer_SN %}
                                         <input class="form-control" autocomplete="off" type="text" name="Computer_SN" value={{ target_Inspection.Computer_SN }}>

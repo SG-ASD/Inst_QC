@@ -11,6 +11,11 @@
             <a href="{%  url 'Userapp:create' %}?next={{ request.path }}">
                 <span>SignUp</span>
             </a>
+            <a href="/admin"
+            style="border-color: black">
+                <span>관리자계정</span>
+            </a>
+
             {%  else %}
             <a href="{% url 'Userapp:detail' pk=user.pk %}">
                 <span>MyPage</span>
@@ -18,6 +23,10 @@
             <a href="{%  url 'Userapp:logout' %}?next={{ request.path}}"
             style="border-color: black">
                 <span>logout</span>
+            </a>
+            <a href="/admin"
+            style="border-color: black">
+                <span>관리자계정</span>
             </a>
         {% endif %}
         <a class="navbar-brand">MyPage</a>
