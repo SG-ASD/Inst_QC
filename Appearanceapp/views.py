@@ -60,6 +60,7 @@ class AppearanceUpdateView(UpdateView):
                 # 파일 upload
                 NAS_path = r'\\10.10.102.76\장비품질관리팀\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트'  # NAS 폴더 경로
                 path = NAS_path + '\\' + instrument_SN
+                path = path.replace('\\', '/')
 
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
                     Shock_Watch_files = request.FILES.getlist('Appearance_Shock_Watch_Image')
