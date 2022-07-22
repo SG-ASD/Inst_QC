@@ -58,18 +58,16 @@ class AppearanceUpdateView(UpdateView):
                 form_instance.Appearance_Transport_Jig = request.POST.get('Appearance_Transport_Jig')
 
                 # 파일 upload
-                NAS_path = r"\\10.10.102.76\장비품질관리팀\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
-                path = NAS_path + '\\' + instrument_SN
-                path = path.replace('\\', '/')
-                print(f"path : {path}")
-                print(f"os.getcwd() : {os.getcwd()}")
-                test = f"{os.getcwd()}"
-                test = test.replace('\\', '/')
+                # NAS_path = r"\\10.10.102.76\장비품질관리팀\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                # path = NAS_path + '\\' + instrument_SN
+                # path = path.replace('\\', '/')
+                # print(f"path : {path}")
+
+                path = "/media/windows/품질관리_장비inspection/'01 검사 성적서 관리'/'2022 검사 성적서'/'QC SW 테스트'" + '/' + instrument_SN
 
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
                     Shock_Watch_files = request.FILES.getlist('Appearance_Shock_Watch_Image')
-                    # Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, 'Shock Watch', True)
-                    Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, test, True)
+                    Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, 'Shock Watch', True)
                     form_instance.Appearance_Shock_Watch_Image = Shock_Watch_files_name
                 else:
                     form_instance.Appearance_Shock_Watch_Image = ""
