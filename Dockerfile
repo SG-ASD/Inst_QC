@@ -14,7 +14,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo "testing_operater2"
+RUN echo "testing_file_upload"
 
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 
