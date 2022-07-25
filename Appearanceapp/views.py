@@ -65,8 +65,7 @@ class AppearanceUpdateView(UpdateView):
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
                     Shock_Watch_files = request.FILES.getlist('Appearance_Shock_Watch_Image')
                     Shock_Watch_files_name = Util.upload_files(self, Shock_Watch_files, path, 'Shock Watch', True)
-                    # form_instance.Appearance_Shock_Watch_Image = Shock_Watch_files_name
-                    form_instance.Appearance_Shock_Watch_Image = str(os.getcwd())
+                    form_instance.Appearance_Shock_Watch_Image = Shock_Watch_files_name
                 else:
                     form_instance.Appearance_Shock_Watch_Image = ""
 
