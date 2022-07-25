@@ -52,13 +52,42 @@ class AttachmentUpdateView(UpdateView):
             if form.is_valid():  # 폼이 유효하면
                 # db에 값 저장
                 form_instance = get_object_or_404(Inspection, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
-                form_instance.Attachment_CoverSafety_Report = request.POST.get('Attachment_CoverSafety_Report')
-                form_instance.Attachment_Barcode_Report = request.POST.get('Attachment_Barcode_Report')
-                form_instance.Attachment_Position_Report = request.POST.get('Attachment_Position_Report')
-                form_instance.Attachment_Declaration_HHS = request.POST.get('Attachment_Declaration_HHS')
-                form_instance.Attachment_Declaration = request.POST.get('Attachment_Declaration')
-                form_instance.Attachment_Measurement_Protocol = request.POST.get('Attachment_Measurement_Protocol')
-                form_instance.Attachment_ElectricalSafety_Report = request.POST.get('Attachment_ElectricalSafety_Report')
+
+                if request.POST.get('Attachment_CoverSafety_Report') is None:
+                    temp1 = ""
+                else:
+                    temp1 = request.POST.get('Attachment_CoverSafety_Report')
+                if request.POST.get('Attachment_Barcode_Report') is None:
+                    temp2 = ""
+                else:
+                    temp2 = request.POST.get('Attachment_Barcode_Report')
+                if request.POST.get('Attachment_Position_Report') is None:
+                    temp3 = ""
+                else:
+                    temp3 = request.POST.get('Attachment_Position_Report')
+                if request.POST.get('Attachment_Declaration_HHS') is None:
+                    temp4 = ""
+                else:
+                    temp4 = request.POST.get('Attachment_Declaration_HHS')
+                if request.POST.get('Attachment_Declaration') is None:
+                    temp5 = ""
+                else:
+                    temp5 = request.POST.get('Attachment_Declaration')
+                if request.POST.get('Attachment_Measurement_Protocol') is None:
+                    temp6 = ""
+                else:
+                    temp6 = request.POST.get('Attachment_Measurement_Protocol')
+                if request.POST.get('Attachment_ElectricalSafety_Report') is None:
+                    temp7 = ""
+                else:
+                    temp7 = request.POST.get('Attachment_ElectricalSafety_Report')
+                form_instance.Attachment_CoverSafety_Report = temp1
+                form_instance.Attachment_Barcode_Report = temp2
+                form_instance.Attachment_Position_Report = temp3
+                form_instance.Attachment_Declaration_HHS = temp4
+                form_instance.Attachment_Declaration = temp5
+                form_instance.Attachment_Measurement_Protocol = temp6
+                form_instance.Attachment_ElectricalSafety_Report = temp7
 
                 # 파일 upload
                 NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
