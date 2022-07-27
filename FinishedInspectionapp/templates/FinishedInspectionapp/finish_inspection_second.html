@@ -263,50 +263,38 @@
                              <tr>
                                 <td colspan="6">
                                     <div class="input-group mb-3">
-                                      <span class="input-group-text" id="inputGroup-sizing-default">[Label] Same as the Labeling & Packaging instruction</span>
-                                      <input type="text" class="form-control" name="Labeling_Instruction_Rev" id="Labeling_Instruction_Rev" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                       {% if target_finish_second.Labeling_Instruction_Rev %} value={{target_finish_second.Labeling_Instruction_Rev}} {% endif %}>
+                                        <span class="input-group-text" id="basic-addon1">[Label] Same as the Labeling & Packaging instruction</span>
+<!--                                      <span class="input-group-text" id="inputGroup-sizing-default">[Label] Same as the Labeling & Packaging instruction</span>-->
+<!--                                      <input type="text" class="form-control" name="Labeling_Instruction_Rev" id="Labeling_Instruction_Rev" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"-->
+<!--                                       {% if target_finish_second.Labeling_Instruction_Rev %} value={{target_finish_second.Labeling_Instruction_Rev}} {% endif %}>-->
+                                        <select class="form-select" id="Labeling_Instruction_Rev" name="Labeling_Instruction_Rev" aria-label="Floating label select example">
+
+                                                {% for version in labeling_package_instruction %}
+                                                    <option {% if target_finish_second.Labeling_Instruction_Rev == version.Management_Num %} selected {% endif %}>
+                                                        {{version.Management_Num}}.{{version.Revision}}
+                                                    </option>
+                                                {% endfor %}
+                                                <label for="Labeling_Instruction_Rev">Works with selects</label>
+                                        </select>
                                     </div>
                                     <div class="container">
                                       <div class="row">
                                         <div class="col">
-<!--                                            <div class="input-group mb-3">-->
-<!--                                              <span class="input-group-text" id="inputGroup-sizing-default">Label No: (Instrument Label)</span>-->
-<!--                                              <input type="text" class="form-control" name="Labeling_Instruction" id="Labeling_Instruction" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"-->
-<!--                                                      {% if target_finish_second.Labeling_Instruction %} value={{target_finish_second.Labeling_Instruction}} {% endif %}>-->
-<!--                                            </div>-->
-                                             <div class="form-floating" style="margin: .5rem">
-                                              <select class="form-select" id="Labeling_Instruction" name="Labeling_Instruction" aria-label="Floating label select example">
-
-                                                {% for version in inst_label_kor %}
-                                                  {% if target_finish_second.Labeling_instruction == version.Inst_Label_Kor %}
-                                                    <option selected>{{version.Inst_Label_Kor}}</option>
-                                                  {% else %}
-                                                    <option>{{version.Inst_Label_Kor}}</option>
-                                                  {% endif %}}
-                                                {% endfor %}
-                                                {% for version in inst_label_Eng %}
-                                                    <option>{{version.Inst_Label_Eng}}</option>
-                                                {% endfor %}
-                                              </select>
-                                              <label for="floatingSelect">Works with selects</label>
-                                            </div>
+                                          <div class="input-group mb-3">
+                                              <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Inst_Label_Modal" type="button" id="button-addon1">장비 Label</button>
+                                              <input id="Labeling_Instruction" name="Labeling_Instruction" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                                              {% if target_finish_second.Labeling_Instruction %} value={{target_finish_second.Labeling_Instruction}} {% endif %}/>
+                                          </div>
                                         </div>
                                         <div class="col">
-<!--                                            <div class="input-group mb-3">-->
-<!--                                              <span class="input-group-text" id="inputGroup-sizing-default">(Box Label)</span>-->
-<!--                                              <input type="text" class="form-control" name="Labeling_Box" id="Labeling_Box" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"-->
-<!--                                                     {% if target_finish_second.Labeling_Box %} value={{target_finish_second.Labeling_Box}} {% endif %}>-->
-<!--                                            </div>-->
-                                            <div class="form-floating" style="margin: .5rem">
-                                              <select class="form-select" id="Labeling_Box" name="Labeling_Box" aria-label="Floating label select example">
-                                                {% for version in box_label %}
-                                                    <option>{{version.Box_Label_Kor}}</option>
-                                                    <option>{{version.Box_Label_Eng}}</option>
-                                                {% endfor %}
-                                              </select>
-                                              <label for="floatingSelect">Label No: (Box Label)</label>
+                                            <div class="input-group mb-3">
+                                              <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Box_Label_Modal"   type="button" id="button-addon1">박스 Label</button>
+                                              <input id="Labeling_Box" name="Labeling_Box" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                                              {% if target_finish_second.Labeling_Box %} value={{target_finish_second.Labeling_Box}} {% endif %}/>
                                             </div>
+                                            </div>
+
+
                                         </div>
                                       </div>
                                     </div>
@@ -404,8 +392,7 @@
                     </div>
                     <div class="col"></div>
                 </div>
-
-                <!-- Modal -->
+            <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -440,7 +427,91 @@
             </div>
             </form>
         </div>
+        <!-- 장비라벨 Modal -->
+        <div class="modal fade" id="Inst_Label_Modal" tabindex="-1" aria-labelledby="Inst_Label_Modal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Instrument Label</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="instrument-table" class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">SW_Name</th>
+                                <th scope="col">SW_Ver</th>
+                                <th scope="col">Click</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!-- 장비라벨 리스트     -->
+                                {% for inst_label in inst_label %}
+                                    <td value={{ inst_label.SW_Nane }}>{{ inst_label.SW_Name }}</td>
+                                    <td value={{ inst_label.SW_Ver }}>{{ inst_label.SW_Ver }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" onclick="Inst_Label_Info(this)" value={{inst_label.SW_Ver}} data-bs-dismiss="modal">선택</button>
+                                    </td>
+                                    <tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 장비라벨 Modal -->
+        <!-- 박스라벨 Modal -->
+        <div class="modal fade" id="Box_Label_Modal" tabindex="-1" aria-labelledby="Box_Label_Modal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Instrument Label</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="instrument-table" class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">SW_Name</th>
+                                <th scope="col">SW_Ver</th>
+                                <th scope="col">Click</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!-- 장비라벨 리스트     -->
+                                {% for box_label in box_label %}
+                                    <td value={{ box_label.SW_Nane }}>{{ box_label.SW_Name }}</td>
+                                    <td value={{ box_label.SW_Ver }}>{{ box_label.SW_Ver }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" onclick="Box_Label_Info(this)" value={{box_label.SW_Ver}} data-bs-dismiss="modal">선택</button>
+                                    </td>
+                                    <tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 장비라벨 Modal -->
         <script src="{% static '../static/js/FinishedInspectionapp.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function Inst_Label_Info(obj) {
+                debugger
+                const Inst_Label = document.getElementById('Labeling_Instruction')
+                Inst_Label.value = obj.value
+            }
+            function Box_Label_Info(obj) {
+                debugger
+                const Box_Label = document.getElementById('Labeling_Box')
+                Box_Label.value = obj.value
+            }
+        </script>
     </div>
 {% endblock %}

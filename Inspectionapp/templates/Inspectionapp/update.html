@@ -3,17 +3,6 @@
 {% load bootstrap4 %}
 
 {% block content %}
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                 <div class="alert alert-danger" role="alert" >
-                      검사 시작일을 지정해주세요. 시작일에 따라 Revision이 결정됩니다.
-                    </div>
-            </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 
     <div class="container-fluid">
         <div class="bg-light rounded p-4">
@@ -48,6 +37,7 @@
                                     {% endif %}
                                 </td>
                             </tr>
+
                             <tr>
                                 <td style="background-color: #DCEBFF">Inspector</td>
                                 <td style="background-color: #DCEBFF">Start Date</td>
@@ -62,9 +52,7 @@
                                 </td>
                                 <td class="px-5">
                                     {% if target_Inspection.Start_Date %}
-                                        <input class="form-control" autocomplete="off" type="date" name="Start_Date" value="{{target_Inspection.Start_Date | date:'Y-m-d'}}">
-                                    {% else %}
-                                        <input class="form-control" autocomplete="off" type="date" name="Start_Date" placeholder="Start Date">
+                                        {{target_Inspection.Start_Date | date:'Y-m-d'}}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -74,18 +62,38 @@
                             </tr>
                             <tr>
                                 <td class="px-5">
-                                    {% if target_Inspection.SW_Version %}
-                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" value={{ target_Inspection.SW_Version }}>
-                                    {% else %}
-                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" placeholder="Hamilton SW Version">
-                                    {% endif %}
+<!--                                    {% if target_Inspection.SW_Version %}-->
+<!--                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" value={{ target_Inspection.SW_Version }}>-->
+<!--                                    {% else %}-->
+<!--                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" placeholder="Hamilton SW Version">-->
+<!--                                    {% endif %}-->
+                                    <select class="form-select" id="SW_Version" name="SW_Version" aria-label="Floating label select example">
+                                        {% for version in Hamilton_SW_Ver %}
+                                            {% if target_Inspection.SW_Version %}
+                                                <option selected>{{target_Inspection.SW_Version}}</option>
+                                            {% else %}}
+                                            <option>{{version.SW_Ver}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                                 <td class="px-5">
-                                    {% if target_Inspection.FV2_Version %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" value={{ target_Inspection.FV2_Version }}>
-                                    {% else %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" placeholder="Hamilton FV2 Version" >
-                                    {% endif %}
+<!--                                    {% if target_Inspection.FV2_Version %}-->
+<!--                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" value={{ target_Inspection.FV2_Version }}>-->
+<!--                                    {% else %}-->
+<!--                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" placeholder="Hamilton FV2 Version" >-->
+<!--                                    {% endif %}-->
+                                    <select class="form-select" id="FV2_Version" name="FV2_Version" aria-label="Floating label select example">
+
+
+                                        {% for version in Hamilton_FV2_Ver %}
+                                            {% if target_Inspection.FV2_Version %}
+                                            <option selected>{{target_Inspection.FV2_Version}}</option>
+                                            {% else %}
+                                            <option>{{version.SW_Ver}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -94,18 +102,31 @@
                             </tr>
                             <tr>
                                 <td class="px-5">
-                                    {% if target_Inspection.FW_PipetteCh %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FW_PipetteCh" value={{ target_Inspection.FW_PipetteCh }}>
-                                    {% else %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FW_PipetteCh" placeholder="Pipette Ch(PX)">
-                                    {% endif %}
+                                     <select class="form-select" id="FW_PipetteCh" name="FW_PipetteCh" aria-label="Floating label select example">
+                                        {% for version in Hamilton_Pipette_Ch %}
+                                            {% if target_Inspection.FW_PipetteCh %}
+                                            <option selected>{{target_Inspection.FW_PipetteCh}}</option>
+                                            {% else %}
+                                            <option>{{version.SW_Ver}}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                                 <td class="px-5">
-                                    {% if target_Inspection.FW_Xdrive %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FW_Xdrive" value={{ target_Inspection.FW_Xdrive }}>
-                                    {% else %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FW_Xdrive" placeholder="X-drive(XO)">
-                                    {% endif %}
+<!--                                    {% if target_Inspection.FW_Xdrive %}-->
+<!--                                        <input class="form-control" autocomplete="off" type="text" name="FW_Xdrive" value={{ target_Inspection.FW_Xdrive }}>-->
+<!--                                    {% else %}-->
+<!--                                        <input class="form-control" autocomplete="off" type="text" name="FW_Xdrive" placeholder="X-drive(XO)">-->
+<!--                                    {% endif %}-->
+                                    <select class="form-select" id="FW_Xdrive" name="FW_Xdrive" aria-label="Floating label select example">
+                                        {% for version in Hamilton_X_Drive %}
+                                            {% if target_Inspection.FW_Xdrive %}
+                                            <option selected>{{target_Inspection.FW_Xdrive}}</option>
+                                            {% else %}
+                                            <option>{{version.SW_Ver}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -113,13 +134,28 @@
                                 <td style="background-color: #DCEBFF">Master(CO)</td>
                             </tr>
                             <tr>
-                                <td class="px-5">{{ target_Inspection.Revision }}</td>
                                 <td class="px-5">
-                                    {% if target_Inspection.FW_Master %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FW_Master" value={{ target_Inspection.FW_Master }}>
-                                    {% else %}
-                                        <input class="form-control" autocomplete="off" type="text" name="FW_Master" placeholder="Master(CO)">
-                                    {% endif %}
+                                    <select class="form-select" id="Revision" name="Revision" aria-label="Floating label select example">
+
+                                        {% for version in Document_No %}
+                                            {% if target_Inspection.Revision %}
+                                            <option selected>{{target_Inspection.Revision}}</option>
+                                            {% else %}
+                                            <option>{{version.Management_Num}}.{{version.Revision}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td class="px-5">
+                                    <select class="form-select" id="FW_Master" name="FW_Master" aria-label="Floating label select example">
+                                        {% for version in Hamilton_Master_CO %}
+                                            {% if target_Inspection.FW_Master %}
+                                            <option selected>{{target_Inspection.FW_Master}}</option>
+                                            {% else %}
+                                            <option>{{version.SW_Ver}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                             </tr>
                         </tbody>

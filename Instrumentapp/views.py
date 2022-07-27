@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db import transaction, IntegrityError
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -114,6 +115,10 @@ class InstrumentListView(ListView):
         instrument_name = self.kwargs.get("instrument_name")
         category = self.kwargs.get("category")
 
+        Start_Date = self.request.POST.get("Start")
+        Instrument_SN = request.POST.get('Instrument_SN')
+
+        'D606'
         if self.request.method == "POST":
             # 동일한 시리얼번호 장비 추가 예외처리를 위한 Try ~ Catch문 사용
             try:
@@ -185,7 +190,18 @@ class InstrumentListView(ListView):
                 messages.warning(request, '기존에 시리얼 번호가 있습니다. 다시 장비추가를 해주시기 바랍니다.')
                 return redirect("Instrumentapp:instrument", category, instrument_name)
 
+            if Start_Date is not "" and Instrument_SN is not None:
+                Inspection.objects.filter(Instrument_SN=Instrument_SN).update(Start_Date=Start_Date)
+                return redirect("Inspectionapp:update", Instrument_SN)
+
+            if excel_data is None and inst_SN is None and Start_Date is "":
+                messages.error(request, '시작일을 반드시 넣어주세요')
+                return redirect("Instrumentapp:instrument", category, instrument_name)
+
+
             return redirect("Instrumentapp:instrument", category, instrument_name)
 
         # return render(self.request, "instrument", {'category': category, 'instrument_name': instrument_name})
         return redirect("Instrumentapp:instrument", category, instrument_name)
+
+

@@ -15,6 +15,15 @@ function Barcode_Scanner_Get_Info(obj) {
     Barcode_Scanner_Txt.value = obj.value
 }
 
+/**
+ * Tool 선택 시
+ */
+function Inst_Label_Info(obj) {
+    debugger
+    const Inst_Label = document.getElementById('Inst_Label')
+    Inst_Label.value = obj.value
+}
+
 
 function openTextFile() {
     let input = document.querySelector('input');

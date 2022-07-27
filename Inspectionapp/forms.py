@@ -10,7 +10,6 @@ class InspectionUpdateForm(ModelForm):
             'Inspector',
             'Computer_SN',
             'Revision',
-            'Start_Date',
             'SW_Version',
             'FV2_Version',
             'FW_PipetteCh',
