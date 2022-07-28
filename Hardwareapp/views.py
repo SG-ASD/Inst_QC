@@ -8,8 +8,6 @@ from django.db.models.functions import datetime
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 
-import pandas as pd
-from io import StringIO
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
@@ -76,6 +74,7 @@ class HardwareUpdateView_second(UpdateView):
 
 @login_required
 def post_detail(request, Instrument_SN):
+    print("1")
     # df = pd.DataFrame([
     #                     [100,110,120],
     #                     [200,210,220],
@@ -95,13 +94,13 @@ def post_detail(request, Instrument_SN):
     # io.seek(0)
     # response = HttpResponse(io, content='text/csv')
     # response['Content-Disposition'] = "attachment; filename*=utf-f''{}".format(encoded_filename)
-    import tkinter
-    from tkinter import filedialog
-
-    root = tkinter.Tk()
-    root.withdraw()
-    dir_path = filedialog.askdirectory(parent=root, initialdir="/", title='Please select a directory')
-    print("\ndir_path : ", dir_path)
-
-    # return response
-    return resolve_url("Hardwareapp:update_Hardware1", Instrument_SN=Instrument_SN)
+    # import tkinter
+    # from tkinter import filedialog
+    #
+    # root = tkinter.Tk()
+    # root.withdraw()
+    # dir_path = filedialog.askdirectory(parent=root, initialdir="/", title='Please select a directory')
+    # print("\ndir_path : ", dir_path)
+    #
+    # # return response
+    # return resolve_url("Hardwareapp:update_Hardware1", Instrument_SN=Instrument_SN)
