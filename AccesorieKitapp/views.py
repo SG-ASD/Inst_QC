@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
+
+from Settingsapp.models import Settings
 from .models import Accessories, AccessoriesFiles
 from Inspectionapp.models import Inspection, Inspection_Category
 from .forms import AccList1_UpdateForm, AccList2_UpdateForm, AccList3_UpdateForm
@@ -43,9 +45,11 @@ class AccKitUpdateView_first(UpdateView):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         instrument_SN = self.kwargs.get('Instrument_SN')
-
+        Path = Settings.objects.get(pk=2)
+        Path = Path.Path.replace('\\\\10.10.102.76\\장비품질관리팀\\품질관리_장비inspection\\','')
         if request.method == 'POST':
             form = AccList1_UpdateForm(request.POST)  # request된 폼
+
 
             if form.is_valid():  # 폼이 유효하면
                 # db에 값 저장
@@ -70,7 +74,8 @@ class AccKitUpdateView_first(UpdateView):
                 form_instance.Right_Plexiglas = request.POST.get('Right_Plexiglas')
 
                 # 파일 upload
-                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                # NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                NAS_path = rf"\home\windows\품질관리_장비inspection\{Path}"  # NAS 폴더 경로
                 path = NAS_path + '\\' + instrument_SN
                 path = path.replace('\\', '/')
                 file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.

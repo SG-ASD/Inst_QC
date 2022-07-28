@@ -13,8 +13,8 @@ class Settings(models.Model):
         ),
         max_length=40, verbose_name='구분'
     )
-    Path = models.CharField(max_length=300, blank=True, null=True, verbose_name='수입검사 성적서 경로')  # ERP 명칭
-    Path_Describe = models.CharField(max_length=60, blank=True, null=True, verbose_name='성적서경로 설명')  # ERP 명칭
+    Path = models.CharField(max_length=300, blank=True, null=True, verbose_name='폴더경로')  # ERP 명칭
+    Path_Describe = models.CharField(max_length=60, blank=True, null=True, verbose_name='설명')  # ERP 명칭
 
     # # 수입검사 관련 파일 업로드 위치
     # Inspection_Path = models.FilePathField(
