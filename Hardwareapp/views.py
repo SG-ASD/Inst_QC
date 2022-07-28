@@ -76,24 +76,32 @@ class HardwareUpdateView_second(UpdateView):
 
 @login_required
 def post_detail(request, Instrument_SN):
-    df = pd.DataFrame([
-                        [100,110,120],
-                        [200,210,220],
-                        [300, 310, 320],
-                        ])
+    # df = pd.DataFrame([
+    #                     [100,110,120],
+    #                     [200,210,220],
+    #                     [300, 310, 320],
+    #                     ])
     filepath = 'D:\\QC_Software\\QC Software\\Seegene STARlet\\G230\\Traces\\Adjust_Arm_Z_using_PIP_SN_G230.trc'
-    filename = os.path.basename(filepath)
-    encoded_filename = quote(filename)
+    # filename = os.path.basename(filepath)
+    # encoded_filename = quote(filename)
     # with open(filepath, 'rb') as f:
     #     response = HttpResponse(f, content_type='application/vnd.ms-excel')
     #
     #
     #     response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(encoded_filename)
     # return response
-    io = StringIO
-    df.to_csv(io)
-    io.seek(0)
-    response = HttpResponse(io, content='text/csv')
-    response['Content-Disposition'] = "attachment; filename*=utf-f''{}".format(encoded_filename)
-    return response
-    # return resolve_url("Hardwareapp:update_Hardware1", Instrument_SN=Instrument_SN)
+    # io = StringIO
+    # df.to_csv(io)
+    # io.seek(0)
+    # response = HttpResponse(io, content='text/csv')
+    # response['Content-Disposition'] = "attachment; filename*=utf-f''{}".format(encoded_filename)
+    import tkinter
+    from tkinter import filedialog
+
+    root = tkinter.Tk()
+    root.withdraw()
+    dir_path = filedialog.askdirectory(parent=root, initialdir="/", title='Please select a directory')
+    print("\ndir_path : ", dir_path)
+
+    # return response
+    return resolve_url("Hardwareapp:update_Hardware1", Instrument_SN=Instrument_SN)
