@@ -37,6 +37,6 @@ class Util:
             for chunk in f.chunks():
                 tmp.write(chunk)  # 파일 write
 
-            file_name = path + '\\' + f.name
+            file_name = path + '/' + f.name
 
             return file_name  # 경로 + 파일명 리턴

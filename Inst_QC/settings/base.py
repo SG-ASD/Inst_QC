@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'Attachmentapp',
     'AccesorieKitapp',
     'FinishedInspectionapp',
+    'Settingsapp',
 ]
 
 MIDDLEWARE = [
