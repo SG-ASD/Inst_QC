@@ -1,10 +1,15 @@
+import os
 from datetime import date, timedelta
+from urllib.parse import quote
 
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.functions import datetime
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
+
+import pandas as pd
+from io import StringIO
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
@@ -71,10 +76,24 @@ class HardwareUpdateView_second(UpdateView):
 
 @login_required
 def post_detail(request, Instrument_SN):
-    qs = Inspection.objects.all()
-    q = request.GET.get('formFile', '')
-    if q:
-        qs = qs.filter(message__icontains=q)
-        # instagram/templetes/instagram/post_list.html
-    return redirect("Hardwareapp:update_Hardware1", Instrument_SN)
+    df = pd.DataFrame([
+                        [100,110,120],
+                        [200,210,220],
+                        [300, 310, 320],
+                        ])
+    filepath = 'D:\\QC_Software\\QC Software\\Seegene STARlet\\G230\\Traces\\Adjust_Arm_Z_using_PIP_SN_G230.trc'
+    filename = os.path.basename(filepath)
+    encoded_filename = quote(filename)
+    # with open(filepath, 'rb') as f:
+    #     response = HttpResponse(f, content_type='application/vnd.ms-excel')
+    #
+    #
+    #     response['Content-Disposition'] = "attachment; filename*=utf-8''{}".format(encoded_filename)
+    # return response
+    io = StringIO
+    df.to_csv(io)
+    io.seek(0)
+    response = HttpResponse(io, content='text/csv')
+    response['Content-Disposition'] = "attachment; filename*=utf-f''{}".format(encoded_filename)
+    return response
     # return resolve_url("Hardwareapp:update_Hardware1", Instrument_SN=Instrument_SN)
