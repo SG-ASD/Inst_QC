@@ -25,7 +25,7 @@ class Util:
                     tmp.write(chunk)  # 파일 write
 
             file_name = ', '.join(file_list)  # 리스트를 문자열로 변환
-            file_name = path + '\\' + file_name
+            file_name = path + '/' + file_name
 
             return file_name  # 경로 + 파일명 리턴
 
@@ -37,6 +37,6 @@ class Util:
             for chunk in f.chunks():
                 tmp.write(chunk)  # 파일 write
 
-            file_name = path + '\\' + f.name
+            file_name = path + '/' + f.name
 
             return file_name  # 경로 + 파일명 리턴

@@ -70,8 +70,9 @@ class AccKitUpdateView_first(UpdateView):
                 form_instance.Right_Plexiglas = request.POST.get('Right_Plexiglas')
 
                 # 파일 upload
-                NAS_path = r'\\10.10.102.76\장비품질관리팀\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트'  # NAS 폴더 경로
-                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                path = NAS_path + '\\' + instrument_SN
+                path = path.replace('\\', '/')
                 file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
 
                 if request.FILES.getlist('Unpack_Instructions_Files'):
@@ -264,8 +265,9 @@ class AccKitUpdateView_second(UpdateView):
                 form_instance.Liq_Waste = request.POST.get('Liq_Waste')
 
                 # 파일 upload
-                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
-                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                path = NAS_path + '\\' + instrument_SN
+                path = path.replace('\\', '/')
                 file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
 
                 if request.FILES.getlist('Sensor_4L_Files'):
@@ -464,8 +466,9 @@ class AccKitUpdateView_third(UpdateView):
                 form_instance.Remark = request.POST.get('Remark')
 
                 # 파일 upload
-                NAS_path = r'\\10.10.102.76\추출장비다원화팀\테스트'  # NAS 폴더 경로
-                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                path = NAS_path + '\\' + instrument_SN
+                path = path.replace('\\', '/')
                 file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
 
                 if request.FILES.getlist('XArm_Files'):

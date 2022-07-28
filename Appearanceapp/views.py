@@ -50,16 +50,42 @@ class AppearanceUpdateView(UpdateView):
             if form.is_valid():  # 폼이 유효하면
                 # db에 값 저장
                 form_instance = get_object_or_404(Inspection, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
-                form_instance.Appearance_Shock_Watch = request.POST.get('Appearance_Shock_Watch')
-                form_instance.Appearance_Binding = request.POST.get('Appearance_Binding')
-                form_instance.Appearance_Labels = request.POST.get('Appearance_Labels')
-                form_instance.Appearance_Packaging_Box = request.POST.get('Appearance_Packaging_Box')
-                form_instance.Appearance_Wooden_Pallet = request.POST.get('Appearance_Wooden_Pallet')
-                form_instance.Appearance_Transport_Jig = request.POST.get('Appearance_Transport_Jig')
+
+                if request.POST.get('Appearance_Shock_Watch') is None:
+                    temp1 = ""
+                else:
+                    temp1 = request.POST.get('Appearance_Shock_Watch')
+                if request.POST.get('Appearance_Binding') is None:
+                    temp2 = ""
+                else:
+                    temp2 = request.POST.get('Appearance_Binding')
+                if request.POST.get('Appearance_Labels') is None:
+                    temp3 = ""
+                else:
+                    temp3 = request.POST.get('Appearance_Labels')
+                if request.POST.get('Appearance_Packaging_Box') is None:
+                    temp4 = ""
+                else:
+                    temp4 = request.POST.get('Appearance_Packaging_Box')
+                if request.POST.get('Appearance_Wooden_Pallet') is None:
+                    temp5 = ""
+                else:
+                    temp5 = request.POST.get('Appearance_Wooden_Pallet')
+                if request.POST.get('Appearance_Transport_Jig') is None:
+                    temp6 = ""
+                else:
+                    temp6 = request.POST.get('Appearance_Transport_Jig')
+                form_instance.Appearance_Shock_Watch = temp1
+                form_instance.Appearance_Binding = temp2
+                form_instance.Appearance_Labels = temp3
+                form_instance.Appearance_Packaging_Box = temp4
+                form_instance.Appearance_Wooden_Pallet = temp5
+                form_instance.Appearance_Transport_Jig = temp6
 
                 # 파일 upload
-                NAS_path = r'\\10.10.102.76\장비품질관리팀\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트'  # NAS 폴더 경로
-                path = os.path.join(NAS_path, 'Seegene STARlet', instrument_SN)  # 파일 생성 경로
+                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                path = NAS_path + '\\' + instrument_SN
+                path = path.replace('\\', '/')
 
                 if request.FILES.getlist('Appearance_Shock_Watch_Image'):
                     Shock_Watch_files = request.FILES.getlist('Appearance_Shock_Watch_Image')
