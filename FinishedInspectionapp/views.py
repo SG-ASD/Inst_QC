@@ -92,7 +92,7 @@ class FinishedInspection_UpdateView_second(UpdateView):
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
 
 
-        context["labeling_package_instruction"] = Revision.objects.filter(Type__contains='Labelling & Packaging Instruction').\
+        context["labeling_package_instruction"] = Revision.objects.filter(Type__contains='라벨링 포장 지침서').\
             filter(Start_Dt__lte=Start_Date, Expiry_Dt__gte=Start_Date)
         context["inst_label"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='장비 라벨')
         context["box_label"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='박스 라벨')

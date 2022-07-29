@@ -55,27 +55,22 @@
                 <!-- Button trigger modal -->
                 <div class="row">
                     <div class="col-3"></div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="font-size: .8rem">
-                            Calibration Tool
-                        </button>
+                    <div class="col-3">
+                         <div class="input-group mb-3">
+                             <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button">Calibration Block</button>
+                             <input readonly id="HardWare_CalibrationTool" name="HardWare_CalibrationTool" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                                    {% if target_Hardware.HardWare_CalibrationTool %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}/>
+                          </div>
                     </div>
-                    <div class="col-4">
-                        <input type="text"  class="form-control-plaintext" autocomplete="off" id="HardWare_CalibrationTool" name="HardWare_CalibrationTool"  style="width: 12rem"
-                                {% if target_Hardware.HardWare_CalibrationTool %} value={{target_Hardware.HardWare_CalibrationTool}} {% endif %}>
-                    </div>
-                    <div class="col-3"></div>
                 </div>
                 <div class="row">
                     <div class="col-3"></div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#BarcodeModal" style="font-size: .8rem">
-                            Barcode Block
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <input type="text" readonly class="form-control-plaintext" autocomplete="off" id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier"  style="width: 12rem"
-                                {% if target_Hardware.HardWare_BarcodeCarrier %} value={{target_Hardware.HardWare_BarcodeCarrier}} {% endif %}>
+                    <div class="col-3">
+                        <div class="input-group mb-3">
+                             <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#BarcodeModal" type="button">Barcode Block</button>
+                             <input readonly id="HardWare_BarcodeCarrier" name="HardWare_BarcodeCarrier" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"
+                                    {% if target_Hardware.HardWare_BarcodeCarrier %} value={{target_Hardware.HardWare_BarcodeCarrier}} {% endif %}/>
+                          </div>
                     </div>
                     <div class="col-3"></div>
                 </div>
@@ -527,7 +522,7 @@
                                     <td value={{ calibration.Serial_Num }}>{{ calibration.Serial_Num }}</td>
                                     <td value={{ calibration.CAL_Date }}>{{ calibration.CAL_Date | date:'Y-m-d'}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.pk}} data-bs-dismiss="modal">선택</button>
+                                        <button type="button" class="btn btn-primary" onclick="Cal_Get_Info(this)" value={{calibration.Mgt_Num}} data-bs-dismiss="modal">선택</button>
                                     </td>
                                     <tr>
                                 {% endfor %}
@@ -567,7 +562,7 @@
                                     <td value={{ barcode.Serial_Num }}>{{ barcode.Serial_Num }}</td>
                                     <td value={{ barcode.CAL_Date }}>{{ barcode.CAL_Date | date:'Y-m-d'}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.pk}} data-bs-dismiss="modal">
+                                        <button type="button" class="btn btn-primary" onclick="Barcode_Get_Info(this)" value={{barcode.Mgt_Num}} data-bs-dismiss="modal">
                                             선택
                                         </button>
                                     </td>
