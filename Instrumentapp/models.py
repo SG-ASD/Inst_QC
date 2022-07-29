@@ -30,11 +30,11 @@ class Revision(models.Model):
     Type = models.CharField(
         choices=(
         # DB에 저장될 값과 사용자에게 보여줄 값
-        ('Inspection Report', '수입검사 성적서'),
-        ('Finished Product Report', '완제품검사 성적서'),
-        ('Finished Product Report Rev', '완제품 지침서'),
-        ('Finished Label', '완제품 라벨'),
-        ('Labelling & Packaging Instruction', '라벨링 포장 지침서'),
+        ('수입검사 성적서', '수입검사 성적서'),
+        ('완제품검사 성적서', '완제품검사 성적서'),
+        ('완제품 지침서', '완제품 지침서'),
+        ('완제품 라벨', '완제품 라벨'),
+        ('라벨링 포장 지침서', '라벨링 포장 지침서'),
     ),
        max_length=40, verbose_name='문서 구분'
     )
