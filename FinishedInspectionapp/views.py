@@ -65,7 +65,7 @@ class FinishedInspection_UpdateView_first(UpdateView):
         if Start_Date == "":
             messages.warning(self.request, '검사 시작일을 지정해주세요.')
             return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
-        return reverse("Inspectionapp:update", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+        return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
 
 
 # 설명 : Seegene STARlet 완제품 성적서 업데이트 뷰 두번째 화면
