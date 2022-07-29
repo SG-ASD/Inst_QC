@@ -121,7 +121,16 @@
                                 <td style="background-color: #DCEBFF">Management Number</td>
                             </tr>
                             <tr>
-                                <td class="px-5">{{ target_finish_first.Revision }}</td>
+                                <td class="px-5">
+                                      <select class="form-select" id="Revision" name="Revision" aria-label="Floating label select example">
+                                        {% for version in Document_No %}
+                                            {% if target_finish_first.Revision %}
+                                            <option selected>{{target_finish_first.Revision}}</option>
+                                            {% else %}
+                                            <option>{{version.Management_Num}}.{{version.Revision}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                </td>
                                 <td class="input-group mb-3">
                                      <input type="text" readonly class="form-control" placeholder="new_Barcode_Scanner" aria-label="Barcode_Scanner" aria-describedby="button-addon2" name="Barcode_Scanner"
                                        id="Barcode_Scanner" {% if target_finish_first.Barcode_Scanner %} value={{target_finish_first.Barcode_Scanner}} {% endif %}>

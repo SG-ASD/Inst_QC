@@ -52,9 +52,11 @@ class FinishedInspection_UpdateView_first(UpdateView):
         context["Seegene_Launcher_Ver"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='Seegene Launcher Version').\
             filter(Start_Dt__lte=Start_Date, Expiry_Dt__gte=Start_Date)
 
+        context["Document_No"] = Revision.objects.filter(Instrument_Name=Instrument_Nm).filter(Type__contains='완제품검사 지침서'). \
+            filter(Start_Dt__lte=Start_Date, Expiry_Dt__gte=Start_Date)
 
         context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Equipment_Name__contains='Barcode Scanner').\
-            filter(CAL_Date__lte=date.today(), Expiration_Date__gte=date.today())
+            filter(CAL_Date__lte=Start_Date, Expiration_Date__gte=Start_Date)
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
         context["inspection"] = Inspection.objects.filter(Instrument_SN=self.kwargs['Instrument_SN'])
         return context
