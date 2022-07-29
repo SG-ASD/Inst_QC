@@ -14,7 +14,7 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN echo "inst_qc:4 test"
+RUN echo "inst_qc: 2"
 
 RUN git clone https://github.com/SG-ASD/Inst_QC.git
 

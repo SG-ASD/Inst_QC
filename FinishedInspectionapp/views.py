@@ -45,6 +45,12 @@ class FinishedInspection_UpdateView_first(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(FinishedInspection_UpdateView_first, self).get_context_data(**kwargs)
         Instrument_Nm = context['object'].Name
+        Start_Date = context['object'].Start_Date
+
+        context["Hamilton_SW_Ver"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='Hamilton S/W Version').\
+            filter(Start_Dt__lte=Start_Date, Expiry_Dt__gte=Start_Date)
+        context["Seegene_Launcher_Ver"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='Seegene Launcher Version').\
+            filter(Start_Dt__lte=Start_Date, Expiry_Dt__gte=Start_Date)
 
 
         context["inspection_calibration"] = Calibration.objects.filter(Instrument=Instrument_Nm).filter(Equipment_Name__contains='Barcode Scanner').\
@@ -59,7 +65,8 @@ class FinishedInspection_UpdateView_first(UpdateView):
         if Start_Date == "":
             messages.warning(self.request, '검사 시작일을 지정해주세요.')
             return reverse("FinishedInspectionapp:update_finish1", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
-        return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+        return reverse("Inspectionapp:update", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+
 
 # 설명 : Seegene STARlet 완제품 성적서 업데이트 뷰 두번째 화면
 # 작성자 : 이신후
@@ -85,7 +92,7 @@ class FinishedInspection_UpdateView_second(UpdateView):
         context["inspection_category"] = Inspection_Category.objects.distinct().values_list('Category', flat=True)
 
 
-        context["labeling_package_instruction"] = Revision.objects.filter(Type__contains='Labelling & Packaging Instruction'). \
+        context["labeling_package_instruction"] = Revision.objects.filter(Type__contains='Labelling & Packaging Instruction').\
             filter(Start_Dt__lte=Start_Date, Expiry_Dt__gte=Start_Date)
         context["inst_label"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='장비 라벨')
         context["box_label"] = Version.objects.filter(Instrument_Name=Instrument_Nm).filter(SW_Name__contains='박스 라벨')
@@ -97,7 +104,7 @@ class FinishedInspection_UpdateView_second(UpdateView):
 
         # self.Excel_Finished_Inspection1()
         Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(Status='검사완료')
-        return reverse("FinishedInspectionapp:update_finish2", kwargs={"Instrument_SN": self.object.Instrument_SN_id})
+        return reverse("Instrumentapp:instrument", kwargs={"category": 'QC', "instrument_name": self.object.Name})
 
 
     # 설명 : Seegene STARlet 완제품 성적서 완료시, Excel 데이터 자동 입력 기능

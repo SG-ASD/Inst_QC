@@ -604,7 +604,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">수입검사 성적서 완료</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">수입검사 성적서 완료 및 완제품검사 시작</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -615,11 +615,19 @@
                             <h5>장비 SN : {{inspection_info.Instrument_SN_id}}</h5>
                         </div>
                       <div class="row row-cols-2">
-                        <div class="col-3">
+                        <div class="col-5">
                             <h5>완료일 : </h5>
                         </div>
                         <div class="col">
                             <input class="form-control" type="date" name="CompleteDt" id="CompleteDt" placeholder="Complete Date" required>
+                        </div>
+                      </div>
+                      <div class="row row-cols-2">
+                        <div class="col-5">
+                            <h5>완제품검사 시작일 : </h5>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="date" name="Start_Date" id="Start_Date" placeholder="Start Date" required>
                         </div>
                       </div>
                     </div>

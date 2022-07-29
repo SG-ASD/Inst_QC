@@ -18,7 +18,7 @@ from import_export.admin import ImportExportMixin
 #     ]
 
 @admin.register(Settings)
-class RevisionAdmin(ImportExportMixin, admin.ModelAdmin):
+class SettingAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = ['Type',
                     'Path',
                     'Path_Describe',
@@ -27,6 +27,6 @@ class RevisionAdmin(ImportExportMixin, admin.ModelAdmin):
     list_filter = ['Type']
 
     class Meta:
-        db_table = 'Instrumentapp_revision'
-        verbose_name = "문서개정 데이터"
-        verbose_name_plural = "문서개정 데이터"
+        db_table = 'Settingsapp_settings'
+        verbose_name = '세팅관련 데이터'
+        verbose_name_plural = "세팅관련 데이터"

@@ -62,11 +62,7 @@
                             </tr>
                             <tr>
                                 <td class="px-5">
-<!--                                    {% if target_Inspection.SW_Version %}-->
-<!--                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" value={{ target_Inspection.SW_Version }}>-->
-<!--                                    {% else %}-->
-<!--                                        <input class="form-control" autocomplete="off" type="text" name="SW_Version" placeholder="Hamilton SW Version">-->
-<!--                                    {% endif %}-->
+
                                     <select class="form-select" id="SW_Version" name="SW_Version" aria-label="Floating label select example">
                                         {% for version in Hamilton_SW_Ver %}
                                             {% if target_Inspection.SW_Version %}
@@ -78,11 +74,7 @@
                                     </select>
                                 </td>
                                 <td class="px-5">
-<!--                                    {% if target_Inspection.FV2_Version %}-->
-<!--                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" value={{ target_Inspection.FV2_Version }}>-->
-<!--                                    {% else %}-->
-<!--                                        <input class="form-control" autocomplete="off" type="text" name="FV2_Version" placeholder="Hamilton FV2 Version" >-->
-<!--                                    {% endif %}-->
+
                                     <select class="form-select" id="FV2_Version" name="FV2_Version" aria-label="Floating label select example">
 
 

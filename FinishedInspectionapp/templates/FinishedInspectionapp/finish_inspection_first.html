@@ -64,9 +64,7 @@
                                 </td>
                                 <td class="px-5">
                                     {% if target_finish_first.Start_Date %}
-                                        <input class="form-control" type="date" name="Start_Date" value={{ target_finish_first.Start_Date | date:'Y-m-d'}}>
-                                    {% else %}
-                                        <input class="form-control" type="date" name="Start_Date" placeholder="Start Date">
+                                        {{target_finish_first.Start_Date | date:'Y-m-d'}}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -76,18 +74,26 @@
                             </tr>
                             <tr>
                                 <td class="px-5">
-                                    {% if target_finish_first.SW_Version %}
-                                        <input class="form-control" type="text" name="SW_Version" value={{ target_finish_first.SW_Version }}>
-                                    {% else %}
-                                        <input class="form-control" type="text" name="SW_Version" placeholder="Hamilton SW Version" value={{inspection_info.SW_Version}}>
-                                    {% endif %}
+                                    <select class="form-select" id="SW_Version" name="SW_Version" aria-label="Floating label select example">
+                                        {% for version in Hamilton_SW_Ver %}
+                                            {% if target_Inspection.SW_Version %}
+                                                <option selected>{{target_finish_first.SW_Version}}</option>
+                                            {% else %}}
+                                            <option>{{version.SW_Ver}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                                 <td class="px-5">
-                                    {% if target_finish_first.SL_Version %}
-                                        <input class="form-control" type="text" name="SL_Version" value={{ target_finish_first.SL_Version }}>
-                                    {% else %}
-                                        <input class="form-control" type="text" name="SL_Version" placeholder="Seegene Launcher Version">
-                                    {% endif %}
+                                    <select class="form-select" id="SL_Version" name="SL_Version" aria-label="Floating label select example">
+                                        {% for version in Seegene_Launcher_Ver %}
+                                            {% if target_finish_first.SL_Version %}
+                                                <option selected>{{target_finish_first.SL_Version}}</option>
+                                            {% else %}}
+                                            <option>{{version.SW_Ver}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
                                 </td>
                             </tr>
 <!--                            <tr>-->

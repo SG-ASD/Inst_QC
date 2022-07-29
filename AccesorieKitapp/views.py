@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 
+from FinishedInspectionapp.models import FinishInspection
 from Settingsapp.models import Settings
 from .models import Accessories, AccessoriesFiles
 from Inspectionapp.models import Inspection, Inspection_Category
@@ -243,7 +244,8 @@ class AccKitUpdateView_second(UpdateView):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         instrument_SN = self.kwargs.get('Instrument_SN')
-
+        Path = Settings.objects.get(pk=2)
+        Path = Path.Path.replace('\\\\10.10.102.76\\장비품질관리팀\\품질관리_장비inspection\\','')
         if request.method == 'POST':
             form = AccList2_UpdateForm(request.POST)  # request된 폼
 
@@ -270,7 +272,8 @@ class AccKitUpdateView_second(UpdateView):
                 form_instance.Liq_Waste = request.POST.get('Liq_Waste')
 
                 # 파일 upload
-                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                # NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                NAS_path = rf"\home\windows\품질관리_장비inspection\{Path}"  # NAS 폴더 경로
                 path = NAS_path + '\\' + instrument_SN
                 path = path.replace('\\', '/')
                 file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
@@ -432,7 +435,7 @@ class AccKitUpdateView_third(UpdateView):
     def get_success_url(self):
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
         CompleteDt = self.request.POST.get("CompleteDt")
-        Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(CompleteDt=CompleteDt)
+        # Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(CompleteDt=CompleteDt)
         # 악세서리 키트에서 완제품 넘어갈 경우, 자동 Excel file 데이터 입력 기능
         # self.Excel_Inspection1()
         # self.Excel_Inspection2()
@@ -443,13 +446,22 @@ class AccKitUpdateView_third(UpdateView):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         instrument_SN = self.kwargs.get('Instrument_SN')
+        Path = Settings.objects.get(pk=2)
+        Path = Path.Path.replace('\\\\10.10.102.76\\장비품질관리팀\\품질관리_장비inspection\\','')
 
         if request.method == 'POST':
             form = AccList3_UpdateForm(request.POST)  # request된 폼
 
             if form.is_valid():  # 폼이 유효하면
                 # db에 값 저장
-                form_instance = get_object_or_404(Accessories, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+                form_instance = get_object_or_404(Accessories, Instrument_SN=instrument_SN)  # 현재 악세서리 인스턴스를 불러온다.
+                form_inspection_instance = get_object_or_404(Inspection, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+                form_finish_instance = get_object_or_404(FinishInspection, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
+
+                form_inspection_instance.CompleteDt = request.POST.get('CompleteDt')
+
+                form_finish_instance.Start_Date = request.POST.get('Start_Date')
+
                 form_instance.XArm = request.POST.get('XArm')
                 form_instance.Bar_Left = request.POST.get('Bar_Left')
                 form_instance.Bar_Top = request.POST.get('Bar_Top')
@@ -471,7 +483,8 @@ class AccKitUpdateView_third(UpdateView):
                 form_instance.Remark = request.POST.get('Remark')
 
                 # 파일 upload
-                NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                # NAS_path = r"\home\windows\품질관리_장비inspection\01 검사 성적서 관리\2022 검사 성적서\QC SW 테스트"  # NAS 폴더 경로
+                NAS_path = rf"\home\windows\품질관리_장비inspection\{Path}"  # NAS 폴더 경로
                 path = NAS_path + '\\' + instrument_SN
                 path = path.replace('\\', '/')
                 file_instance = get_object_or_404(AccessoriesFiles, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
@@ -609,6 +622,8 @@ class AccKitUpdateView_third(UpdateView):
                 else:
                     file_instance.Remark_Files = ""
 
+                form_inspection_instance.save()
+                form_finish_instance.save()
                 form_instance.save()
                 file_instance.save()
 

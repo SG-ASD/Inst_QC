@@ -9,7 +9,6 @@ class Finished_Inspection_first(ModelForm):
         fields =['Computer_SN',
                  'Barcode_Scanner',
                  'Inspector',
-                 'Start_Date',
                  'Completed_Date',
                  'SW_Version',
                  'SL_Version',
