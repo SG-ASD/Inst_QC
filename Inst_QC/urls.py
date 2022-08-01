@@ -32,6 +32,6 @@ urlpatterns = [
     path("Attachment/", include('Attachmentapp.urls')),
     path("AccesorieKit/", include('AccesorieKitapp.urls')),
     path("FinishedInspection/", include('FinishedInspectionapp.urls')),
-
+    path("Nonconformance/", include('Nonconformanceapp.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

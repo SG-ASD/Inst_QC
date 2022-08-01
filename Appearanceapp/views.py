@@ -6,10 +6,11 @@ from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView
 from Inspectionapp.models import Inspection, Inspection_Category
 from Instrumentapp.models import Revision
+from Nonconformanceapp.models import Nonconformance
 from Userapp.decorators import User_ownership_required
 from .forms import AppearanceUpdateForm, AppearanceUnpackingForm
 from QC_util import Util
-import os
+from datetime import datetime
 # Create your views here.
 
 has_ownership = [User_ownership_required]
@@ -47,7 +48,25 @@ class AppearanceUpdateView(UpdateView):
         if request.method == 'POST':
             form = AppearanceUpdateForm(request.POST)  # request된 폼
 
-            if form.is_valid():  # 폼이 유효하면
+            if request.POST.get('Nonconformance'):
+                print("부적합 검사입니다.")
+                inspection = Inspection.objects.get(pk=instrument_SN)
+                now = datetime.now()
+                new_nonconformance = Nonconformance.objects.create(
+                    Instrument_SN=inspection.Instrument_SN,
+                    Computer_SN=inspection.Computer_SN,
+                    Name=inspection.Name,
+                    Inspector=inspection.Inspector,
+                    Start_Date=now.strftime('%Y-%m-%d'),
+                    Doc_Num="QFI-0804-NSS-01",
+                    Revision="0",
+                    Issue_Num="QFI-0804B-" + f"{inspection.Instrument_SN}",
+                    Category="Packaging Condition",
+                )
+
+                return redirect('Nonconformanceapp:update', instrument_SN)
+
+            elif form.is_valid():  # 폼이 유효하면
                 # db에 값 저장
                 form_instance = get_object_or_404(Inspection, Instrument_SN=instrument_SN)  # 현재 Inspection 인스턴스를 불러온다.
 

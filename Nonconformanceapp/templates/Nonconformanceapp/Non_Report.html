@@ -1,0 +1,113 @@
+{% extends "../base_with_navbar.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                 <div class="alert alert-danger" role="alert" >
+                      검사 시작일을 지정해주세요. 시작일에 따라 Revision이 결정됩니다.
+                    </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="bg-light rounded p-4">
+            <form method="post" autocomplete="on" enctype="multipart/form-data">
+                {% csrf_token %}
+                {# content 상단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 타이틀 #}
+                    <div class="col-6">
+                        <h3 class="text-center mb-4">Nonconformance Report</h3>
+                        <h5 class="text-center">{{ target_Nonconformance.Name }}</h5>
+                    </div>
+                    <div class="col"></div>
+                </div>
+
+                {# content #}
+                <div class="container-fluid">
+                    <table class="table table" style="text-align: center;">
+                        <tbody>
+                            <tr>
+                                <td style="background-color: #DCEBFF">Instrument SN</td>
+                                <td style="background-color: #DCEBFF">Computer SN</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5" id="Instrument_SN" name="Instrument_SN">{{ target_Nonconformance.Instrument_SN }}</td>
+                                <td class="px-5">
+                                    {% if target_Nonconformance.Computer_SN %}
+                                        <input class="form-control" autocomplete="off" type="text" name="Computer_SN" value={{ target_Nonconformance.Computer_SN }}>
+                                    {% else %}
+                                        <input class="form-control" autocomplete="off" type="text" name="Computer_SN" placeholder="Computer SN">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #DCEBFF">Inspector</td>
+                                <td style="background-color: #DCEBFF">Start Date</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5">
+                                    {% if target_Nonconformance.Inspector %}
+                                        <input class="form-control" autocomplete="off" type="text" name="Inspector" value={{ target_Nonconformance.Inspector }}>
+                                    {% else %}
+                                        <input class="form-control" autocomplete="off" type="text" name="Inspector" placeholder="Inspector">
+                                    {% endif %}
+                                </td>
+                                <td class="px-5">
+                                    {% if target_Nonconformance.Start_Date %}
+                                        <input class="form-control" autocomplete="off" type="date" name="Start_Date" value="{{target_Nonconformance.Start_Date | date:'Y-m-d'}}">
+                                    {% else %}
+                                        <input class="form-control" autocomplete="off" type="date" name="Start_Date" placeholder="Start Date">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #DCEBFF">Nonconformance Document Number</td>
+                                <td style="background-color: #DCEBFF">Issue Number</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5" id="Doc_Num" name="Doc_Num">{{ target_Nonconformance.Doc_Num }}, rev.{{ target_Nonconformance.Revision }}</td>
+                                <td class="px-5" id="Issue_Num" name="Issue_Num">{{ target_Nonconformance.Issue_Num }}</td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="background-color: #DCEBFF">Category of Nonconformance</td>
+                                <div class="form-check form-check-inline">
+{#                                    <input class="form-check-input" type="checkbox" name="Attachment_CoverSafety_Report" id="Attachment_CoverSafety_Report" value="Attached"#}
+{#                                            {% if target_Attachment.Attachment_CoverSafety_Report == 'Attached' %} checked {% endif %}>#}
+{#                                    <label class="form-check-label" for="Attachment_CoverSafety_Report">Attached</label>#}
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {# content 하단 #}
+                <div class="row">
+                    <div class="col"></div>
+                    {# 하단 버튼들 #}
+                    <div class="col-6">
+                        <div class="row" style="text-align: left; font-size: 1rem">
+                            <div class="col">
+                                <div style="text-align: right">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="저장" onclick="alert_save()">
+                                    <input type="submit" style="margin-bottom: .5rem" class="btn btn-primary" value="다음">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <script src="{% static '../static/js/Inspectionapp.js' %}"></script>
+{% endblock %}

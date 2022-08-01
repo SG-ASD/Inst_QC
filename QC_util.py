@@ -31,12 +31,14 @@ class Util:
 
         # upload 할 파일의 파일명 변경 안함
         elif not boolean:
-            f = FILES_getlist[0]
-            tmp = open(os.path.join(path, f.name), 'wb+')  # 디렉토리에 파일 생성
+            for idx, f in enumerate(FILES_getlist):
+                tmp = open(os.path.join(path, f.name), 'wb+')  # 디렉토리에 파일 생성
+                file_list.append(f.name)
 
-            for chunk in f.chunks():
-                tmp.write(chunk)  # 파일 write
+                for chunk in f.chunks():
+                    tmp.write(chunk)  # 파일 write
 
-            file_name = path + '/' + f.name
+            file_name = ', '.join(file_list)  # 리스트를 문자열로 변환
+            file_name = path + '/' + file_name
 
             return file_name  # 경로 + 파일명 리턴

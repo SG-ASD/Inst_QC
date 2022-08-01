@@ -599,7 +599,7 @@ class AccKitUpdateView_third(UpdateView):
 
                 if request.FILES.getlist('Remark_Files'):
                     Remark_Files = request.FILES.getlist('Remark_Files')
-                    Remark_Files_name = Util.upload_files(self, Remark_Files, path, 'Remark_Files', True)
+                    Remark_Files_name = Util.upload_files(self, Remark_Files, path, 'Remark_Files', False)
                     file_instance.Remark_Files = Remark_Files_name
                 else:
                     file_instance.Remark_Files = ""

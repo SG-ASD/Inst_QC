@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'AccesorieKitapp',
     'FinishedInspectionapp',
     'Settingsapp',
+    'Nonconformanceapp',
 ]
 
 MIDDLEWARE = [

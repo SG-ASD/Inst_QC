@@ -117,7 +117,7 @@ class AttachmentUpdateView(UpdateView):
 
                 if request.FILES.getlist('Attachment_Files'):
                     Attachment_files = request.FILES.getlist('Attachment_Files')
-                    Attachment_files_name = Util.upload_files(self, Attachment_files, path, 'Attachment', True)
+                    Attachment_files_name = Util.upload_files(self, Attachment_files, path, 'Attachment', False)
                     form_instance.Attachment_Files = Attachment_files_name
                 else:
                     form_instance.Attachment_Files = ""

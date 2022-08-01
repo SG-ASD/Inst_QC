@@ -24,7 +24,6 @@ class InspectionUpdateView(UpdateView):
         object = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
         return object
 
-
     def get_success_url(self):
         object_Inspection = get_object_or_404(Inspection, Instrument_SN=self.kwargs['Instrument_SN'])
         Start_Date = self.request.POST.get("Start_Date")
@@ -34,7 +33,6 @@ class InspectionUpdateView(UpdateView):
         if Start_Date == "":
             messages.warning(self.request, '검사 시작일을 지정해주세요.')
             return reverse("Inspectionapp:update", kwargs={"Instrument_SN": self.object})
-
 
         if Start_Date != "":
             Inspection.objects.filter(Instrument_SN=object_Inspection.Instrument_SN_id).update(Status='검사진행중')
